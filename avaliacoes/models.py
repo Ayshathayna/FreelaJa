@@ -52,7 +52,7 @@ class AvaliaFreelancer(models.Model):
     )
 
     comentario = models.TextField()
-    criadoEm = models.DateTimeField(auto_now_add=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ('empresa', 'freelancer', 'vaga') #garante que uma empresa possa avaliar um freelancer apenas uma vez por vaga

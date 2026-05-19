@@ -26,8 +26,8 @@ class Disponibilidade(models.Model):
         choices=DIAS_SEMANA
     )
 
-    horarioInicio = models.TimeField()
-    horarioFim = models.TimeField()
+    horario_inicio = models.TimeField()
+    horario_fim = models.TimeField()
     disponivel = models.BooleanField(default=True)
     criado_em = models.DateTimeField(auto_now_add=True)
 

@@ -22,13 +22,13 @@ class Vaga(models.Model):
 
     titulo = models.CharField(max_length=150)
     descricao = models.TextField()
-    quantidadeVagas = models.IntegerField()
-    quantidadeSelecionados = models.IntegerField(default=0)
+    quantidade_vagas = models.IntegerField()
+    quantidade_selecionados = models.IntegerField(default=0)
     dataEvento = models.DateField()
-    horarioInicio = models.TimeField() 
-    horarioFim = models.TimeField()
-    criadoEm = models.DateTimeField(auto_now_add=True)
-    finalizadoEm = models.DateTimeField(blank=True, null=True)   
+    horario_inicio = models.TimeField() 
+    horario_fim = models.TimeField()
+    criado_em = models.DateTimeField(auto_now_add=True)
+    finalizado_em = models.DateTimeField(blank=True, null=True)   
     endereco = models.CharField(max_length=255) 
 
     remuneracao = models.DecimalField(
@@ -36,7 +36,7 @@ class Vaga(models.Model):
         decimal_places=2
     )
 
-    status = models.CharField(
+    status_vaga = models.CharField(
         max_length=20,
         choices=STATUS,
         default='aberto'
@@ -71,7 +71,7 @@ class Candidatura(models.Model):
     )
 
     confirmou_risco = models.BooleanField(default=False) #campo para o freelancer confirmar que leu e entendeu os riscos associados ao evento
-    status = models.CharField(
+    status_vaga = models.CharField(
         max_length=20,
         choices=STATUS,
         default='pendente'
@@ -82,12 +82,12 @@ class Candidatura(models.Model):
         
     def aceitar(self):
 
-        vagas_ocupadas = self.vaga.quantidadeSelecionados
+        vagas_ocupadas = self.vaga.quantidade_selecionados
 
-        if vagas_ocupadas >= self.vaga.quantidadeVagas:
+        if vagas_ocupadas >= self.vaga.quantidade_vagas:
             raise ValidationError("Limite de vagas atingido")
         
-        self.status = 'aceito'
+        self.status_vaga = 'aceito'
         self.save()
     
     def __str__(self):
