@@ -14,4 +14,5 @@ verificar
 -o horário de inicio de evento, será oq o frela terá que estar no local? ou realmente o inicio do evento
 -verifica se vai ficar só o endereço ou se vai ter campos separados para rua, número, bairro, cidade, estado e CEP
 -verificar se é valido deixar a mensagem de risco 
+- trocar o tipo dos freelancer por areas de interesse, visto que um freela pode ter mais de uma área de interesse
 '''

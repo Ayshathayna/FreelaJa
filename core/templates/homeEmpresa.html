@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FreelaJá {% endblock %}
+{% block logo_url %}{% url 'homeEmpresa' %}{% endblock %}
+{% block home_url %}{% url 'homeEmpresa' %}{% endblock %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/homeEmpresa.css' %}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/homeEmpresa.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+<div class="dashboard">
+
+  <!-- HEADER ----------------------------------------------------------------------------------------->
+  <div class="dashboard-header">
+
+    <div>
+      <h1>Minhas Vagas</h1>
+      <p>Gerencie todas as vagas criadas pela sua empresa</p>
+    </div>
+
+    <a href="{% url 'criarVaga' %}" class="btn-create">+ Criar Vaga</a>
+
+  </div>
+
+  <!-- GRID DE VAGAS -------------------------------------------------------------------------------------------------->
+  <div class="jobs-grid jobs-carousel">
+
+    {% for vaga in vagas %} <!-- Loop para exibir cada vaga criada pela empresa -->
+
+    <div class="job-card">
+
+      <!-- IMAGEM (fallback se não existir) -->
+      <img
+        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+        class="job-image">
+
+      <div class="job-content">
+
+        <!-- TAG -->
+        <div class="job-top">
+          <span class="tag">
+            {{ vaga.categoria|default:"Geral" }}
+          </span>
+        </div>
+
+        <!-- TITULO -->
+        <h3>{{ vaga.titulo }}</h3>
+
+        <!-- INFO EXTRAS -->
+        <p class="job-info">
+          {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }}
+        </p>
+
+        <!-- RODAPÉ -->
+        <div class="job-footer">
+
+          <span class="price">
+            R$ {{ vaga.remuneracao }}
+          </span>
+
+        </div>
+
+        <div class="job-actions">
+
+          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn edit-btn">Editar</a>
+          <a href="#" class="job-btn delete-btn"> Excluir </a>
+          <a href="#" class="job-btn candidates-btn"> Candidatos</a>
+
+        </div>
+
+      </div>
+    </div>
+
+    {% empty %}
+
+    <p>Nenhuma vaga criada ainda.</p>
+
+    {% endfor %}
+
+  </div>
+
+</div>
+
+{% endblock %}

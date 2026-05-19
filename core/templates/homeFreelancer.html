@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}FreelaJá {% endblock %}
+{% block logo_url %}{% url 'homeFreelancer' %}{% endblock %}
+{% block home_url %}{% url 'homeFreelancer' %}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/homeFreelancer.css' %}">
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/homeFreelancer.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<!-- HERO -------------------------------------------------------------------------------------------->
+
+<div class="hero">
+
+  <h1> Encontre vagas ideais para seu horário</h1>
+
+  <p>Pesquise trabalhos por tipo, dia da semana e horário disponível.</p>
+
+  <!-- PESQUISA -------------------------------------------------------------------------------------------->
+
+  <div class="search-box">
+
+    <input type="text" placeholder="Pesquisar vagas...">
+
+    <select>
+      <option>Categoria</option>
+      <option>Programação</option>
+      <option>Design</option>
+      <option>Marketing</option>
+      <option>Vídeo</option>
+    </select>
+
+    <select>
+      <option>Dia</option>
+      <option>Segunda</option>
+      <option>Terça</option>
+      <option>Quarta</option>
+    </select>
+
+    <select>
+      <option>Horário</option>
+      <option>Manhã</option>
+      <option>Tarde</option>
+      <option>Noite</option>
+    </select>
+
+    <button>Buscar</button>
+
+  </div>
+
+</div>
+
+</header>
+
+<!-- VAGAS -------------------------------------------------------------------------------------------->
+
+<section class="jobs-section">
+
+  <div class="section-header">
+
+    <h2>Algumas Vagas Disponíveis</h2>
+
+  </div>
+
+  <!-- CARROSSEL ---------------------------------------------------------------------------------------------->
+  <div class="carousel-wrapper">
+
+    <!-- SETA ESQUERDA -->
+
+    <button class="carousel-arrow left" onclick="scrollLeftJobs()">
+      ❮
+    </button>
+
+    <!-- CARROSSEL -->
+
+    <div class="jobs-carousel" id="jobsCarousel">
+
+      <!-- CARD -->
+
+      <div class="job-card">
+
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
+
+        <div class="job-content">
+
+          <div class="job-top">
+            <span class="tag">Design</span>
+          </div>
+
+          <h3>Designer para Instagram</h3>
+
+          <p class="job-info">
+            Home Office • Segunda à Sexta • Manhã
+          </p>
+
+          <!-- EMPRESA -->
+
+          <div class="company-name">
+            Agência Vision
+          </div>
+
+          <!-- RODAPÉ -->
+
+          <div class="job-footer">
+            <span class="price">R$ 450</span>
+            <button class="job-btn">Ver vaga</button>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- CARD -->
+
+      <div class="job-card">
+
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
+
+        <div class="job-content">
+
+          <div class="job-top">
+            <span class="tag">Design</span>
+          </div>
+
+          <h3>Designer para Instagram</h3>
+
+          <p class="job-info">
+            Home Office • Segunda à Sexta • Manhã
+          </p>
+
+          <!-- EMPRESA -->
+
+          <div class="company-name">
+            Agência Vision
+          </div>
+
+          <!-- RODAPÉ -->
+
+          <div class="job-footer">
+            <span class="price">R$ 450</span>
+            <button class="job-btn">Ver vaga</button>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- CARD -->
+
+      <div class="job-card">
+
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
+
+        <div class="job-content">
+
+          <div class="job-top">
+            <span class="tag">Design</span>
+          </div>
+
+          <h3>Designer para Instagram</h3>
+
+          <p class="job-info">
+            Home Office • Segunda à Sexta • Manhã
+          </p>
+
+          <!-- EMPRESA -->
+
+          <div class="company-name">
+            Agência Vision
+          </div>
+
+          <!-- RODAPÉ -->
+
+          <div class="job-footer">
+            <span class="price">R$ 450</span>
+            <button class="job-btn">Ver vaga</button>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- CARD -->
+
+      <div class="job-card">
+
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
+
+        <div class="job-content">
+
+          <div class="job-top">
+            <span class="tag">Design</span>
+          </div>
+
+          <h3>Designer para Instagram</h3>
+
+          <p class="job-info">
+            Home Office • Segunda à Sexta • Manhã
+          </p>
+
+          <!-- EMPRESA -->
+
+          <div class="company-name">
+            Agência Vision
+          </div>
+
+          <!-- RODAPÉ -->
+
+          <div class="job-footer">
+            <span class="price">R$ 450</span>
+            <button class="job-btn">Ver vaga</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CARD -->
+
+      <div class="job-card">
+
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" class="job-image">
+
+        <div class="job-content">
+
+          <div class="job-top">
+            <span class="tag">Programação</span>
+          </div>
+
+          <h3>Desenvolvedor Front-end</h3>
+
+          <p class="job-info">
+            React • Freelancer • Tarde
+          </p>
+
+          <div class="company-name">
+            Tech Solutions
+          </div>
+
+          <div class="job-footer">
+            <span class="price">R$ 1.200</span>
+            <button class="job-btn">Ver vaga</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- SETA DIREITA -->
+
+    <button class="carousel-arrow right" onclick="scrollRightJobs()">
+      ❯
+    </button>
+
+  </div>
+  {% endblock %}
+
+  <!-- RODAPÉ ---------------------------------------------------------------------------------------->
+  {% block rodape %}
+  <footer>
+    © 2026 FreelaJá — Plataforma Freelancer
+  </footer>
+  {% endblock %}

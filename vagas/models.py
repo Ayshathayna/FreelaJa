@@ -5,6 +5,12 @@ from django.core.exceptions import ValidationError
 # Create your models here.
 
 class Vaga(models.Model):
+    
+    imagem = models.ImageField(
+        upload_to='vagas/static/img/', #diretório onde as imagens serão armazenadas
+        blank=True,
+        null=True
+    )
 
     STATUS = (
         ('aberto', 'Aberto'), 

@@ -1,0 +1,62 @@
+{% load static %}
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- link css-->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Login | FreelaJá </title>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="left">
+
+            <h1>FreelaJá</h1>
+            <p>
+                Conectamos empresas e freelancers para eventos,
+                serviços e oportunidades de trabalho.
+            </p>
+        </div>
+
+        <div class="right">
+
+            <h2>Entrar</h2>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="Digite seu email">
+                </div>
+
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" name="senha" placeholder="Digite sua senha">
+                </div>
+
+                <button type="submit" class="btn">
+                    Entrar
+                </button>
+
+            </form>
+
+            <div class="cadastro">
+                Não possui conta?
+                <a href="{% url 'cadastro' %}">Cadastre-se</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

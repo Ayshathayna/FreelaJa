@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {%block css%}{% endblock %}
+
+</head>
+
+<body>
+    <header>
+
+        <div class="navbar">
+
+            <div class="logo"><a href="{% block logo_url %}{% endblock %}">Frelajá</a></div> <!-- Logo  colocar foto?-->
+
+            <div class="nav-links">
+
+                <a href="{% block home_url %}{% endblock %}">Início</a>
+                <a href="#">Vagas</a>
+                <a href="#">Candidaturas</a>
+
+                <!-- MENU PERFIL -->
+
+                <div class="profile-menu">
+
+                    <div class="profile-btn">
+                        <div class="avatar"></div>
+                        <span>Meu Perfil</span>
+                    </div>
+
+                    <div class="dropdown">
+                        <a href="#">
+                            Perfil
+                        </a>
+
+                        <a href="#">
+                            Notificações
+                            <span class="badge">5</span>
+                        </a>
+
+                        <a href="#">
+                            Configurações
+                        </a>
+
+                        <a href="#" style="color:#ef4444;">
+                            Sair do sistema
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {%block content %}
+        {% endblock %}
+
+
+        </section>
+
+        {%block footer %}
+        {% endblock %}
+
+        {% block scripts %}
+        {% endblock %}
+
+</body>
+
+</html>

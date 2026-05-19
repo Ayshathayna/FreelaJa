@@ -1,0 +1,388 @@
+/* ************************ CONTAINER ************************ */
+
+.create-container{
+    padding:70px 7%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ************************ CARD ************************ */
+
+.create-card{
+
+    width:100%;
+    max-width:1000px;
+
+    background:white;
+
+    padding:45px;
+
+    border-radius:28px;
+
+    box-shadow:
+    0 15px 40px rgba(
+        0,
+        0,
+        0,
+        .08
+    );
+}
+
+/* ************************ HEADER ************************ */
+
+.create-header{
+    margin-bottom:35px;
+}
+
+.create-header h1{
+
+    font-size:36px;
+
+    color:#111827;
+
+    margin-bottom:10px;
+}
+
+.create-header p{
+
+    color:#6b7280;
+
+    font-size:15px;
+}
+
+/* ************************ TOPO ************************ */
+
+.top-row{
+
+    display:grid;
+
+    grid-template-columns:
+    260px
+    1fr;
+
+    gap:30px;
+
+    margin-bottom:30px;
+    margin-top:20px;
+
+    align-items:start;
+}
+
+/* ************************ IMAGEM ************************ */
+
+.image-group{
+
+    background:#f9fafb;
+
+    padding:18px;
+
+    border-radius:20px;
+}
+
+/* PREVIEW */
+
+.preview-box{
+
+    width:100%;
+    height:220px;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    margin-bottom:12px;
+
+    background:#f3f4f6;
+
+    border:2px dashed #d1d5db;
+}
+
+.preview-box img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+/* INPUT ESCOLHER ARQUIVO */
+
+.image-group input[type="file"]{
+
+    width:100%;
+    padding:8px;
+
+    font-size:12px;
+
+    background:white;
+
+    border:1px solid #d1d5db;
+
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+.image-group input[type="file"]:hover{
+
+    border-color:#4f46e5;
+}
+
+/* ************************ TITULO ************************ */
+
+.title-group input{
+
+    height:60px;
+
+    font-size:18px;
+
+    font-weight:500;
+}
+
+/* ************************ FORM ************************ */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(
+        2,
+        1fr
+    );
+
+    gap:22px;
+
+    margin-bottom:25px;
+}
+
+/* ************************ GROUP ************************ */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
+
+.form-group label{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#374151;
+}
+
+/* ************************ INPUTS ************************ */
+
+.form-group input:not([type="file"]),
+.form-group textarea,
+.form-group select{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    outline:none;
+
+    background:#f3f4f6;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+    transition:.3s;
+}
+
+.form-group textarea{
+
+    resize:none;
+
+    min-height:140px;
+}
+
+/* FOCUS */
+
+.form-group input:not([type="file"]):focus,
+.form-group textarea:focus,
+.form-group select:focus{
+
+    background:white;
+
+    box-shadow:
+    0 0 0 3px rgba(
+        79,
+        70,
+        229,
+        .15
+    );
+}
+
+/* ************************ FULL ************************ */
+
+.full-width{
+    grid-column:1 / -1;
+}
+
+/* ************************ BOTÃO ************************ */
+
+.btn-save{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.btn-save:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+    0 10px 25px rgba(
+        79,
+        70,
+        229,
+        .25
+    );
+}
+
+.btn-save:disabled{
+
+background:#9ca3af;
+
+cursor:not-allowed;
+
+transform:none;
+
+box-shadow:none;
+
+opacity:.7;
+}
+/* ************************ TOPO ************************ */
+
+.top-row{
+
+    display:grid;
+
+    grid-template-columns:
+    260px
+    1fr;
+
+    gap:30px;
+
+    margin-bottom:30px;
+
+    align-items:start;
+}
+
+/* COLUNA DIREITA */
+
+.right-side{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+
+/* TITULO */
+
+.title-group input{
+
+    height:60px;
+
+    font-size:18px;
+
+    font-weight:500;
+}
+
+/* DESCRIÇÃO */
+
+.right-side textarea{
+
+    min-height:150px;
+
+    resize:none;
+}
+/* ************************ ERRO ************************ */
+
+.alert-error{
+
+    margin-top:20px;
+
+    padding:16px;
+
+    background:#ff9292;
+
+    border-left:5px solid #dc2626;
+
+    border-radius:12px;
+
+    color:#991b1b;
+
+    font-size:14px;
+}
+
+.alert-error p{
+
+    margin:0;
+}
+/* ************************ RESPONSIVO ************************ */
+
+@media(max-width:900px){
+
+    .create-card{
+        padding:30px;
+    }
+
+    .top-row{
+
+        grid-template-columns:1fr;
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .create-header h1{
+        font-size:28px;
+    }
+
+    .image-group input[type="file"]{
+
+        width:100%;
+    }
+
+}
