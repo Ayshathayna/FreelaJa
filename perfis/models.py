@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from usuario.models import Usuario
 
 
 # Create your models here.
@@ -11,7 +12,7 @@ class Empresa(models.Model):  # modelo para representar as empresas que vão cri
         on_delete=models.CASCADE
     )
     
-    nomeFantasia = models.CharField(max_length=100)
+    nome_fantasia = models.CharField(max_length=100)
     cnpj = models.CharField(max_length=18, unique=True)
     descricao = models.TextField()
     site = models.URLField(blank=True, null=True) 
@@ -37,7 +38,7 @@ class Freelancer(models.Model): # modelo para representar os freelancers que vã
         ('outro', 'Outro'),
     )
 
-    nomeCompleto = models.CharField(max_length=100)
+    nome_completo = models.CharField(max_length=100)
     cpf = models.CharField(max_length=14, unique=True)
     experiencia = models.TextField() #texto livre para o freelancer descrever sua experiência na área de atuação
     avaliacao_media = models.FloatField(default=0)
