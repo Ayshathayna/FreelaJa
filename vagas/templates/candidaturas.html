@@ -1,0 +1,254 @@
+{% extends 'baseFreelancer.html' %}
+{% load static %}
+
+{% block title %}Minhas Candidaturas{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/candidaturas.css' %}">
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/candidatura.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <div class="page-header">
+        <div>
+            <h1>Minhas Candidaturas</h1>
+            <p>
+                Acompanhe o andamento de todas as vagas que você se candidatou.
+            </p>
+        </div>
+    </div>
+
+    <!------------------------------------------ ESTATÍSTICAS ---------------------------------------------------------------------------------->
+
+    <div class="stats-container">
+
+        <div class="stat-card process">
+            <span class="stat-number">{{ total_aceitas }}</span>
+            <span class="stat-label">Aceitas</span>
+        </div>
+        <div class="stat-card analysis">
+            <span class="stat-number">{{ total_analise }}</span>
+            <span class="stat-label">Em Análise</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">{{ total_recusadas }}</span>
+            <span class="stat-label">Recusadas</span>
+        </div>
+        <div class="stat-card finished">
+            <span class="stat-number">{{ total_finalizadas }}</span>
+            <span class="stat-label">Finalizadas</span>
+        </div>
+
+    </div>
+
+    <!------------------------------------------ FILTROS ---------------------------------------------------------------------------------->
+
+    <div class="filter-tabs">
+        <button class="filter-btn active" onclick="mostrarFormulario('aceitas', this)">Aceitas</button>
+        <button class="filter-btn" onclick="mostrarFormulario('pendentes', this)">Em Análise</button>
+        <button class="filter-btn" onclick="mostrarFormulario('recusadas', this)">Recusadas</button>
+        <button class="filter-btn" onclick="mostrarFormulario('finalizadas', this)">Finalizadas</button>
+    </div>
+
+    <!------------------------------------------ ACEITAS ---------------------------------------------------------------------------------->
+
+    <div class="jobs-grid tab-content active" id="aceitas">
+
+        {% for candidatura in aceitas %}
+
+        <div class="job-card">
+
+            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+                class="job-image" alt="Imagem da vaga">
+
+            <div class="job-content">
+
+                <span class="status-badge accepted">Aceita</span>
+
+                <h3>{{ candidatura.vaga.titulo }}</h3>
+
+                <p class="company-name">
+                    {{ candidatura.vaga.empresa.nome }}
+                </p>
+
+                <p class="job-info">
+                    📅 {{ candidatura.vaga.dataEvento }}
+                    <br>
+                    📍 {{ candidatura.vaga.endereco }}
+                </p>
+
+                <div class="job-footer">
+                    <span class="price">
+                        R$ {{ candidatura.vaga.remuneracao }}
+                    </span>
+                </div>
+
+                <div class="job-actions">
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn"> Ver vaga </a>
+                    <a href="{% url 'cancelarCandidatura' candidatura.id %}" class="job-btn cancel-btn"
+                        onclick="return confirmarExclusao(event, this.href)">Cancelar</a>
+
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty-message"> Nenhuma candidatura aceita.</div>
+
+        {% endfor %}
+
+    </div>
+
+    <!------------------------------------------ PENDENTES ---------------------------------------------------------------------------------->
+
+    <div class="jobs-grid tab-content" id="pendentes">
+
+        {% for candidatura in pendentes %}
+
+        <div class="job-card">
+
+            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+                class="job-image" alt="Imagem da vaga">
+
+            <div class="job-content">
+
+                <span class="status-badge pending">Em Análise</span>
+
+                <h3>{{ candidatura.vaga.titulo }}</h3>
+
+                <p class="company-name">
+                    {{ candidatura.vaga.empresa.nome }}
+                </p>
+
+                <p class="job-info">
+                    📅 {{ candidatura.vaga.dataEvento }}
+                    <br>
+                    📍 {{ candidatura.vaga.endereco }}
+                </p>
+
+                <div class="job-footer">
+                    <span class="price">
+                        R$ {{ candidatura.vaga.remuneracao }}
+                    </span>
+                </div>
+
+                <div class="job-actions">
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn">Ver vaga</a>
+                    <a href="{% url 'cancelarCandidatura' candidatura.id %}" class="job-btn cancel-btn"
+                        onclick="return confirmarExclusao(event, this.href)">Cancelar</a>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty-message">Nenhuma candidatura em análise. </div>
+
+        {% endfor %}
+
+    </div>
+
+    <!------------------------------------------ RECUSADAS ---------------------------------------------------------------------------------->
+
+    <div class="jobs-grid tab-content" id="recusadas">
+
+        {% for candidatura in recusadas %}
+
+        <div class="job-card">
+
+            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+                class="job-image" alt="Imagem da vaga">
+
+            <div class="job-content">
+
+                <span class="status-badge rejected"> Recusada </span>
+
+                <h3>{{ candidatura.vaga.titulo }}</h3>
+
+                <p class="company-name">
+                    {{ candidatura.vaga.empresa.nome }}
+                </p>
+
+                <p class="job-info">
+                    📅 {{ candidatura.vaga.dataEvento }}
+                    <br>
+                    📍 {{ candidatura.vaga.endereco }}
+                </p>
+
+                <div class="job-footer">
+                    <span class="price">
+                        R$ {{ candidatura.vaga.remuneracao }}
+                    </span>
+                </div>
+
+                <div class="job-actions">
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn"> Ver vaga</a>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty-message">Nenhuma candidatura recusada.</div>
+
+        {% endfor %}
+
+    </div>
+
+    <!------------------------------------------ FINALIZADAS -------------------------------------------------------------------------------- -->
+
+    <div class="jobs-grid tab-content" id="finalizadas">
+
+        {% for candidatura in finalizadas %}
+
+        <div class="job-card">
+
+            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+                class="job-image" alt="Imagem da vaga">
+
+            <div class="job-content">
+
+                <span class="status-badge closed">Finalizada</span>
+
+                <h3>{{ candidatura.vaga.titulo }}</h3>
+
+                <p class="company-name">
+                    {{ candidatura.vaga.empresa.nome }}
+                </p>
+
+                <p class="job-info">
+                    📅 {{ candidatura.vaga.dataEvento }}
+                    <br>
+                    📍 {{ candidatura.vaga.endereco }}
+                </p>
+
+                <div class="job-footer">
+                    <span class="price">
+                        R$ {{ candidatura.vaga.remuneracao }}
+                    </span>
+                </div>
+
+                <div class="job-actions">
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn">Ver vaga</a>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty-message">
+            Nenhuma candidatura finalizada.
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

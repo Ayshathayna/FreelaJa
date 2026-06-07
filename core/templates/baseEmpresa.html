@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    {%block css%}{% endblock %}
+
+</head>
+
+<body>
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                let icon = "{{ message.tags }}";
+
+                if(icon === "error"){
+                    icon = "error";
+                }else if(icon === "warning"){
+                    icon = "warning";
+                }else{
+                    icon = "success";
+                }
+
+                Swal.fire({
+                    icon: icon,
+                    title: '{{ message.tags|title }}',
+                    text: '{{ message|escapejs }}',
+                    timer: 2500,
+                    showConfirmButton: false
+                });
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+    <header>
+
+        <div class="navbar">
+
+            <div class="logo"><a href="{% url 'homeEmpresa' %}">Frelajá</a></div> <!-- Logo  colocar foto?-->
+
+            <div class="nav-links">
+
+                <a href="{% url 'homeEmpresa' %}">Início</a>
+                <a href="{% url 'criarVaga' %}">Suas Vagas</a>
+
+                <!-- MENU PERFIL -->
+
+                <div class="profile-menu">
+
+                    <div class="profile-btn">
+                        <div class="avatar"></div>
+                        <span>Meu Perfil</span>
+                    </div>
+
+                    <div class="dropdown">
+                        <a href="#">
+                            Perfil
+                        </a>
+
+                        <a href="#">
+                            Notificações
+                            <span class="badge">5</span>
+                        </a>
+
+                        <a href="#">
+                            Configurações
+                        </a>
+
+                        <a href="#" style="color:#ef4444;">
+                            Sair do sistema
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {%block content %}
+        {% endblock %}
+
+        </section>
+
+        {%block footer %}
+        {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        {% block scripts %}
+        {% endblock %}
+
+</body>
+
+</html>

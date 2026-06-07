@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'baseEmpresa.html' %}
 {% load static %}
 
 {% block title %}
@@ -18,8 +18,9 @@ Criar vaga
 <div class="create-container">
 
     <div class="create-card">
+        <a href="{% url 'homeEmpresa' %}" class="carousel-arrow"> ❮ </a>
 
-        <h1>
+        <h1 class=" title">
 
             {% if editar %}
 
@@ -32,7 +33,7 @@ Criar vaga
             {% endif %}
 
         </h1>
-        <p> Preencha as informações do evento  </p>
+        <p> Preencha as informações do evento </p>
 
         <form method="POST" enctype="multipart/form-data">
 
@@ -49,7 +50,11 @@ Criar vaga
                     <label> Imagem do evento</label>
 
                     <div class="preview-box">
+                        {% if editar and vaga.imagem %}
+                        <img id="preview-image" src="{{ vaga.imagem.url }}" alt="Preview">
+                        {% else %}
                         <img id="preview-image" src="https://placehold.co/300x220?text=Imagem" alt="Preview">
+                        {% endif %}
                     </div>
                     {{ form.imagem }}
 
@@ -141,10 +146,10 @@ Criar vaga
             </div>
 
             {% endif %}
-            <button type="submit" class="btn-save">
+            <button type="submit" class="btn-save" >
 
                 {% if editar %}
-
+                
                 Salvar alterações
 
                 {% else %}
@@ -154,11 +159,8 @@ Criar vaga
                 {% endif %}
 
             </button>
-
         </form>
-
     </div>
-
 </div>
 
 {% endblock %}

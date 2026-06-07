@@ -3,7 +3,10 @@ from perfis.models import Empresa
 from vagas.models import Vaga
 # Create your views here.
 def homeFreelancer(request):
-    return render(request, 'homeFreelancer.html')
+    vagas = Vaga.objects.all()
+    return render(request, 'homeFreelancer.html', {
+        'vagas': vagas
+        })
 
 def homeEmpresa(request):
 

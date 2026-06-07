@@ -8,6 +8,44 @@
     align-items:center;
 }
 
+
+.carousel-arrow{
+  width:45px;
+  height:45px;
+
+  border:none;
+  border-radius:50%;
+
+  background:white;
+  color:#4f46e5;
+
+  font-size:22px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:0 5px 20px rgba(0,0,0,0.12);
+
+  transition:0.3s;
+
+  /* Para o <a> */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-decoration:none;
+  flex-shrink:0;
+}
+
+.carousel-arrow:hover{
+  background:#4f46e5;
+  color:white;
+}
+
+.title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
 /* ************************ CARD ************************ */
 
 .create-card{

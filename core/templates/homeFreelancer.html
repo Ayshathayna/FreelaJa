@@ -1,8 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'baseFreelancer.html' %}
 {% load static %}
 {% block title %}FreelaJá {% endblock %}
-{% block logo_url %}{% url 'homeFreelancer' %}{% endblock %}
-{% block home_url %}{% url 'homeFreelancer' %}{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/homeFreelancer.css' %}">
@@ -65,197 +63,85 @@
     <h2>Algumas Vagas Disponíveis</h2>
 
   </div>
-
+  {% if vagas %}
   <!-- CARROSSEL ---------------------------------------------------------------------------------------------->
   <div class="carousel-wrapper">
 
     <!-- SETA ESQUERDA -->
 
-    <button class="carousel-arrow left" onclick="scrollLeftJobs()">
+    <button id = "carousel-arrows" class="carousel-arrow left" onclick="scrollLeftJobs()">
       ❮
     </button>
 
     <!-- CARROSSEL -->
 
-    <div class="jobs-carousel" id="jobsCarousel">
+    <div class="jobs-carousel">
 
       <!-- CARD -->
+      <div class="jobs-grid jobs-carousel" id="jobsCarousel">
 
-      <div class="job-card">
+        {% for vaga in vagas %} <!-- Loop para exibir cada vaga criada pela empresa -->
 
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
+        <div class="job-card">
 
-        <div class="job-content">
+          <!-- IMAGEM (fallback se não existir) -->
+          <img
+            src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+            class="job-image">
 
-          <div class="job-top">
-            <span class="tag">Design</span>
+          <div class="job-content">
+
+            <!-- TAG -->
+            <div class="job-top">
+              <span class="tag">
+                {{ vaga.categoria|default:"Geral" }}
+              </span>
+            </div>
+
+            <!-- TITULO -->
+            <h3>{{ vaga.titulo }}</h3>
+
+            <p class="job-desc">
+              {{ vaga.descricao|truncatechars:120 }}
+            </p>
+
+            <!-- INFO EXTRAS -->
+            <p class="job-info">
+              {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }}
+            </p>
+
+            <!-- RODAPÉ -->
+            <div class="job-footer">
+
+              <span class="price">
+                R$ {{ vaga.remuneracao }}
+              </span>
+
+            </div>
+
+            <div class="job-actions">
+
+              <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn">Ver detalhes</a>
+              <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn">Candidatar-se</a>
+
+            </div>
           </div>
-
-          <h3>Designer para Instagram</h3>
-
-          <p class="job-info">
-            Home Office • Segunda à Sexta • Manhã
-          </p>
-
-          <!-- EMPRESA -->
-
-          <div class="company-name">
-            Agência Vision
-          </div>
-
-          <!-- RODAPÉ -->
-
-          <div class="job-footer">
-            <span class="price">R$ 450</span>
-            <button class="job-btn">Ver vaga</button>
-          </div>
-
-        </div>
-
+        </div> 
+        {% endfor %}
       </div>
-      <!-- CARD -->
-
-      <div class="job-card">
-
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
-
-        <div class="job-content">
-
-          <div class="job-top">
-            <span class="tag">Design</span>
-          </div>
-
-          <h3>Designer para Instagram</h3>
-
-          <p class="job-info">
-            Home Office • Segunda à Sexta • Manhã
-          </p>
-
-          <!-- EMPRESA -->
-
-          <div class="company-name">
-            Agência Vision
-          </div>
-
-          <!-- RODAPÉ -->
-
-          <div class="job-footer">
-            <span class="price">R$ 450</span>
-            <button class="job-btn">Ver vaga</button>
-          </div>
-
-        </div>
-
-      </div>
-      <!-- CARD -->
-
-      <div class="job-card">
-
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
-
-        <div class="job-content">
-
-          <div class="job-top">
-            <span class="tag">Design</span>
-          </div>
-
-          <h3>Designer para Instagram</h3>
-
-          <p class="job-info">
-            Home Office • Segunda à Sexta • Manhã
-          </p>
-
-          <!-- EMPRESA -->
-
-          <div class="company-name">
-            Agência Vision
-          </div>
-
-          <!-- RODAPÉ -->
-
-          <div class="job-footer">
-            <span class="price">R$ 450</span>
-            <button class="job-btn">Ver vaga</button>
-          </div>
-
-        </div>
-
-      </div>
-      <!-- CARD -->
-
-      <div class="job-card">
-
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="job-image">
-
-        <div class="job-content">
-
-          <div class="job-top">
-            <span class="tag">Design</span>
-          </div>
-
-          <h3>Designer para Instagram</h3>
-
-          <p class="job-info">
-            Home Office • Segunda à Sexta • Manhã
-          </p>
-
-          <!-- EMPRESA -->
-
-          <div class="company-name">
-            Agência Vision
-          </div>
-
-          <!-- RODAPÉ -->
-
-          <div class="job-footer">
-            <span class="price">R$ 450</span>
-            <button class="job-btn">Ver vaga</button>
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- CARD -->
-
-      <div class="job-card">
-
-        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3" class="job-image">
-
-        <div class="job-content">
-
-          <div class="job-top">
-            <span class="tag">Programação</span>
-          </div>
-
-          <h3>Desenvolvedor Front-end</h3>
-
-          <p class="job-info">
-            React • Freelancer • Tarde
-          </p>
-
-          <div class="company-name">
-            Tech Solutions
-          </div>
-
-          <div class="job-footer">
-            <span class="price">R$ 1.200</span>
-            <button class="job-btn">Ver vaga</button>
-          </div>
-
-        </div>
-
-      </div>
-
     </div>
-
     <!-- SETA DIREITA -->
-
-    <button class="carousel-arrow right" onclick="scrollRightJobs()">
+    <button id = "carousel-arrows" class="carousel-arrow right" onclick="scrollRightJobs()">
       ❯
     </button>
+    {% else %}
+
+    <p>Nenhuma vaga disponível no momento.</p>
+
+    {% endif %}
 
   </div>
+
   {% endblock %}
 
   <!-- RODAPÉ ---------------------------------------------------------------------------------------->

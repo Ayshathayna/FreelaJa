@@ -1,16 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'baseEmpresa.html' %}
 {% load static %}
 
 {% block title %}FreelaJá {% endblock %}
-{% block logo_url %}{% url 'homeEmpresa' %}{% endblock %}
-{% block home_url %}{% url 'homeEmpresa' %}{% endblock %}
-
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/homeEmpresa.css' %}">
 {% endblock %}
 
 {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script src="{% static 'js/homeEmpresa.js' %}"></script>
 {% endblock %}
 
@@ -71,7 +70,7 @@
         <div class="job-actions">
 
           <a href="{% url 'editarVaga' vaga.id %}" class="job-btn edit-btn">Editar</a>
-          <a href="#" class="job-btn delete-btn"> Excluir </a>
+          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn delete-btn"onclick="return confirmarExclusao(event, this.href)"> Excluir</a>
           <a href="#" class="job-btn candidates-btn"> Candidatos</a>
 
         </div>

@@ -1,0 +1,90 @@
+{% extends 'baseFreelancer.html' %}
+{% load static %}
+
+{% block title %}Detalhes da Vaga{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/verVaga.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="job-detail-container">
+
+    <!-- CARD PRINCIPAL -->
+    <div class="job-detail-card">
+
+        <!-- IMAGEM -->
+        <img class="job-detail-image"
+            src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+            alt="Imagem da vaga">
+
+        <!-- CONTEÚDO -->
+        <div class="job-detail-content">
+
+            <span class="tag">
+                {{ vaga.categoria|default:"Geral" }}
+            </span>
+
+            <h1>{{ vaga.titulo }}</h1>
+
+            <p class="company">
+                Empresa: {{ vaga.empresa.nome|default:"Empresa não informada" }}
+            </p>
+
+            <p class="description">
+                {{ vaga.descricao }}
+            </p>
+
+            <div class="job-info-grid">
+
+                <div>
+                    <strong>Data</strong>
+                    <p>{{ vaga.dataEvento }}</p>
+                </div>
+
+                <div>
+                    <strong>Horário</strong>
+                    <p>{{ vaga.horarioInicio }} - {{ vaga.horarioFim }}</p>
+                </div>
+
+                <div>
+                    <strong>Remuneração</strong>
+                    <p class="price">R$ {{ vaga.remuneracao }}</p>
+                </div>
+
+                <div>
+                    <strong>Vagas disponíveis</strong>
+                    <p>{{ vaga.quantidadeVagas }}</p>
+                </div>
+
+                <div>
+                    <strong>Status</strong>
+                    <p>{{ vaga.status }}</p>
+                </div>
+
+            </div>
+
+            <div class="address">
+                <strong>Local</strong>
+                <p>{{ vaga.endereco }}</p>
+            </div>
+
+            <div class="actions">
+
+                <a href="{% url 'homeFreelancer' %}" class="btn-secondary">Voltar</a>
+
+                {% if ja_candidatou %}
+                <button class="btn-disabled" disabled>Já se candidatou</button>
+                {% else %}
+                <a href="{% url 'candidatarVaga' vaga.id %}" class="btn-primary">Candidatar-se</a>
+                {% endif %}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -57,6 +57,7 @@ class Candidatura(models.Model):
         ('pendente', 'Pendente'),
         ('aceito', 'Aceito'),
         ('recusado', 'Recusado'),
+        ('finalizado', 'Finalizado'),
     )
 
     freelancer = models.ForeignKey( 

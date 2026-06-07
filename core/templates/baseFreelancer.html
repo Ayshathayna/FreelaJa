@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -16,17 +17,43 @@
 </head>
 
 <body>
+    {% if messages %}
+    {% for message in messages %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                let icon = "{{ message.tags }}";
+
+                if(icon === "error"){
+                    icon = "error";
+                }else if(icon === "warning"){
+                    icon = "warning";
+                }else{
+                    icon = "success";
+                }
+
+                Swal.fire({
+                    icon: icon,
+                    title: '{{ message.tags|title }}',
+                    text: '{{ message|escapejs }}',
+                    timer: 2500,
+                    showConfirmButton: false
+                });
+            });
+        </script>
+    {% endfor %}
+{% endif %}
     <header>
 
         <div class="navbar">
 
-            <div class="logo"><a href="{% block logo_url %}{% endblock %}">Frelajá</a></div> <!-- Logo  colocar foto?-->
+            <div class="logo"><a href="{% url 'homeFreelancer' %}">Freelajá</a></div> <!-- Logo  colocar foto?-->
 
             <div class="nav-links">
 
-                <a href="{% block home_url %}{% endblock %}">Início</a>
+                <a href="{% url 'homeFreelancer' %}">Início</a>
                 <a href="#">Vagas</a>
-                <a href="#">Candidaturas</a>
+                <a href="{% url 'candidaturas' %}">Candidaturas</a>
 
                 <!-- MENU PERFIL -->
 
@@ -65,11 +92,11 @@
         {%block content %}
         {% endblock %}
 
-
         </section>
 
         {%block footer %}
         {% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         {% block scripts %}
         {% endblock %}
