@@ -1,0 +1,206 @@
+{% extends 'baseEmpresa.html' %}
+{% load static %}
+
+{% block title %}Candidatos{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/candidatos.css' %}">
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/candidatos.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <div class="page-header">
+        <div>
+            <h1>Candidatos para: {{ vaga.titulo }}</h1>
+            <p>Acompanhe as candidaturas da vaga</p>
+        </div>
+    </div>
+
+    <!------------------------------------------ FILTROS ---------------------------------------------------------------------------------->
+    <div class="filter-tabs">
+        <button class="filter-btn active" onclick="mostrarFormulario('aceitas', this)">Aceitas {{ total_aceitas }}</button>
+        <button class="filter-btn" onclick="mostrarFormulario('pendentes', this)">Em Análise {{ total_analise }}</button>
+        <button class="filter-btn" onclick="mostrarFormulario('recusadas', this)">Recusadas {{ total_recusadas }}</button>
+        <p >Total de Vagas disponiveis: {{ vagas_restantes }}</p>
+    </div>
+    <!-------------------------------------- GRID -------------------------------------------------------------------------->
+    <div class="jobs-grid tab-content active" id="aceitas">
+        
+        {% for candidatura in aceitas %}
+        <div class="job-card">
+
+            <!-- TOP -->
+            <div class="freelancer-top">
+
+                <div class="freelancer-avatar">
+                    <span class="status-badge accepted">Aceito</span>
+
+                    {% if candidatura.freelancer.foto %}
+                    <img src="{{ candidatura.freelancer.foto.url }}">
+                    {% else %}
+                    <div class="avatar-placeholder">
+                        {{ candidatura.freelancer.nomeCompleto|first }}
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <div class="freelancer-main-info">
+
+                    <h3>{{ candidatura.freelancer.nomeCompleto }}</h3>
+
+                    <div class="meta-info">
+                        ⭐ {{ candidatura.freelancer.avaliacao_media|default:"0.0" }}
+                        • 🎂 {{ candidatura.freelancer.idade|default:"20" }} anos
+                        <p>📧 {{ candidatura.freelancer.usuario.email }}</p>
+                    </div>
+               </div>
+
+            </div>
+
+            <!-- SOBRE -->
+            <div class="freelancer-about">
+                <p> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
+
+            </div>
+
+            <!-- AÇÕES -->
+            <div class="job-actions">
+
+                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}" class="job-btn view-btn">Ver perfil</a>
+                <a href="{% url 'recusarCandidatura' candidatura.id %}" class="job-btn cancel-btn">Recusar</a>
+            </div>
+
+        </div>
+        {% empty %}
+
+        <div class="empty-message"> Nenhuma candidatura aceita.</div>
+
+        {% endfor %}
+    </div>
+    <!------------------------------------------ PENDENTES ---------------------------------------------------------------------------------->
+    <div class="jobs-grid tab-content " id="pendentes">
+
+        {% for candidatura in pendentes %}
+
+        <div class="job-card">
+
+            <!-- TOP -->
+            <div class="freelancer-top">
+
+                <div class="freelancer-avatar">
+                    <span class="status-badge pending">Pendente</span>
+
+                    {% if candidatura.freelancer.foto %}
+                    <img src="{{ candidatura.freelancer.foto.url }}">
+                    {% else %}
+                    <div class="avatar-placeholder">
+                        {{ candidatura.freelancer.nomeCompleto|first }}
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <div class="freelancer-main-info">
+
+                    <h3>{{ candidatura.freelancer.nomeCompleto }}</h3>
+
+                    <div class="meta-info">
+                        ⭐ {{ candidatura.freelancer.avaliacao_media|default:"0.0" }}
+                        • 🎂 {{ candidatura.freelancer.idade|default:"20" }} anos
+                        <p>📧 {{ candidatura.freelancer.usuario.email }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SOBRE -->
+            <div class="freelancer-about">
+                <p> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
+
+            </div>
+
+            <!-- AÇÕES -->
+            <div class="jobs-actions-pending "> 
+
+                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}" class="job-btn view-btn ">Ver perfil</a>
+                <a href="{% url 'recusarCandidatura' candidatura.id %}" class="job-btn cancel-btn">Recusar</a>
+                <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept-btn">Aceitar</a>
+
+            </div>
+
+        </div>
+        {% empty %}
+
+        <div class="empty-message"> Nenhuma candidatura pendente.</div>
+
+        {% endfor %}
+
+    </div>
+    <!------------------------------------------ RECUSADAS ---------------------------------------------------------------------------------->
+    <div class="jobs-grid tab-content " id="recusadas">
+
+        {% for candidatura in recusadas %}
+
+        <div class="job-card">
+
+            <!-- TOP -->
+            <div class="freelancer-top">
+
+                <div class="freelancer-avatar">
+                    <span class="status-badge rejected">Recusado</span>
+
+                    {% if candidatura.freelancer.foto %}
+                    <img src="{{ candidatura.freelancer.foto.url }}">
+                    {% else %}
+                    <div class="avatar-placeholder">
+                        {{ candidatura.freelancer.nomeCompleto|first }}
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <div class="freelancer-main-info">
+
+                    <h3>{{ candidatura.freelancer.nomeCompleto }}</h3>
+
+                    <div class="meta-info">
+                        ⭐ {{ candidatura.freelancer.avaliacao_media|default:"0.0" }}
+                        • 🎂 {{ candidatura.freelancer.idade|default:"20" }} anos
+                        <p>📧 {{ candidatura.freelancer.usuario.email }}</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- SOBRE -->
+            <div class="freelancer-about">
+                <p class="teste"> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
+
+            </div>
+
+            <!-- AÇÕES -->
+            <div class="job-actions">
+
+                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}" class="job-btn view-btn">Ver perfil</a>
+                <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept-btn">Aceitar</a>
+
+            </div>
+
+        </div>
+         {% empty %}
+
+        <div class="empty-message"> Nenhuma candidatura recusada.</div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

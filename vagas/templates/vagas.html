@@ -1,0 +1,137 @@
+{% extends 'baseFreelancer.html' %}
+{% load static %}
+
+{% block title %}Vagas{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/vagas.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="jobs-page">
+
+    <!-- HERO BUSCA -->
+
+    <div class="hero-search">
+
+        <div class="hero-content">
+
+            <h1> Encontre projetos que combinam com você</h1>
+            <p>  Descubra oportunidades publicadas por empresas e aumente sua renda como freelancer. </p>
+
+        </div>
+
+        <form method="GET" class="search-box">
+
+            <div class="search-input">
+
+                <span>🔍</span>
+
+                <input
+                    type="text"
+                    name="busca"
+                    placeholder="Cargo, tecnologia ou empresa">
+
+            </div>
+
+            <button type="submit">Buscar vagas</button>
+
+        </form>
+
+    </div>
+
+    <!-- HEADER -->
+
+    <div class="jobs-header">
+
+        <div>
+
+            <h2>Vagas Disponíveis</h2>
+            <span> {{ vagas.count }} oportunidades encontradas </span>
+
+        </div>
+    </div>
+
+    <!-- GRID -->
+
+    <div class="jobs-grid">
+
+        {% for vaga in vagas %}
+
+        <div class="job-card">
+
+            <div class="job-content">
+
+                <!-- CABEÇALHO -->
+
+                <div class="job-header">
+
+                    <div class="company-logo">{{ vaga.empresa.nomeFantasia|slice:":1" }} </div>
+
+                    <div class="header-info">
+
+                        <h3> {{ vaga.titulo }}</h3>
+
+                        <div class="company-info">
+
+                            <span class="company-name"> {{ vaga.empresa.nomeFantasia }}</span>
+                            <span class="rating">{{ vaga.empresa.avaliacao_media }}⭐  </span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SKILLS -->
+
+                <div class="skills">
+
+                    <span>Python</span>
+                    <span>Django</span>
+                    <span>React</span>
+                    <span>API REST</span>
+
+                </div>
+
+                <!-- DESCRIÇÃO -->
+
+                <p class="job-description">{{ vaga.descricao|truncatechars:140 }} </p>
+
+                <!-- INFO -->
+
+                <div class="job-info">
+
+                    <div>📍 {{ vaga.endereco }}</div>
+                    <div>📅 {{ vaga.dataEvento }}</div>
+
+                </div>
+
+                <!-- FOOTER -->
+
+                <div class="job-footer">
+
+                    <div class="price"> R$ {{ vaga.remuneracao }}</div>
+
+                    <div class="job-actions">
+                        <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn"> Ver vaga </a>
+                        <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn"> Candidatar-se</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% empty %}
+
+        <div class="empty-message">
+
+            Nenhuma vaga encontrada.
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

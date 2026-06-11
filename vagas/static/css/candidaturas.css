@@ -201,6 +201,10 @@
     background:#e5e7eb;
     color:#374151;
 }
+.rejected{
+    background:#fee2e2;
+    color:#991b1b;
+}
 
 /******************* AÇÕES *******************/
 
@@ -226,6 +230,12 @@
 
 .view-btn{
     background:linear-gradient( 135deg, #4f46e5, #7c3aed);
+}
+.avaliar-btn{
+    background:linear-gradient(135deg, #e54d46, #eda53a);
+}
+.ver-btn{
+    background:linear-gradient(135deg, #4c9d47, #8fed3a);
 }
 
 .cancel-btn{

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from avaliacoes.models import AvaliaVaga
 from perfis.models import  Empresa, Freelancer
 from .models import Vaga,  Candidatura
 from .forms import VagaForm
@@ -97,6 +98,88 @@ def excluirVaga(request, id):
         "homeEmpresa"
     )
 
+def candidatosVaga(request, vaga_id):
+    vaga = get_object_or_404(Vaga, id=vaga_id)
+    hoje = timezone.now().date()
+
+    candidaturas = Candidatura.objects.filter(
+        vaga=vaga
+    ).select_related('freelancer', 'freelancer__usuario')
+    
+    vagasRestantes = vaga.quantidadeVagas - vaga.quantidadeSelecionados
+
+    pendentes = candidaturas.filter( 
+        status="pendente",
+        vaga__dataEvento__gte=hoje
+    )
+    
+    recusadas = candidaturas.filter(
+        Q(status="recusado") |
+        Q(status="pendente", vaga__dataEvento__lt=hoje)
+    )
+    
+    aceitas = candidaturas.filter(status="aceito")
+    
+    context = {
+        "vaga": vaga,
+        "candidaturas": candidaturas,
+
+        "pendentes": pendentes,
+        "aceitas": aceitas,
+        "recusadas": recusadas,
+
+        "total_analise": pendentes.filter(vaga__dataEvento__gte=hoje).count(),
+        "total_aceitas": aceitas.filter( vaga__dataEvento__gte=hoje).count(),
+        "total_recusadas": recusadas.count(),
+        "vagas_restantes": vagasRestantes
+
+    }
+
+    return render(request, 'candidatos.html', context)
+
+def aceitarCandidatura(request, id):
+    candidatura = get_object_or_404(Candidatura, id=id)
+    
+    if(candidatura.vaga.quantidadeVagas <= candidatura.vaga.quantidadeSelecionados):
+        messages.error(request, "Não há vagas disponíveis para aceitar mais candidatos.")
+        return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
+    
+    candidatura.status = "aceito"
+    candidatura.vaga.quantidadeSelecionados += 1
+    
+    candidatura.vaga.save()
+    candidatura.save()
+    
+    messages.success(request, "Candidato aceito com sucesso!")
+    return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
+
+def recusarCandidatura(request, id):
+    candidatura = get_object_or_404(Candidatura, id=id)
+    candidatura.status = "recusado"
+    candidatura.vaga.quantidadeSelecionados -= 1
+    candidatura.vaga.save()
+    candidatura.save()
+
+    messages.warning(request, "Candidato recusado.")
+    return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
+
+
+
+def finalizarVaga(request, id):
+    vaga = get_object_or_404(Vaga, id=id)
+    vaga.status = "finalizado"
+    vaga.save()
+    
+    for candidatura in vaga.candidaturas.filter(status="aceito"):
+        candidatura.status = "finalizado"
+        candidatura.save()
+        
+    for candidatura in vaga.candidaturas.filter(status="pendente"):
+        candidatura.status = "recusado"
+        candidatura.save()
+
+    messages.success(request, "Vaga finalizada com sucesso!")
+    return redirect('homeEmpresa')
 #--------------------------------------------------------- FREELANCER --------------------------------------------------------------------
 
 def verVaga(request, id):   
@@ -123,7 +206,6 @@ def candidatarVaga(request, vaga_id):
     if qs.exists():
         messages.warning(request, "Você já se candidatou para esta vaga.")
         if url_anterior:
-            print("entrou no if")
             return redirect(url_anterior)
 
         return redirect("verVaga", id=vaga.id)
@@ -136,10 +218,26 @@ def candidatarVaga(request, vaga_id):
     messages.success(request, "Candidatura enviada com sucesso!")
 
     if url_anterior:
-        print("entrou no if")
         return redirect(url_anterior)
 
     return redirect('verVaga', id=vaga.id)
+
+
+def listarVagas(request):
+    query = request.GET.get('q', '').strip()
+    vagas = Vaga.objects.filter(status='aberto')
+
+    if query:
+        vagas = vagas.filter(
+            Q(titulo__icontains=query) |
+            Q(descricao__icontains=query) |
+            Q(endereco__icontains=query)
+        )
+
+    return render(request, 'vagas.html', {
+        'vagas': vagas,
+        'query': query
+    })
 
 def candidaturas(request):
     # freelancer = Freelancer.objects.get(usuario=request.user)
@@ -157,17 +255,28 @@ def candidaturas(request):
         status="pendente",
         vaga__dataEvento__gte=hoje
     )
+    
     recusadas = candidaturas.filter(
         Q(status="recusada") |
         Q(status="pendente", vaga__dataEvento__lt=hoje)
     )
-    aceitas = candidaturas.filter(status="aceito")
-    finalizadas = candidaturas.filter(status="finalizado")
-    print("Pendentes:", pendentes)
-    print("Aceitas:", aceitas)
-    print("Recusadas:", recusadas)
-    print("Finalizadas:", finalizadas)
+    
+    aceitas = candidaturas.filter(status="aceito",
+        vaga__dataEvento__gte=hoje)
+    
+    finalizadas = candidaturas.filter(
+        Q(status="finalizado")|
+        Q(status="aceito", vaga__dataEvento__lt=hoje)
+    )
+    
+     # Verifica se cada candidatura já foi avaliada
+    for candidatura in finalizadas:
 
+        candidatura.avaliada = AvaliaVaga.objects.filter(
+            freelancer=freelancer,
+            vaga=candidatura.vaga
+        ).exists()
+        
     context = {
         "candidaturas": candidaturas,
 
@@ -189,3 +298,4 @@ def cancelarCandidatura(request, candidatura_id):
     candidatura.delete()  
     messages.success(request, "Candidatura cancelada com sucesso!")
     return redirect("candidaturas")
+

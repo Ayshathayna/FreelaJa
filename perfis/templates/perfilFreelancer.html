@@ -1,0 +1,110 @@
+{% extends 'baseEmpresa.html' %}
+{% load static %}
+
+{% block title %}Perfil | {{ freelancer.nomeCompleto }}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/perfilFreelancer.css' %}">
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!--<script src="{% static 'js/perfilFreelancer.js' %}"></script> -->
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-header">
+        <a href="javascript:history.back()" class="carousel-arrow"> ❮</a>
+        <div class="profile-photo">
+
+            {% if freelancer.foto %}
+                <img src="{{ freelancer.foto.url }}">
+            {% else %}
+                <div class="avatar-placeholder">
+                    {{ freelancer.nomeCompleto|first }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="profile-info">
+
+            <h1>{{ freelancer.nomeCompleto }}</h1>
+            <p> ⭐ {{ freelancer.avaliacao_media|default:"0.0" }}</p>
+            <p> 📧 {{ freelancer.usuario.email }} </p>
+            <p> 🎂 {{ freelancer.idade }} anos</p>
+
+        </div>
+
+    </div>
+
+    <!-- SOBRE -->
+
+    <div class="section-card">
+
+        <h2>Sobre mim</h2>
+        <p> {{ freelancer.experiencia|default:"Nenhuma descrição cadastrada." }} </p>
+
+    </div>
+
+    <!-- ÚLTIMAS VAGAS -->
+
+    <div class="section-card">
+
+        <h2>Últimas vagas</h2>
+
+        {% for candidatura in ultimas_vagas %}
+
+            <div class="history-item">
+
+                <div>
+                    <strong>{{ candidatura.vaga.titulo }} </strong>
+                    <p> {{ candidatura.vaga.empresa.nome }}</p>
+                </div>
+                <span> {{ candidatura.vaga.dataEvento }}</span>
+
+            </div>
+
+        {% empty %}
+
+            <p>Nenhuma vaga concluída.</p>
+
+        {% endfor %}
+
+    </div>
+
+    <!-- AVALIAÇÕES -->
+
+    <div class="section-card">
+
+        <h2>Avaliações</h2>
+
+        {% for comentario in comentarios %}
+
+            <div class="review-card">
+
+                <div class="review-header">
+                    <span>⭐ {{ comentario.nota }}/5</span>
+                </div>
+                <small>Vaga: {{ comentario.vaga.titulo }}</small>
+                <p>{{ comentario.comentario }} </p>
+
+            </div>
+
+        {% empty %}
+
+            <p>Ainda não possui avaliações.</p>
+
+        {% endfor %}
+
+    </div>
+    <div class="fab-container open">
+        <a href="{% url 'recusarCandidatura' candidatura_id %}" class="fab-btn reject"> Recusar </a>
+        <a href="{% url 'aceitarCandidatura' candidatura_id %}" class="fab-btn accept">Aceitar</a>
+    </div>
+</div>
+
+{% endblock %}

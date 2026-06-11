@@ -29,10 +29,81 @@
 
   </div>
 
-  <!-- GRID DE VAGAS -------------------------------------------------------------------------------------------------->
-  <div class="jobs-grid jobs-carousel">
+  <div class="filter-tabs">
+    <button class="filter-btn active" onclick="mostrarFormulario('abertos', this)">Abertas  {{ total_abertos }}</button>
+    <button class="filter-btn" onclick="mostrarFormulario('fechados', this)">Fechadas   {{ total_fechados }}</button>
+    <button class="filter-btn" onclick="mostrarFormulario('finalizadas', this)">Finalizadas   {{ total_finalizadas }}</button>
+    <button class="filter-btn" onclick="mostrarFormulario('cancelados', this)">Canceladas   {{ total_cancelados }}</button>
 
-    {% for vaga in vagas %} <!-- Loop para exibir cada vaga criada pela empresa -->
+  </div>
+
+  <!------------------------------------------ ABERTOS ---------------------------------------------------------------------------------->
+  <div class="jobs-grid tab-content jobs-carousel active" id="abertos">
+
+    {% for vaga in abertos %} <!-- Loop para exibir cada vaga criada pela empresa -->
+
+    <div class="job-card">
+
+      <!-- IMAGEM -->
+      <img
+        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+        class="job-image">
+
+      <div class="job-content">
+
+        <!-- TAG -->
+        <div class="job-top">
+          <span class="tag">
+            {{ vaga.categoria|default:"Geral" }}
+          </span>
+        </div>
+
+        <!-- TITULO -->
+        <h3>{{ vaga.titulo }}</h3>
+
+        <!-- INFO EXTRAS -->
+        <p class="job-info"> {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }} </p>
+
+        <!-- RODAPÉ -->
+        <div class="job-footer">
+
+          <span class="price">
+            R$ {{ vaga.remuneracao }}
+          </span>
+          <span>
+            Vagas restantes: {{ vagasRestantes}}
+          </span>
+
+        </div>
+
+        <div class="job-actions">
+
+          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn edit-btn">Editar</a>
+          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn delete-btn"
+            onclick="return confirmarExclusao(event, this.href)"> Excluir</a>
+          <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn candidates-btn"> Candidatos</a>
+
+        </div>
+        <div class="job-actions-finalize">
+
+          <a href="{% url 'verVaga' vaga.id %}" class="job-btn finalize-btn"> Finalizar Vaga</a>
+
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+
+    <div class="empty-message"> Nenhuma vaga aberta.</div>
+
+    {% endfor %}
+
+  </div>
+  <!------------------------------------------ FECHADOS ---------------------------------------------------------------------------------->
+
+  <div class="jobs-grid tab-content jobs-carousel" id="fechados">
+
+    {% for vaga in fechados %} <!-- Loop para exibir cada vaga criada pela empresa -->
 
     <div class="job-card">
 
@@ -54,9 +125,121 @@
         <h3>{{ vaga.titulo }}</h3>
 
         <!-- INFO EXTRAS -->
-        <p class="job-info">
-          {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }}
-        </p>
+        <p class="job-info">  {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }} </p>
+
+        <!-- RODAPÉ -->
+        <div class="job-footer">
+
+          <span class="price">
+            R$ {{ vaga.remuneracao }}
+          </span>
+          
+        </div>
+
+        <div class="job-actions">
+
+          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn edit-btn">Editar</a>
+          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn delete-btn"
+            onclick="return confirmarExclusao(event, this.href)"> Excluir</a>
+          <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn candidates-btn"> Candidatos</a>
+
+        </div>
+        <div class="job-actions-finalize">
+
+          <a href="{% url 'verVaga' vaga.id %}" class="job-btn finalize-btn"> Finalizar Vaga</a>
+
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+
+    <div class="empty-message"> Nenhuma vaga fechada</div>
+
+    {% endfor %}
+
+  </div>
+
+  <!------------------------------------------ FINALIZADOS ---------------------------------------------------------------------------------->
+
+  <div class="jobs-grid tab-content jobs-carousel" id="finalizadas">
+
+    {% for vaga in finalizadas %} <!-- Loop para exibir cada vaga criada pela empresa -->
+
+    <div class="job-card">
+
+      <!-- IMAGEM (fallback se não existir) -->
+      <img
+        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+        class="job-image">
+
+      <div class="job-content">
+
+        <!-- TAG -->
+        <div class="job-top">
+          <span class="tag">
+            {{ vaga.categoria|default:"Geral" }}
+          </span>
+        </div>
+
+        <!-- TITULO -->
+        <h3>{{ vaga.titulo }}</h3>
+
+        <!-- INFO EXTRAS -->
+        <p class="job-info"> {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }} </p>
+
+        <!-- RODAPÉ -->
+        <div class="job-footer">
+
+          <span class="price">
+            R$ {{ vaga.remuneracao }}
+          </span>
+
+        </div>
+
+        <div class="job-actions-finalize">
+
+          <a href="{% url 'verVaga' vaga.id %}" class="job-btn edit-btn">Ver vaga</a>
+          <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn candidates-btn"> Avaliar Candidatos</a>
+
+        </div>
+      </div>
+    </div>
+
+    {% empty %}
+
+    <div class="empty-message"> Nenhuma vaga finalizada</div>
+
+    {% endfor %}
+
+  </div>
+  <!------------------------------------------ CANCELADOS ---------------------------------------------------------------------------------->
+
+  <div class="jobs-grid tab-content jobs-carousel" id="cancelados">
+
+    {% for vaga in cancelados %} <!-- Loop para exibir cada vaga criada pela empresa -->
+
+    <div class="job-card">
+
+      <!-- IMAGEM (fallback se não existir) -->
+      <img
+        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+        class="job-image">
+
+      <div class="job-content">
+
+        <!-- TAG -->
+        <div class="job-top">
+          <span class="tag">
+            {{ vaga.categoria|default:"Geral" }}
+          </span>
+        </div>
+
+        <!-- TITULO -->
+        <h3>{{ vaga.titulo }}</h3>
+
+        <!-- INFO EXTRAS -->
+        <p class="job-info"> {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }} </p>
 
         <!-- RODAPÉ -->
         <div class="job-footer">
@@ -69,23 +252,19 @@
 
         <div class="job-actions">
 
-          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn edit-btn">Editar</a>
-          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn delete-btn"onclick="return confirmarExclusao(event, this.href)"> Excluir</a>
-          <a href="#" class="job-btn candidates-btn"> Candidatos</a>
+          <p> Vaga cancelada</p>
 
         </div>
-
       </div>
     </div>
 
     {% empty %}
 
-    <p>Nenhuma vaga criada ainda.</p>
+    <div class="empty-message"> Nenhuma vaga cancelada</div>
 
     {% endfor %}
 
   </div>
-
 </div>
 
 {% endblock %}

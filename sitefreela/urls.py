@@ -24,9 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('usuario/', include('usuario.urls')),  # Inclui as URLs do aplicativo 'usuario'
     path('core/', include('core.urls')),  # Inclui as URLs do aplicativo 'core'
-    #path('perfis/', include('perfis.urls')),  # Inclui as URLs do aplicativo 'perfis'
+    path('perfis/', include('perfis.urls')),  # Inclui as URLs do aplicativo 'perfis'
     path('vagas/', include('vagas.urls')),  # Inclui as URLs do aplicativo 'vagas'
-    # path('avaliacoes/', include('avaliacoes.urls')),  # Inclui as URLs do aplicativo 'avaliacoes'
+    path('avaliacoes/', include('avaliacoes.urls')),  # Inclui as URLs do aplicativo 'avaliacoes'
     # path('disponibilidade/', include('disponibilidade.urls')),  # Inclui as URLs do aplicativo 'disponibilidade'
 
 

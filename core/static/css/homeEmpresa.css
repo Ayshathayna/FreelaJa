@@ -192,6 +192,12 @@
     margin-top:10px;
 }
 
+.job-actions-finalize{
+    
+    display:grid;
+    gap:10px;
+    margin-top:10px;
+}
 /* BASE */
 
 .job-btn{
@@ -228,6 +234,59 @@
         229,
         .25
     );
+}
+
+.finalize-btn{
+
+    background:
+    linear-gradient(
+        135deg,
+        #3da046,
+        #4b9c3b
+    );
+}
+.finalize-btn:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba( 78,165,78,.25);
+}
+
+/******************* FILTROS *******************/
+.empty-message{
+    grid-column:1/-1;
+    text-align:center;
+    padding:60px;
+    background:white;
+    border-radius:24px;
+    color:#6b7280;
+}
+.filter-tabs{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:35px;
+}
+
+.filter-btn{
+    border:none;
+    background:white;
+    padding:12px 22px;
+    border-radius:30px;
+    font-weight:600;
+    cursor:pointer;
+    color:#6b7280;
+    transition:.3s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
+}
+
+.filter-btn:hover{
+    background:#eef2ff;
+    color:#4f46e5;
+}
+
+.filter-btn.active{
+    background:#4f46e5;
+    color:white;
 }
 
 /* EXCLUIR */

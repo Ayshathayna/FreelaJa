@@ -1,0 +1,276 @@
+/****************** DASHBOARD *******************/
+.dashboard {
+    padding: 40px 7%;
+}
+
+/******************* HEADER *******************/
+
+.page-header {
+    margin-bottom: 35px;
+}
+
+.page-header h1 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.page-header p {
+    color: #6b7280;
+}
+
+.filter-tabs p{
+    color: #6b7280;
+    align-self: center;
+}
+/******************* FILTROS *******************/
+
+.filter-tabs{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:35px;
+}
+
+.filter-btn{
+    border:none;
+    background:white;
+    padding:12px 22px;
+    border-radius:30px;
+    font-weight:600;
+    cursor:pointer;
+    color:#6b7280;
+    transition:.3s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
+}
+
+.filter-btn:hover{
+    background:#eef2ff;
+    color:#4f46e5;
+}
+
+.filter-btn.active{
+    background:#4f46e5;
+    color:white;
+}
+/******************* CARD (MESMO PADRÃO JOB) *******************/
+.jobs-grid{
+    display:grid;
+    grid-template-columns:repeat( auto-fill, minmax(350px,1fr) );
+    gap:25px;
+}
+
+.job-card {
+    background: white;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .06);
+    transition: .3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.job-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, .12);
+}
+
+/******************* REMOVE IMAGEM PADRÃO (freelancer não precisa banner) *******************/
+
+.job-image {
+    display: none;
+}
+
+/******************* TOP (FREELANCER HEADER DENTRO DO CARD) *******************/
+
+.freelancer-top {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 22px;
+    padding-bottom: 12px;
+}
+
+/******************* AVATAR *******************/
+
+.freelancer-avatar img,
+.avatar-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.avatar-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: white;
+
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/******************* INFO *******************/
+
+.freelancer-main-info {
+    flex: 1;
+}
+
+.freelancer-main-info h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #111827;
+}
+
+.meta-info {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+/******************* SOBRE MIM *******************/
+
+.freelancer-about {
+    padding: 0 22px 18px 22px;
+
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.6;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/******************* AÇÕES (IGUAL JOB ACTIONS) *******************/
+
+.job-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 18px 22px;
+    margin-top: auto
+}
+.jobs-actions-pending {
+    display: grid;
+ gap: 10px;
+
+    padding: 18px 22px;
+    margin-top: auto;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/******************* BOTÕES (MANTÉM PADRÃO SEU SISTEMA) *******************/
+
+.job-btn {
+    text-decoration: none;
+    text-align: center;
+    padding: 12px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.job-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* VER PERFIL */
+.view-btn {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+}
+
+/* ACEITAR */
+.accept-btn {
+    background: #10b981;
+}
+
+.accept-btn:hover {
+    background: #059669;
+}
+
+/* RECUSAR */
+.cancel-btn {
+    background: #ef4444;
+}
+
+.cancel-btn:hover {
+    background: #dc2626;
+}
+
+/******************* BADGE *******************/
+
+.status-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 30px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+.accepted {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+.pending {
+    background: #ffeb9d;
+    color: #92400e;
+}
+.freelancer-avatar {
+    position: relative;
+    width: 88px;
+    height: 88px;
+}
+
+/* imagem */
+.freelancer-avatar img,
+.avatar-placeholder {
+    width: 88px;
+    height: 88px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+/* 🔥 BADGE EM CIMA DA FOTO */
+.freelancer-avatar .status-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    padding: 5px 10px;
+    font-size: 10px;
+    border-radius: 999px;
+    z-index: 2;
+
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.empty-message{
+    grid-column:1/-1;
+    text-align:center;
+    padding:60px;
+    background:white;
+    border-radius:24px;
+    color:#6b7280;
+}
+
+/******************* RESPONSIVO *******************/
+
+@media(max-width:900px) {
+
+    .job-actions {
+        grid-template-columns: 1fr;
+    }
+}

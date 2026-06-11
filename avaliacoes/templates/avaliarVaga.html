@@ -1,0 +1,162 @@
+{% extends 'baseFreelancer.html' %}
+{% load static %}
+
+{% block title %}
+{% if somente_leitura %}
+Minha Avaliação
+{% else %}
+Avaliar Vaga
+{% endif %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/avaliarVaga.css' %}">
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/avaliarVaga.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<section class="review-page">
+
+    <div class="review-card">
+
+        <!-- HEADER -->
+
+        <div class="review-header">
+
+            {% if somente_leitura %}
+                <a href="{% url 'candidaturas' %}" class="carousel-arrow"> ❮</a>
+            {% else %}
+                <a href="{% url 'candidaturas' %}" class="carousel-arrow" onclick="return confirmarVolta(event, this.href)"> ❮ </a>
+            {% endif %}
+
+            <span class="badge">
+
+                {% if somente_leitura %}
+                    Avaliação Enviada
+                {% else %}
+                    Avaliar Vaga
+                {% endif %}
+
+            </span>
+
+            <h1>{{ vaga.titulo }}</h1>
+
+            <p>{{ vaga.empresa.nome }}</p>
+
+        </div>
+
+        <!------------------------------------------------------------ VISUALIZAÇÃO --------------------------------------------------->
+
+        {% if somente_leitura %}
+
+            <!-- NOTA -->
+
+            <div class="rating-container">
+
+                <label>Nota</label>
+
+                <div class="rating readonly-rating">
+
+                    <input type="radio" {% if avaliacao.nota == 5 %}checked{% endif %} disabled>
+                    <label>★</label>
+                    <input type="radio" {% if avaliacao.nota == 4 %}checked{% endif %} disabled>
+                    <label>★</label>
+                    <input type="radio" {% if avaliacao.nota == 3 %}checked{% endif %} disabled>
+                    <label>★</label>
+                    <input type="radio" {% if avaliacao.nota == 2 %}checked{% endif %} disabled>
+                    <label>★</label>
+                    <input type="radio" {% if avaliacao.nota == 1 %}checked{% endif %} disabled>
+                    <label>★</label>
+
+                </div>
+
+                <div class="rating-score">
+                    {{ avaliacao.nota }}/5
+                </div>
+
+            </div>
+
+            <!-- COMENTÁRIO -->
+
+            <div class="form-group">
+
+                <label>Comentário</label>
+
+                <div class="comment-box">
+                    {{ avaliacao.comentario }}
+                </div>
+
+            </div>
+
+            <!-- DATA -->
+
+            <div class="review-info">
+
+                Avaliado em:
+                {{ avaliacao.criadoEm|date:"d/m/Y" }}
+
+            </div>
+
+        {% else %}
+
+        <!------------------------------------------------- FORMULÁRIO ----------------------------------------------------------------->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <!-- NOTA -->
+
+            <div class="rating-container">
+
+                <label>Nota</label>
+
+                <div class="rating">
+
+                    <input type="radio" id="star5" name="nota" value="5">
+                    <label for="star5">★</label>
+                    <input type="radio" id="star4" name="nota" value="4">
+                    <label for="star4">★</label>
+                    <input type="radio" id="star3" name="nota"value="3">
+                    <label for="star3">★</label>
+                    <input type="radio" id="star2"  name="nota"  value="2">
+                    <label for="star2">★</label>
+                    <input type="radio"  id="star1" name="nota" value="1">
+                    <label for="star1">★</label>
+
+                </div>
+
+            </div>
+
+            <!-- COMENTÁRIO -->
+
+            <div class="form-group">
+
+                <label>Comentário</label>
+
+                <textarea
+                    name="comentario"
+                    rows="6"
+                    placeholder="Conte como foi sua experiência..."
+                    required></textarea>
+
+            </div>
+
+            <!-- BOTÃO -->
+
+            <button type="submit" class="submit-btn"> Enviar Avaliação </button>
+
+        </form>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

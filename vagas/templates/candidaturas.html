@@ -237,6 +237,11 @@
 
                 <div class="job-actions">
                     <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn">Ver vaga</a>
+                    {%if not candidatura.avaliada %}
+                    <a href="{% url 'avaliarVaga' candidatura.id %}" class="job-btn avaliar-btn"> Avaliar vaga</a>
+                    {% else %}
+                    <a href="{% url 'verAvaliacao' candidatura.id %}" class="job-btn ver-btn"> Ver avaliação</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
