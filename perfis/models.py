@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from usuario.models import Usuario
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from django.db.models import Avg
 
 # Create your models here.
 
@@ -22,6 +22,18 @@ class Empresa(models.Model):  # modelo para representar as empresas que vão cri
 
     def __str__(self):  # método que retorna o nome fantasia da empresa quando for chamado
         return self.nomeFantasia
+    def atualizar_media(self):
+
+        from avaliacoes.models import AvaliaVaga
+
+        media = AvaliaVaga.objects.filter(
+            vaga__empresa=self
+        ).aggregate(
+            Avg('nota')
+        )
+
+        self.avaliacao_media = media['nota__avg'] or 0
+        self.save(update_fields=['avaliacao_media'])
 
 
 class Freelancer(models.Model): # modelo para representar os freelancers que vão se candidatar aos eventos
@@ -50,4 +62,17 @@ class Freelancer(models.Model): # modelo para representar os freelancers que vã
 
     def __str__(self):
         return self.nomeCompleto
+    
+    def atualizar_media(self):
+
+        from avaliacoes.models import AvaliaFreelancer
+
+        media = AvaliaFreelancer.objects.filter(
+            freelancer=self
+        ).aggregate(
+            Avg('nota')
+        )
+
+        self.avaliacao_media = media['nota__avg'] or 0
+        self.save(update_fields=['avaliacao_media'])
 

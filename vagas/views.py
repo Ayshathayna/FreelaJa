@@ -1,79 +1,59 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from avaliacoes.models import AvaliaVaga
-from perfis.models import  Empresa, Freelancer
-from .models import Vaga,  Candidatura
-from .forms import VagaForm
-from datetime import date
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Q
+from django.db import transaction
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+
+from avaliacoes.models import AvaliaVaga, AvaliaFreelancer
+from perfis.models import Empresa, Freelancer
+from .models import Vaga, Candidatura
+from .forms import VagaForm
 
 
 #--------------------------------------------------------- EMPRESA --------------------------------------------------------------------
+@login_required
 def criarVaga(request):
+    empresa = get_object_or_404(Empresa, usuario=request.user)
 
     if request.method == 'POST': #verifica se o método da requisição é POST, ou seja, se o formulário foi submetido. Se for, ele processa os dados do formulário.
 
-        form = VagaForm(
-            request.POST,
-            request.FILES
-        )
+        form = VagaForm(request.POST,request.FILES)
 
         if form.is_valid():  #verifica se os dados do formulário são válidos. Se forem, ele salva a vaga no banco de dados.
 
-            vaga = form.save(commit=False) #form.save(commit=False) salva os dados do formulário, mas não os envia para o banco de dados ainda. Isso permite que você faça modificações adicionais na instância do modelo antes de salvá-la.
-
-            # empresa = Empresa.objects.get( #recupera a empresa associada ao usuário logado. Ele usa o método get() para buscar a empresa com base no usuário atual (request.user).
-            #     usuario=request.user
-            # )
-            empresa = Empresa.objects.get(
-                nomeFantasia="empresa"
-            )
+            vaga = form.save(commit=False) #form.save(commit=False) salva os dados do formulário, mas não os envia para o banco de dados ainda. Isso permite que você faça modificações adicionais na instância do modelo antes de salvá-la.         
             vaga.empresa = empresa
-
             vaga.save()  #salva a vaga no banco de dados.
+            
             messages.success(request, "Vaga criada com sucesso!")
-
-            return redirect(
-                'homeEmpresa'
-            )
-        else:
-            print(form.errors) #se o formulário não for válido, ele imprime os erros no console
+            return redirect('homeEmpresa')
     else:
         form = VagaForm() 
 
-    return render(
-        request,
-        'criarEditarVaga.html',
+    return render(request, 'criarEditarVaga.html',
         {
             'form': form
         }
     )
 
-
+@login_required
 def editarVaga(request,id):
-
+    empresa = get_object_or_404(Empresa, usuario=request.user)
     vaga = get_object_or_404(Vaga,id=id)
+    
+    if vaga.empresa != empresa:
+        raise PermissionDenied()
+    
+    form = VagaForm(request.POST or None, request.FILES or None, instance=vaga)
 
-    if request.method == "POST":
+    if request.method == "POST" and form.is_valid():
 
-        form = VagaForm(
-            request.POST,
-            request.FILES,
-            instance=vaga
-        )
+        form.save()
+        messages.success(request, "Vaga editada com sucesso!")
+        return redirect("homeEmpresa")
 
-        if form.is_valid():
-
-            form.save()
-            messages.success(request, "Vaga editada com sucesso!")
-
-            return redirect(
-                "homeEmpresa"
-            )
-
-    else:   
-        form = VagaForm(instance=vaga)
     return render(
         request,
         "criarEditarVaga.html",
@@ -83,31 +63,39 @@ def editarVaga(request,id):
             "vaga": vaga
         }
     )
-
+    
+@login_required
 def excluirVaga(request, id):
+    empresa = get_object_or_404(Empresa, usuario=request.user)
 
-    vaga = get_object_or_404(
-        Vaga,
-        id=id
-    )
+    vaga = get_object_or_404(Vaga, id=id)
+    if vaga.empresa != empresa:
+        raise PermissionDenied()
 
     vaga.delete()
     messages.success(request, "Vaga deletada com sucesso!")
-
     return redirect(
         "homeEmpresa"
     )
-
+    
+@login_required
 def candidatosVaga(request, vaga_id):
+    empresa = get_object_or_404(Empresa, usuario=request.user)
     vaga = get_object_or_404(Vaga, id=vaga_id)
+    if vaga.empresa != empresa:
+        raise PermissionDenied()
+    
     hoje = timezone.now().date()
 
     candidaturas = Candidatura.objects.filter(
         vaga=vaga
     ).select_related('freelancer', 'freelancer__usuario')
     
-    vagasRestantes = vaga.quantidadeVagas - vaga.quantidadeSelecionados
-
+    vagaFinalizada = ( 
+        vaga.status == "finalizado"
+        or vaga.dataEvento < hoje
+    )
+    
     pendentes = candidaturas.filter( 
         status="pendente",
         vaga__dataEvento__gte=hoje
@@ -120,101 +108,133 @@ def candidatosVaga(request, vaga_id):
     
     aceitas = candidaturas.filter(status="aceito")
     
+    avaliadas_ids = set(
+        AvaliaFreelancer.objects.filter(
+            empresa=empresa
+        ).values_list('freelancer_id',  flat=True)
+    )
+    for candidatura in aceitas:
+        candidatura.avaliada = candidatura.freelancer_id in avaliadas_ids
     context = {
         "vaga": vaga,
         "candidaturas": candidaturas,
+        "vagaFinalizada": vagaFinalizada,
 
         "pendentes": pendentes,
         "aceitas": aceitas,
         "recusadas": recusadas,
 
-        "total_analise": pendentes.filter(vaga__dataEvento__gte=hoje).count(),
-        "total_aceitas": aceitas.filter( vaga__dataEvento__gte=hoje).count(),
+        "total_analise": pendentes.count(),
+        "total_aceitas": aceitas.count(),
         "total_recusadas": recusadas.count(),
-        "vagas_restantes": vagasRestantes
-
     }
 
     return render(request, 'candidatos.html', context)
 
+@login_required
 def aceitarCandidatura(request, id):
     candidatura = get_object_or_404(Candidatura, id=id)
+    empresa = get_object_or_404(Empresa, usuario=request.user)
+    if candidatura.vaga.empresa != empresa:
+        raise PermissionDenied()
     
     if(candidatura.vaga.quantidadeVagas <= candidatura.vaga.quantidadeSelecionados):
         messages.error(request, "Não há vagas disponíveis para aceitar mais candidatos.")
         return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
     
-    candidatura.status = "aceito"
-    candidatura.vaga.quantidadeSelecionados += 1
-    
-    candidatura.vaga.save()
-    candidatura.save()
+    with transaction.atomic():
+
+        if candidatura.status != "aceito" and candidatura.vaga.quantidadeSelecionados < candidatura.vaga.quantidadeVagas:
+
+            candidatura.status = "aceito"
+            candidatura.save()
+
+            candidatura.vaga.quantidadeSelecionados += 1
+            candidatura.vaga.save()
     
     messages.success(request, "Candidato aceito com sucesso!")
     return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
 
+@login_required
 def recusarCandidatura(request, id):
     candidatura = get_object_or_404(Candidatura, id=id)
-    candidatura.status = "recusado"
-    candidatura.vaga.quantidadeSelecionados -= 1
-    candidatura.vaga.save()
-    candidatura.save()
+    empresa = get_object_or_404(Empresa, usuario=request.user)
+
+    if candidatura.vaga.empresa != empresa:
+        raise PermissionDenied()
+    
+    with transaction.atomic():
+
+        if candidatura.status == "aceito":
+            candidatura.vaga.quantidadeSelecionados -= 1
+            candidatura.vaga.save()
+
+        candidatura.status = "recusado"
+        candidatura.save()
 
     messages.warning(request, "Candidato recusado.")
     return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
 
 
-
-def finalizarVaga(request, id):
-    vaga = get_object_or_404(Vaga, id=id)
+@login_required
+def finalizarVaga(request, vaga_id):
+    empresa = get_object_or_404(Empresa, usuario=request.user)
+    vaga = get_object_or_404(Vaga, id=vaga_id)
+    if vaga.empresa != empresa:
+        raise PermissionDenied()
+    
     vaga.status = "finalizado"
     vaga.save()
     
-    for candidatura in vaga.candidaturas.filter(status="aceito"):
-        candidatura.status = "finalizado"
-        candidatura.save()
-        
-    for candidatura in vaga.candidaturas.filter(status="pendente"):
-        candidatura.status = "recusado"
-        candidatura.save()
+    Candidatura.objects.filter(
+        vaga=vaga,
+        status="pendente"
+    ).update(status="recusado")
 
     messages.success(request, "Vaga finalizada com sucesso!")
     return redirect('homeEmpresa')
 #--------------------------------------------------------- FREELANCER --------------------------------------------------------------------
-
+@login_required
 def verVaga(request, id):   
     vaga = get_object_or_404(Vaga, id=id)
+    
+    eh_empresa = Empresa.objects.filter(
+            usuario=request.user,
+            id=vaga.empresa.id
+        ).exists()
+    print(eh_empresa)
+    freelancer = Freelancer.objects.filter(usuario=request.user).first()
+    print(freelancer)
+    ja_candidatou = Candidatura.objects.filter(
+        freelancer=freelancer,
+        vaga=vaga
+    ).exists()
+    print(ja_candidatou)
+    context = {
+        "jaCandidatou": ja_candidatou,
+        'vaga': vaga,
+        'eh_empresa': eh_empresa,
+        'base_template':
+            'baseEmpresa.html' if eh_empresa else 'baseFreelancer.html'
+    }
 
-    return render(request, "verVaga.html", {
-        "vaga": vaga
-    })
-
-
+    return render(request, 'verVaga.html', context)
+    
+@login_required
 def candidatarVaga(request, vaga_id):
     url_anterior = request.META.get('HTTP_REFERER')
 
     vaga = get_object_or_404(Vaga, id=vaga_id)
-
-    #freelancer = Freelancer.objects.get(usuario=request.user)  -> o correto
-    freelancer = Freelancer.objects.first()  # pega o primeiro do banco, apenas para teste
-
-    qs = Candidatura.objects.filter( #verifica se o freelancer já se candidatou para a vaga
-        vaga=vaga,
-        freelancer=freelancer
-    )
-
-    if qs.exists():
+    freelancer = get_object_or_404(Freelancer, usuario=request.user)
+    if vaga.status != "aberto":
+        messages.error(request, "Esta vaga não está mais aberta.")
+        return redirect("verVaga", id=vaga.id)
+    if Candidatura.objects.filter(vaga=vaga, freelancer=freelancer).exists():
         messages.warning(request, "Você já se candidatou para esta vaga.")
-        if url_anterior:
-            return redirect(url_anterior)
-
         return redirect("verVaga", id=vaga.id)
 
-    Candidatura.objects.create(
-        vaga=vaga,
-        freelancer=freelancer
-    )
- 
+    Candidatura.objects.get_or_create(vaga=vaga, freelancer=freelancer)
+
     messages.success(request, "Candidatura enviada com sucesso!")
 
     if url_anterior:
@@ -222,10 +242,11 @@ def candidatarVaga(request, vaga_id):
 
     return redirect('verVaga', id=vaga.id)
 
-
+@login_required
 def listarVagas(request):
     query = request.GET.get('q', '').strip()
     vagas = Vaga.objects.filter(status='aberto')
+    freelancer = get_object_or_404(Freelancer, usuario=request.user)
 
     if query:
         vagas = vagas.filter(
@@ -233,16 +254,25 @@ def listarVagas(request):
             Q(descricao__icontains=query) |
             Q(endereco__icontains=query)
         )
+    candidaturas_ids = set(
+        Candidatura.objects.filter(
+            freelancer=freelancer
+        ).values_list('vaga_id', flat=True)
+    )
+
+    for vaga in vagas:
+        vaga.jaCandidatou = vaga.id in candidaturas_ids
+
+    
 
     return render(request, 'vagas.html', {
         'vagas': vagas,
         'query': query
     })
 
+@login_required
 def candidaturas(request):
-    # freelancer = Freelancer.objects.get(usuario=request.user)
-    freelancer = Freelancer.objects.first()  # teste
-
+    freelancer = get_object_or_404(Freelancer, usuario=request.user)
     hoje = timezone.now().date()
 
     candidaturas = (
@@ -257,25 +287,29 @@ def candidaturas(request):
     )
     
     recusadas = candidaturas.filter(
-        Q(status="recusada") |
+        Q(status="recusado") |
         Q(status="pendente", vaga__dataEvento__lt=hoje)
     )
     
-    aceitas = candidaturas.filter(status="aceito",
-        vaga__dataEvento__gte=hoje)
+
+    aceitas = candidaturas.filter(
+        status="aceito",
+        vaga__dataEvento__gte=hoje,
+    ).exclude(vaga__status="finalizado")
     
     finalizadas = candidaturas.filter(
-        Q(status="finalizado")|
+        Q(vaga__status="finalizado")|
         Q(status="aceito", vaga__dataEvento__lt=hoje)
     )
-    
+    avaliadas_ids = set(
+        AvaliaVaga.objects.filter(
+            freelancer=freelancer
+        ).values_list('vaga_id', flat=True)
+    )
      # Verifica se cada candidatura já foi avaliada
     for candidatura in finalizadas:
+        candidatura.avaliada = candidatura.vaga_id in avaliadas_ids
 
-        candidatura.avaliada = AvaliaVaga.objects.filter(
-            freelancer=freelancer,
-            vaga=candidatura.vaga
-        ).exists()
         
     context = {
         "candidaturas": candidaturas,
@@ -285,14 +319,15 @@ def candidaturas(request):
         "recusadas": recusadas,
         "finalizadas": finalizadas,
 
-        "total_analise": pendentes.filter(vaga__dataEvento__gte=hoje).count(),
-        "total_aceitas": aceitas.filter( vaga__dataEvento__gte=hoje).count(),
+        "total_analise": pendentes.count(),
+        "total_aceitas": aceitas.count(),
         "total_recusadas": recusadas.count(),
         "total_finalizadas": finalizadas.count(),
     }
 
     return render(request, "candidaturas.html", context)
 
+@login_required
 def cancelarCandidatura(request, candidatura_id):
     candidatura = get_object_or_404(Candidatura, id=candidatura_id)
     candidatura.delete()  

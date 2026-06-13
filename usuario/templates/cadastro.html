@@ -10,227 +10,364 @@
 
     <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-
 </head>
 
 <body>
 
     <div class="container">
 
+        <!-- ESQUERDA -->
+
         <div class="left">
+
             <a href="{% url 'login' %}" class="back-login">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" />
                 </svg>
-                Voltar para tela de login
+
+                Voltar para login
             </a>
+
             <h1>FreelaJá</h1>
 
             <p>
                 Encontre oportunidades, conecte-se com empresas
                 e trabalhe nos melhores eventos da sua região.
             </p>
+
         </div>
+
+        <!-- DIREITA -->
 
         <div class="right">
 
             <div class="tabs">
-                <button class="tab-btn active" onclick="mostrarFormulario('freelancer')">Freelancer</button>
-                <button class="tab-btn" onclick="mostrarFormulario('empresa')"> Empresa </button>
+
+                <button class="tab-btn active" onclick="mostrarFormulario('freelancer')">
+                    Freelancer
+                </button>
+
+                <button class="tab-btn" onclick="mostrarFormulario('empresa')">
+                    Empresa
+                </button>
 
             </div>
 
-            <!-- FORM FREELANCER -->
+            <!-- FREELANCER -->
 
             <div id="freelancer" class="form-section active">
 
                 <form method="POST" id="freelancerForm">
+                    {% if freelancer_form.errors %}
+                    <div class="errors">
+
+                        {% for field in freelancer_form %}
+
+                        {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+
+                        {% endfor %}
+
+                        {% for error in freelancer_form.non_field_errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+                    {% endif %}
+
                     {% csrf_token %}
 
                     <input type="hidden" name="tipo" value="freelancer">
 
                     <!-- STEP 1 -->
+
                     <div class="step active">
+
                         <h2>Conta</h2>
 
                         <div class="input-group">
                             <label>Email</label>
-                            <input type="email" name="email">
+                            {{ freelancer_form.email }}
                         </div>
 
                         <div class="input-group">
+
                             <label>Senha</label>
-                            <input id='senha' type="password" name="senha">
-                            <span class="toggle-password" onclick="togglePassword('senha', 'iconSenha')">
-                                a<i id="iconSenha" class="fa-solid fa-eye"></i>
-                            </span>
+
+                            <div class="password-box">
+
+                                {{ freelancer_form.password }}
+
+                                <span class="toggle-password" onclick="togglePassword('id_password')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </span>
+
+                            </div>
+
                         </div>
+
                         <div class="input-group">
+
                             <label>Confirmar Senha</label>
-                            <input id = 'confirmarSenha' type="password" name="confirmar_senha">
-                            <span class="toggle-password" onclick="togglePassword('confirmarSenha', 'iconConfirmar')">
-                                <i id="iconConfirmar" class="fa-solid fa-eye"></i>
-                            </span>
+
+                            <div class="password-box">
+
+                                {{ freelancer_form.confirmar_senha }}
+
+                                <span class="toggle-password" onclick="togglePassword('id_confirmar_senha')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </span>
+
+                            </div>
+
                         </div>
+
                         <div class="buttons">
+
                             <button type="button" class="next-btn">Próximo</button>
+
                         </div>
 
                     </div>
 
                     <!-- STEP 2 -->
+
                     <div class="step">
 
-                        <h2>Informações pessoais</h2>
+                        <h2>Informações Pessoais</h2>
 
                         <div class="input-group">
+
                             <label>Nome Completo</label>
-                            <input type="text" name="nomeCompleto">
+                            {{ freelancer_form.nomeCompleto }}
+
                         </div>
 
                         <div class="input-group">
+
                             <label>CPF</label>
-                            <input type="text" name="cpf">
+                            {{ freelancer_form.cpf }}
+
                         </div>
 
                         <div class="buttons">
+
                             <button type="button" class="back-btn">Voltar</button>
-                            <button type="button" class="next-btn">Próximo</button>
+                            <button type="button" class="next-btn"> Próximo</button>
+
                         </div>
 
                     </div>
 
                     <!-- STEP 3 -->
+
                     <div class="step">
 
                         <h2>Profissional</h2>
 
                         <div class="input-group">
+
                             <label>Área de atuação</label>
-                            <select name="area_atuacao">
-                                <option value="garcom">Garçom</option>
-                                <option value="seguranca">Segurança</option>
-                                <option value="barman">Barman</option>
-                                <option value="fotografo">Fotógrafo</option>
-                                <option value="outro">Outro</option>
-                            </select>
+                            {{ freelancer_form.area_atuacao }}
+
                         </div>
 
                         <div class="input-group">
+
                             <label>Experiência</label>
-                            <textarea name="experiencia"></textarea>
+                            {{ freelancer_form.experiencia }}
+
                         </div>
 
                         <div class="buttons">
-                            <button type="button" class="back-btn">Voltar</button>
+
+                            <button type="button" class="back-btn"> Voltar</button>
                             <button class="btn" type="submit">Finalizar Cadastro</button>
+
                         </div>
 
                     </div>
 
-                    <!-- PROGRESS -->
                     <div class="progress">
+
                         <span class="dot active"></span>
                         <span class="dot"></span>
                         <span class="dot"></span>
+
                     </div>
 
                 </form>
 
             </div>
-            <!-- FORM EMPRESA -->
+
+            <!-- EMPRESA -->
 
             <div id="empresa" class="form-section">
 
                 <form method="POST" id="empresaForm">
+                    {% if empresa_form.errors %}
+                    <div class="errors">
+
+                        {% for field in empresa_form %}
+
+                        {% for error in field.errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+
+                        {% endfor %}
+
+                        {% for error in empresa_form.non_field_errors %}
+                        <p>{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+                    {% endif %}
+
                     {% csrf_token %}
+
                     <input type="hidden" name="tipo" value="empresa">
 
                     <!-- STEP 1 -->
+
                     <div class="step active">
 
-                        <h2>Dados da empresa</h2>
+                        <h2>Dados da Empresa</h2>
 
                         <div class="input-group">
+
                             <label>Nome Fantasia</label>
-                            <input type="text" name="nomeFantasia">
+                            {{ empresa_form.nomeFantasia }}
+
                         </div>
 
                         <div class="input-group">
+
                             <label>CNPJ</label>
-                            <input type="text" name="cnpj">
+                            {{ empresa_form.cnpj }}
+
                         </div>
 
                         <div class="buttons">
+
                             <button type="button" class="next-btn">Próximo</button>
+
                         </div>
 
                     </div>
 
                     <!-- STEP 2 -->
+
                     <div class="step">
 
                         <h2>Conta</h2>
 
                         <div class="input-group">
+
                             <label>Email</label>
-                            <input type="email" name="email">
+                            {{ empresa_form.email }}
+
                         </div>
 
                         <div class="input-group">
+
                             <label>Senha</label>
-                            <input type="password" name="senha">
+
+                            <div class="password-box">
+
+                                {{ empresa_form.password }}
+
+                                <span class="toggle-password" onclick="togglePassword('id_password_empresa')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>Confirmar Senha</label>
+
+                            <div class="password-box">
+
+                                {{ empresa_form.confirmar_senha }}
+
+                                <span class="toggle-password" onclick="togglePassword('id_confirmar_empresa')">
+
+                                    <i class="fa-solid fa-eye"></i>
+
+                                </span>
+
+                            </div>
+
                         </div>
 
                         <div class="buttons">
+
                             <button type="button" class="back-btn">Voltar</button>
                             <button type="button" class="next-btn">Próximo</button>
+
                         </div>
 
                     </div>
 
                     <!-- STEP 3 -->
+
                     <div class="step">
 
-                        <h2>Informações adicionais</h2>
+                        <h2>Informações Adicionais</h2>
 
                         <div class="input-group">
+
                             <label>Telefone</label>
-                            <input type="text" name="telefone">
+                            {{ empresa_form.telefone }}
+
                         </div>
 
                         <div class="input-group">
+
                             <label>Site</label>
-                            <input type="url" name="site">
+                            {{ empresa_form.site }}
+
                         </div>
 
                         <div class="input-group">
+
                             <label>Descrição</label>
-                            <textarea name="descricao"></textarea>
+                            {{ empresa_form.descricao }}
+
                         </div>
 
                         <div class="buttons">
-                            <button type="button" class="back-btn">Voltar</button>
+
+                            <button type="button" class="back-btn"> Voltar</button>
                             <button class="btn" type="submit">Finalizar Cadastro</button>
+
                         </div>
 
                     </div>
 
-                    <!-- PROGRESS -->
                     <div class="progress">
+
                         <span class="dot active"></span>
                         <span class="dot"></span>
                         <span class="dot"></span>
+
                     </div>
-
                 </form>
-
             </div>
         </div>
     </div>
 
     <script src="{% static 'js/cadastro.js' %}"></script>
+
 </body>
 
 </html>

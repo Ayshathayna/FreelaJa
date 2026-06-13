@@ -15,3 +15,8 @@ class Usuario(AbstractUser): #herda de AbstractUser para usar o sistema de auten
         max_length=20,
         choices=TIPOS
     )
+    def is_empresa(self):
+        return self.tipo_usuario == 'empresa'
+
+    def is_freelancer(self):
+        return self.tipo_usuario == 'freelancer'

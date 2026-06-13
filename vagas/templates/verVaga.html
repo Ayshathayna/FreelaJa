@@ -1,7 +1,7 @@
-{% extends 'baseFreelancer.html' %}
+{% extends base_template %}
 {% load static %}
 
-{% block title %}Detalhes da Vaga{% endblock %}
+{% block title %} Detalhes da Vaga{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/verVaga.css' %}">
@@ -16,26 +16,28 @@
     <div class="job-detail-card">
 
         <!-- IMAGEM -->
-        <img class="job-detail-image"
-            src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-            alt="Imagem da vaga">
 
+        <div class="image-container">
+
+            <a href="javascript:history.back()" class="carousel-arrow"> ❮</a>
+
+            <img class="job-detail-image"
+                src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
+                alt="Imagem da vaga">
+
+        </div>
         <!-- CONTEÚDO -->
         <div class="job-detail-content">
 
-            <span class="tag">
-                {{ vaga.categoria|default:"Geral" }}
-            </span>
+            <span class="tag"> {{ vaga.categoria|default:"Geral" }}</span>
 
             <h1>{{ vaga.titulo }}</h1>
+            <p class="company">Empresa: {{ vaga.empresa.nomeFantasia|default:"Empresa não informada" }}</p>
+            <p class="description"> {{ vaga.descricao }} </p>
 
-            <p class="company">
-                Empresa: {{ vaga.empresa.nome|default:"Empresa não informada" }}
-            </p>
-
-            <p class="description">
-                {{ vaga.descricao }}
-            </p>
+            <div>
+                <h1>Mais informações</h1>
+            </div>
 
             <div class="job-info-grid">
 
@@ -75,10 +77,26 @@
 
                 <a href="javascript:history.back()" class="btn-secondary">Voltar</a>
 
-                {% if ja_candidatou %}
-                <button class="btn-disabled" disabled>Já se candidatou</button>
+                {% if eh_empresa %}
+
+                <a href="{% url 'editarVaga' vaga.id %}" class="btn-primary"> Editar </a>
+                <a href="{% url 'candidatosVaga' vaga.id %}" class="btn-primary candidates-btn"> Candidatos </a>
+
+                    {% if vaga.status != 'finalizado' %}
+                    <a href="{% url 'finalizarVaga' vaga.id %}" class="btn-primary finalize-btn"> Finalizar</a>
+                    {% endif %}
+
                 {% else %}
-                <a href="{% url 'candidatarVaga' vaga.id %}" class="btn-primary">Candidatar-se</a>
+
+                    {% if jaCandidatou %}
+                    <button class="btn-disabled" disabled> Já se candidatou</button>
+                    {% else %}
+
+                    <a href="{% url 'candidatarVaga' vaga.id %}" class="btn-primary"> Candidatar-se</a>
+
+                    {% endif %}
+                <a href="{% url 'perfilEmpresa' vaga.empresa.id %}" class="btn-primary"> Perfil da empresa </a>
+
                 {% endif %}
 
 

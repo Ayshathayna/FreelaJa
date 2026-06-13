@@ -2,7 +2,7 @@ from django.db import models
 from perfis.models import Freelancer, Empresa
 from vagas.models import Vaga
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.core.exceptions import ValidationError
+
 
 
 # Create your models here.

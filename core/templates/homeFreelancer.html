@@ -69,7 +69,7 @@
 
     <!-- SETA ESQUERDA -->
 
-    <button id = "carousel-arrows" class="carousel-arrow left" onclick="scrollLeftJobs()">
+    <button id="carousel-arrows" class="carousel-arrow left" onclick="scrollLeftJobs()">
       ❮
     </button>
 
@@ -122,16 +122,23 @@
             <div class="job-actions">
 
               <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn">Ver detalhes</a>
+
+              {% if vaga.jaCandidatou %}
+              <button class=" job-btn details-btn " disabled> Já se candidatou</button>
+
+              {% else %}
               <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn">Candidatar-se</a>
+
+              {% endif %}
 
             </div>
           </div>
-        </div> 
+        </div>
         {% endfor %}
       </div>
     </div>
     <!-- SETA DIREITA -->
-    <button id = "carousel-arrows" class="carousel-arrow right" onclick="scrollRightJobs()">
+    <button id="carousel-arrows" class="carousel-arrow right" onclick="scrollRightJobs()">
       ❯
     </button>
     {% else %}

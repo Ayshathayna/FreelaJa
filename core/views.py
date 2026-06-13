@@ -1,46 +1,69 @@
-from django.shortcuts import render
-from perfis.models import Empresa, Freelancer, Freelancer
-import vagas
+from django.shortcuts import render, get_object_or_404
+from perfis.models import Empresa, Freelancer
 from vagas.models import Candidatura, Vaga
-from vagas.views import candidaturas
-from django.contrib import messages
 from django.utils import timezone
-from django.db.models import Q
+from django.db.models import Q, F
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+#************************************************* Freelancer **********************************************
+
+@login_required
 def homeFreelancer(request):
-    vagas = Vaga.objects.all()
-    return render(request, 'homeFreelancer.html', {
-        'vagas': vagas
-        })
+    
+    freelancer = get_object_or_404(
+        Freelancer,
+        usuario=request.user
+    )
+    vagas = Vaga.objects.filter(
+        status='aberto'
+    ).order_by('dataEvento')[:10]
 
+    candidaturas_ids = set(
+        Candidatura.objects.filter(
+            freelancer=freelancer
+        ).values_list(
+            'vaga_id',
+            flat=True
+        )
+    )
+    for vaga in vagas:
+        vaga.jaCandidatou = vaga.id in candidaturas_ids
+        
+    return render(request, 'homeFreelancer.html', {
+        'vagas': vagas,
+        'freelancer':freelancer
+        })
+    
+#************************************************* Empresa **********************************************
+
+@login_required
 def homeEmpresa(request):
 
-    #empresa = request.user.empresa  # empresa logada
-     # freelancer = Freelancer.objects.get(usuario=request.user)
-    empresa = Empresa.objects.first()
+    empresa = get_object_or_404(
+        Empresa,
+        usuario=request.user
+    )
+
     hoje = timezone.now().date()
 
-    
-    vagas = (
-        Vaga.objects
-        .filter(empresa=empresa)
-    )
-    
+    vagas = list(Vaga.objects.filter(
+            empresa=empresa
+        )
+    )    
     for vaga in vagas:
-        if vaga.status == 'aberto' and vaga.dataEvento < hoje:
-            vaga.status = 'finalizado'
-            vaga.save()
+        vaga.atualizar_status()
+        
+    vagas = Vaga.objects.filter(empresa=empresa)
 
     abertos = vagas.filter( 
         status="aberto",
-        dataEvento__gte=hoje
+        dataEvento__gte=hoje, 
+        quantidadeVagas__gt=F('quantidadeSelecionados')
     )
     
     cancelados = vagas.filter(
         status="cancelado",
     )
-    
     
     fechados = vagas.filter(
         status="fechado",
@@ -49,16 +72,9 @@ def homeEmpresa(request):
     
     finalizadas = vagas.filter(
         Q(status="finalizado")|
-        Q(status="aceito", dataEvento__lt=hoje)|
+        Q(status="aberto", dataEvento__lt=hoje)|
         Q(status = "fechado", dataEvento__lt = hoje)
     )
-    vagasRestantes = vaga.quantidadeVagas - vaga.quantidadeSelecionados
-    print("vagas finalizadas:", finalizadas)
-    print("vagas abertas:", abertos)
-    print("vagas canceladas:", cancelados)
-    print("vagas fechadas:", fechados)
-    
-    
         
     context = {
         "vagas": vagas,
@@ -67,7 +83,6 @@ def homeEmpresa(request):
         "cancelados": cancelados,
         "fechados": fechados,
         "finalizadas": finalizadas,
-        "vagasRestantes" : vagasRestantes,
 
         "total_abertos": abertos.count(),
         "total_cancelados": cancelados.count(),

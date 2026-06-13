@@ -2,7 +2,7 @@ function confirmarVolta(event, url) {
     event.preventDefault();
     console.log("Confirmação de volta acionada");
     Swal.fire({
-        title: 'Voltar para a página de candidaturas?',
+        title: 'Voltar para a página anterior?',
         text: 'Você perderá as informações não salvas.',
         icon: 'warning',
         showCancelButton: true,

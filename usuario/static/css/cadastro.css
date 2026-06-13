@@ -316,6 +316,19 @@ body{
 .toggle-password:hover{
     opacity:1;
 }
+
+.errors{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.errors p{
+    margin:4px 0;
+    font-size:14px;
+}
 /* ***********************************  RESPONSIVO ********************************************************************** */
 
 @media(max-width:900px){

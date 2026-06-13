@@ -71,7 +71,7 @@
             R$ {{ vaga.remuneracao }}
           </span>
           <span>
-            Vagas restantes: {{ vagasRestantes}}
+            Vagas restantes: {{ vaga.vagasRestantes}}
           </span>
 
         </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="job-actions-finalize">
 
-          <a href="{% url 'verVaga' vaga.id %}" class="job-btn finalize-btn"> Finalizar Vaga</a>
+          <a href="{% url 'finalizarVaga' vaga.id %}" class="job-btn finalize-btn" onclick="return confirmarFinalizacao(event, this.href)""> Finalizar Vaga</a>
 
         </div>
       </div>
@@ -146,7 +146,7 @@
         </div>
         <div class="job-actions-finalize">
 
-          <a href="{% url 'verVaga' vaga.id %}" class="job-btn finalize-btn"> Finalizar Vaga</a>
+          <a href="{% url 'finalizarVaga' vaga.id %}" class="job-btn finalize-btn" onclick="return confirmarFinalizacao(event, this.href)"> Finalizar Vaga</a>
 
         </div>
       </div>

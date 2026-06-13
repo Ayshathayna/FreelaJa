@@ -1,61 +1,91 @@
 {% load static %}
-<!-- templates/login.html -->
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- link css-->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>Login | FreelaJá </title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+    <title>Login | FreelaJá</title>
 
 </head>
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <div class="left">
+    <div class="left">
 
-            <h1>FreelaJá</h1>
-            <p>
-                Conectamos empresas e freelancers para eventos,
-                serviços e oportunidades de trabalho.
-            </p>
-        </div>
+        <h1>FreelaJá</h1>
 
-        <div class="right">
+        <p>
+            Conectamos empresas e freelancers para eventos,
+            serviços e oportunidades de trabalho.
+        </p>
 
-            <h2>Entrar</h2>
+    </div>
 
-            <form method="POST">
-                {% csrf_token %}
+    <div class="right">
 
-                <div class="input-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="Digite seu email">
+        <h2>Entrar</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert-error">
+                    {{ message }}
                 </div>
+            {% endfor %}
+        {% endif %}
 
-                <div class="input-group">
-                    <label>Senha</label>
-                    <input type="password" name="senha" placeholder="Digite sua senha">
-                </div>
+        <form method="POST">
 
-                <button type="submit" class="btn">
-                    Entrar
-                </button>
+            {% csrf_token %}
 
-            </form>
+            <div class="input-group">
 
-            <div class="cadastro">
-                Não possui conta?
-                <a href="{% url 'cadastro' %}">Cadastre-se</a>
+                <label>Email</label>
+
+                {{ form.username }}
+
             </div>
+
+            <div class="input-group">
+
+                <label>Senha</label>
+
+                {{ form.password }}
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn">
+
+                Entrar
+
+            </button>
+
+        </form>
+
+        <div class="cadastro">
+
+            Não possui conta?
+
+            <a href="{% url 'cadastro' %}">
+                Cadastre-se
+            </a>
 
         </div>
 
     </div>
+
+</div>
 
 </body>
 

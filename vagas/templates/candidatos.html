@@ -17,6 +17,7 @@
 <div class="dashboard">
 
     <div class="page-header">
+        <a href="{% url 'homeEmpresa' %}" class="carousel-arrow"> ❮</a>
         <div>
             <h1>Candidatos para: {{ vaga.titulo }}</h1>
             <p>Acompanhe as candidaturas da vaga</p>
@@ -25,14 +26,17 @@
 
     <!------------------------------------------ FILTROS ---------------------------------------------------------------------------------->
     <div class="filter-tabs">
-        <button class="filter-btn active" onclick="mostrarFormulario('aceitas', this)">Aceitas {{ total_aceitas }}</button>
-        <button class="filter-btn" onclick="mostrarFormulario('pendentes', this)">Em Análise {{ total_analise }}</button>
+        <button class="filter-btn active" onclick="mostrarFormulario('aceitas', this)">Aceitas {{ total_aceitas}}</button>
+        <button class="filter-btn" onclick="mostrarFormulario('pendentes', this)">Em Análise {{ total_analise}}</button>
         <button class="filter-btn" onclick="mostrarFormulario('recusadas', this)">Recusadas {{ total_recusadas }}</button>
-        <p >Total de Vagas disponiveis: {{ vagas_restantes }}</p>
+        {% if not vagaFinalizada%}
+
+        <p>Total de Vagas disponiveis: {{ vaga.vagasRestantes }}</p>
+        {% endif %}
     </div>
     <!-------------------------------------- GRID -------------------------------------------------------------------------->
     <div class="jobs-grid tab-content active" id="aceitas">
-        
+
         {% for candidatura in aceitas %}
         <div class="job-card">
 
@@ -61,23 +65,34 @@
                         • 🎂 {{ candidatura.freelancer.idade|default:"20" }} anos
                         <p>📧 {{ candidatura.freelancer.usuario.email }}</p>
                     </div>
-               </div>
-
+                </div>
             </div>
 
             <!-- SOBRE -->
             <div class="freelancer-about">
                 <p> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
-
             </div>
 
             <!-- AÇÕES -->
             <div class="job-actions">
 
-                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}" class="job-btn view-btn">Ver perfil</a>
-                <a href="{% url 'recusarCandidatura' candidatura.id %}" class="job-btn cancel-btn">Recusar</a>
-            </div>
+                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}"
+                    class="job-btn view-btn">Ver perfil</a>
 
+                {% if not vagaFinalizada%}
+                <a href="{% url 'recusarCandidatura' candidatura.id %}" class="job-btn cancel-btn">Recusar</a>
+                {% else%}
+                {% if candidatura.avaliada %}
+
+                <a href="{% url 'verAvaliacaoFreelancer' candidatura.id %}" class="job-btn view-btn"> Ver Avaliação</a>
+
+                {% else %}
+
+                <a href="{% url 'avaliarFreelancer' candidatura.id %}" class="job-btn accept-btn"> Avaliar </a>
+
+                {% endif %}
+                {% endif%}
+            </div>
         </div>
         {% empty %}
 
@@ -118,24 +133,22 @@
                         <p>📧 {{ candidatura.freelancer.usuario.email }}</p>
                     </div>
                 </div>
-
             </div>
 
             <!-- SOBRE -->
             <div class="freelancer-about">
                 <p> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
-
             </div>
 
             <!-- AÇÕES -->
-            <div class="jobs-actions-pending "> 
+            <div class="jobs-actions-pending ">
 
-                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}" class="job-btn view-btn ">Ver perfil</a>
+                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}"
+                    class="job-btn view-btn ">Ver perfil</a>
                 <a href="{% url 'recusarCandidatura' candidatura.id %}" class="job-btn cancel-btn">Recusar</a>
                 <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept-btn">Aceitar</a>
 
             </div>
-
         </div>
         {% empty %}
 
@@ -160,9 +173,7 @@
                     {% if candidatura.freelancer.foto %}
                     <img src="{{ candidatura.freelancer.foto.url }}">
                     {% else %}
-                    <div class="avatar-placeholder">
-                        {{ candidatura.freelancer.nomeCompleto|first }}
-                    </div>
+                    <div class="avatar-placeholder">{{ candidatura.freelancer.nomeCompleto|first }} </div>
                     {% endif %}
 
                 </div>
@@ -177,25 +188,26 @@
                         <p>📧 {{ candidatura.freelancer.usuario.email }}</p>
                     </div>
                 </div>
-
             </div>
 
             <!-- SOBRE -->
             <div class="freelancer-about">
-                <p class="teste"> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
-
+                <p class="teste"> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }} </p>
             </div>
 
             <!-- AÇÕES -->
             <div class="job-actions">
 
-                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}" class="job-btn view-btn">Ver perfil</a>
+                <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}"
+                    class="job-btn view-btn">Ver perfil</a>
+                {% if not vagaFinalizada%}
                 <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept-btn">Aceitar</a>
+                {%endif%}
 
             </div>
 
         </div>
-         {% empty %}
+        {% empty %}
 
         <div class="empty-message"> Nenhuma candidatura recusada.</div>
 

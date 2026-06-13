@@ -1,6 +1,7 @@
 from django.db import models
 from perfis.models import Empresa, Freelancer
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 # Create your models here.
 
@@ -36,7 +37,10 @@ class Vaga(models.Model):
     criadoEm = models.DateTimeField(auto_now_add=True)
     finalizadoEm = models.DateTimeField(blank=True, null=True)   
     endereco = models.CharField(max_length=255) 
-
+    
+    @property
+    def vagasRestantes(self):
+        return self.quantidadeVagas - self.quantidadeSelecionados
     remuneracao = models.DecimalField(
         max_digits=8,
         decimal_places=2
@@ -50,7 +54,52 @@ class Vaga(models.Model):
 
     def __str__(self):
         return self.titulo
+    def atualizar_status(self):
 
+        hoje = timezone.now().date()
+
+        if self.status == 'aberto' and self.dataEvento < hoje:
+            self.status = 'finalizado'
+
+        elif (
+            self.status == 'aberto'
+            and self.quantidadeSelecionados >= self.quantidadeVagas
+        ):
+            self.status = 'fechado'
+
+        elif (
+            self.status == 'fechado'
+            and self.quantidadeSelecionados < self.quantidadeVagas
+        ):
+            self.status = 'aberto'
+
+        self.save(update_fields=['status'])
+    def atualizar_status(self):
+
+        hoje = timezone.now().date()
+
+        if self.status == 'aberto' and self.dataEvento < hoje:
+            novo_status = 'finalizado'
+
+        elif (
+            self.status == 'aberto'
+            and self.quantidadeSelecionados >= self.quantidadeVagas
+        ):
+            novo_status = 'fechado'
+
+        elif (
+            self.status == 'fechado'
+            and self.quantidadeSelecionados < self.quantidadeVagas
+            and self.dataEvento >= hoje
+        ):
+            novo_status = 'aberto'
+
+        else:
+            novo_status = self.status
+
+        if novo_status != self.status:
+            self.status = novo_status
+            self.save(update_fields=['status'])
 class Candidatura(models.Model):
 
     STATUS = (

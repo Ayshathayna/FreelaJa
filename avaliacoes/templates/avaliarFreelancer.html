@@ -1,11 +1,11 @@
-{% extends 'baseFreelancer.html' %}
+{% extends 'baseEmpresa.html' %}
 {% load static %}
 
 {% block title %}
 {% if somente_leitura %}
-Minha Avaliação
+Avaliação do Freelancer
 {% else %}
-Avaliar Vaga
+Avaliar Freelancer
 {% endif %}
 {% endblock %}
 
@@ -29,9 +29,12 @@ Avaliar Vaga
         <div class="review-header">
 
             {% if somente_leitura %}
-            <a href="{% url 'candidaturas' %}" class="carousel-arrow"> ❮</a>
+            <a href="{% url 'candidatosVaga' vaga.id %}" class="carousel-arrow">❮</a>
             {% else %}
-            <a href="{% url 'candidaturas' %}" class="carousel-arrow" onclick="return confirmarVolta(event, this.href)"> ❮ </a>
+            <a href="{% url 'candidatosVaga' vaga.id %}" class="carousel-arrow"
+                onclick="return confirmarVolta(event, this.href)">
+                ❮
+            </a>
             {% endif %}
 
             <span class="badge">
@@ -39,21 +42,18 @@ Avaliar Vaga
                 {% if somente_leitura %}
                 Avaliação Enviada
                 {% else %}
-                Avaliar Vaga
+                Avaliar Freelancer
                 {% endif %}
 
             </span>
 
-            <h1>{{ vaga.titulo }}</h1>
-            <p>{{ vaga.empresa.nome }}</p>
-
+            <h1>{{ freelancer.nomeCompleto }}</h1>
+            <p>{{ vaga.titulo }}</p>
         </div>
 
-        <!------------------------------------------------------------ VISUALIZAÇÃO --------------------------------------------------->
+        <!-- VISUALIZAÇÃO -->
 
         {% if somente_leitura %}
-
-        <!-- NOTA -->
 
         <div class="rating-container">
 
@@ -69,24 +69,21 @@ Avaliar Vaga
                 <label>★</label>
                 <input type="radio" {% if avaliacao.nota == 2 %}checked{% endif %} disabled>
                 <label>★</label>
-                <input type="radio" {% if avaliacao.nota == 1 %}checked{% endif %} disabled>
+                <input type="radio" {% if avaliacao.nota  == 1 %}checked{% endif %} disabled>
                 <label>★</label>
 
             </div>
 
             <div class="rating-score"> {{ avaliacao.nota }}/5 </div>
-        </div>
 
-        <!-- COMENTÁRIO -->
+        </div>
 
         <div class="form-group">
 
             <label>Comentário</label>
-            <div class="comment-box">{{ avaliacao.comentario }}</div>
+            <div class="comment-box">{{ avaliacao.comentario }} </div>
 
         </div>
-
-        <!-- DATA -->
 
         <div class="review-info">
 
@@ -97,13 +94,11 @@ Avaliar Vaga
 
         {% else %}
 
-        <!------------------------------------------------- FORMULÁRIO ----------------------------------------------------------------->
+        <!-- FORMULÁRIO -->
 
         <form method="POST">
 
             {% csrf_token %}
-
-            <!-- NOTA -->
 
             <div class="rating-container">
 
@@ -126,19 +121,14 @@ Avaliar Vaga
 
             </div>
 
-            <!-- COMENTÁRIO -->
-
             <div class="form-group">
 
                 <label>Comentário</label>
-
-                <textarea name="comentario" rows="6" placeholder="Conte como foi sua experiência..." required></textarea>
+                <textarea name="comentario" rows="6" placeholder="Descreva como foi trabalhar com este freelancer..."  required></textarea> 
 
             </div>
 
-            <!-- BOTÃO -->
-
-            <button type="submit" class="submit-btn"> Enviar Avaliação </button>
+            <button type="submit" class="submit-btn">Enviar Avaliação</button>
 
         </form>
 

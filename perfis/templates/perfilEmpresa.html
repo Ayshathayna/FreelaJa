@@ -1,0 +1,151 @@
+{% extends 'baseFreelancer.html' %}
+{% load static %}
+
+{% block title %}
+{{ empresa.nomeFantasia }}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/perfilEmpresa.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <!-- HEADER -->
+
+    <div class="profile-header">
+
+        <a href="javascript:history.back()" class="carousel-arrow"> ❮ </a>
+
+        <div class="profile-photo">
+
+            <div class="avatar-placeholder"> {{ empresa.nomeFantasia|first }} </div>
+
+        </div>
+
+        <div class="profile-info">
+
+            <h1>{{ empresa.nomeFantasia }} </h1>
+
+            <p>⭐ {{ empresa.avaliacao_media|floatformat:1 }}</p>
+
+            <p>📧 {{ empresa.usuario.email }}</p>
+
+            {% if empresa.telefone %}
+            <p>📞 {{ empresa.telefone }} </p>
+            {% endif %}
+
+            {% if empresa.site %}
+            <p>🌐<a href="{{ empresa.site }}" target="_blank">{{ empresa.site }}</a></p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- ESTATÍSTICAS -->
+
+    <div class="stats-container">
+
+        <div class="stat-card">
+
+            <span class="stat-number">{{ total_vagas }} </span>
+            <span class="stat-label">Vagas Publicadas </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span class="stat-number">{{ total_avaliacoes }}</span>
+            <span class="stat-label"> Avaliações </span>
+
+        </div>
+
+        <div class="stat-card">
+
+            <span class="stat-number"> {{ empresa.avaliacao_media|floatformat:1 }}</span>
+            <span class="stat-label"> Nota Média </span>
+
+        </div>
+
+    </div>
+
+    <!-- CONTEÚDO -->
+
+    <div class="content-layout">
+
+        <!-- COLUNA PRINCIPAL -->
+
+        <div class="main-content">
+
+            <!-- SOBRE -->
+
+            <div class="section-card">
+
+                <h2> Sobre a Empresa</h2>
+                <p>{{ empresa.descricao|default:"Nenhuma descrição cadastrada." }}</p>
+
+            </div>
+
+            <!-- AVALIAÇÕES -->
+
+            <div class="section-card">
+
+                <h2>Avaliações dos Freelancers</h2>
+
+                {% for avaliacao in avaliacoes %}
+
+                <div class="review-card">
+
+                    <div class="review-header">⭐ {{ avaliacao.nota }}/5 </div>
+                    <small> {{ avaliacao.vaga.titulo }}</small>
+                    <p>{{ avaliacao.comentario }}</p>
+
+                </div>
+
+                {% empty %}
+
+                <p> Esta empresa ainda não possui avaliações. </p>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+
+        <div class="sidebar">
+
+            <div class="section-card">
+
+                <h2> Últimas Vagas </h2>
+
+                {% for vaga in ultimas_vagas %}
+
+                <div class="job-history">
+
+                    <div class="job-top">
+
+                        <strong> {{ vaga.titulo }}</strong>
+                        <span class="category-badge"> {{ vaga.categoria| default:"Geral" }}</span>
+
+                    </div>
+
+                    <small>📅 {{ vaga.dataEvento}} </small>
+
+                </div>
+
+                {% empty %}
+
+                <p>Nenhuma vaga publicada.</p>
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

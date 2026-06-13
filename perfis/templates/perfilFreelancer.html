@@ -101,10 +101,12 @@
         {% endfor %}
 
     </div>
+    {%if not finalizado%}
     <div class="fab-container open">
         <a href="{% url 'recusarCandidatura' candidatura_id %}" class="fab-btn reject"> Recusar </a>
         <a href="{% url 'aceitarCandidatura' candidatura_id %}" class="fab-btn accept">Aceitar</a>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}
