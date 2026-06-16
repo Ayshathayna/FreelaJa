@@ -108,6 +108,11 @@ Avaliar Vaga
             <div class="rating-container">
 
                 <label>Nota</label>
+                {% if form.nota.errors %}
+                <div class="erro-form">
+                    {{ form.nota.errors }}
+                </div>
+                {% endif %}
 
                 <div class="rating">
 
@@ -132,7 +137,7 @@ Avaliar Vaga
 
                 <label>Comentário</label>
 
-                <textarea name="comentario" rows="6" placeholder="Conte como foi sua experiência..." required></textarea>
+                <textarea name="comentario" rows="6" placeholder="Conte como foi sua experiência..." ></textarea>
 
             </div>
 

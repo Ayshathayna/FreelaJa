@@ -17,7 +17,8 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(
         label='Senha',
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Digite sua senha'
+            'placeholder': 'Digite sua senha',
+            'id': 'id_password'
         })
     )
 
@@ -32,9 +33,7 @@ class LoginForm(AuthenticationForm):
 
 
 
-# ==================================================
-# FREELANCER
-# ==================================================
+# *********************************************************************************** FREELANCER
 
 class CadastroFreelancerForm(forms.Form):
 
@@ -47,14 +46,14 @@ class CadastroFreelancerForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Digite sua senha',
-            'id': 'id_password'
+            'id': 'id_password_freelancer'
         })
     )
 
     confirmar_senha = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Confirme sua senha',
-            'id': 'id_confirmar_senha'
+            'id': 'id_confirmar_senha_freelancer'
         })
     )
 
@@ -68,17 +67,37 @@ class CadastroFreelancerForm(forms.Form):
     cpf = forms.CharField(
         max_length=14,
         widget=forms.TextInput(attrs={
-            'placeholder': '000.000.000-00'
+            'placeholder': 'Digite somente os números'
         })
     )
 
-    area_atuacao = forms.ChoiceField(
-        choices=Freelancer.AREAS
+    INTERESSES = [
+        ("programacao", "Programação"),
+        ("desenvolvimento_web", "Desenvolvimento Web"),
+        ("desenvolvimento_mobile", "Desenvolvimento Mobile"),
+        ("garcom", "Garçom"),
+        ("atendimento", "Atendimento"),
+        ("limpeza", "Limpeza"),
+        ("eventos", "Eventos"),
+        ("marketing", "Marketing"),
+        ("vendas", "Vendas"),
+        ("designer", "Designer"),
+        ("fotografia", "Fotografia"),
+        ("social_media", "Social Media"),
+        ("assistente", "Assistente"),
+        ("geral", "Geral"),
+    ]
+
+    interesses = forms.MultipleChoiceField(
+        choices=INTERESSES,
+        required=True,
+        widget=forms.CheckboxSelectMultiple
     )
 
     experiencia = forms.CharField(
         widget=forms.Textarea(attrs={
             'rows': 4,
+            'required' : True,
             'placeholder': 'Conte um pouco sobre sua experiência'
         })
     )
@@ -104,6 +123,13 @@ class CadastroFreelancerForm(forms.Form):
     def clean_cpf(self):
         cpf = self.cleaned_data['cpf']
 
+        cpf_limpo = ''.join(filter(str.isdigit, cpf))
+
+        if len(cpf_limpo) != 11:
+            raise forms.ValidationError(
+                'CPF deve possuir 11 números.'
+            )
+
         if Freelancer.objects.filter(cpf=cpf).exists():
             raise forms.ValidationError(
                 'CPF já cadastrado.'
@@ -115,12 +141,25 @@ class CadastroFreelancerForm(forms.Form):
         cleaned_data = super().clean()
 
         senha = cleaned_data.get('password')
-        confirmar = cleaned_data.get('confirmar_senha')
+        confirmar = cleaned_data.get('confirmar_senha_freelancer')
 
         if senha and confirmar and senha != confirmar:
             raise forms.ValidationError(
                 'As senhas não coincidem.'
             )
+        interesses = cleaned_data.get('interesses')
+
+        if interesses:
+
+            if len(interesses) < 3:
+                raise forms.ValidationError(
+                    'Escolha pelo menos 3 interesses.'
+                )
+
+            if len(interesses) > 5:
+                raise forms.ValidationError(
+                    'Escolha no máximo 5 interesses.'
+                )
 
         return cleaned_data
 
@@ -138,15 +177,14 @@ class CadastroFreelancerForm(forms.Form):
             nomeCompleto=self.cleaned_data['nomeCompleto'],
             cpf=self.cleaned_data['cpf'],
             experiencia=self.cleaned_data['experiencia'],
-            area_atuacao=self.cleaned_data['area_atuacao']
+            interesses=self.cleaned_data['interesses']
         )
 
         return freelancer
 
 
-# ==================================================
-# EMPRESA
-# ==================================================
+# ************************************************************************  EMPRESA
+
 
 class CadastroEmpresaForm(forms.Form):
 
@@ -160,7 +198,7 @@ class CadastroEmpresaForm(forms.Form):
     cnpj = forms.CharField(
         max_length=18,
         widget=forms.TextInput(attrs={
-            'placeholder': '00.000.000/0000-00'
+            'placeholder': 'Digite somente os números'
         })
     )
 
@@ -180,16 +218,11 @@ class CadastroEmpresaForm(forms.Form):
     confirmar_senha = forms.CharField(
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Confirme sua senha',
-            'id': 'id_confirmar_empresa'
+            'id': 'id_confirmar_senha_empresa'
         })
     )
 
-    telefone = forms.CharField(
-        required=False,
-        widget=forms.TextInput(attrs={
-            'placeholder': '(00) 99999-9999'
-        })
-    )
+   
 
     site = forms.URLField(
         required=False,
@@ -224,7 +257,15 @@ class CadastroEmpresaForm(forms.Form):
         return email
 
     def clean_cnpj(self):
+
         cnpj = self.cleaned_data['cnpj']
+
+        cnpj_limpo = ''.join(filter(str.isdigit, cnpj))
+
+        if len(cnpj_limpo) != 14:
+            raise forms.ValidationError(
+                'CNPJ deve possuir 14 números.'
+            )
 
         if Empresa.objects.filter(cnpj=cnpj).exists():
             raise forms.ValidationError(
@@ -260,7 +301,6 @@ class CadastroEmpresaForm(forms.Form):
             nomeFantasia=self.cleaned_data['nomeFantasia'],
             cnpj=self.cleaned_data['cnpj'],
             descricao=self.cleaned_data['descricao'],
-            telefone=self.cleaned_data['telefone'],
             site=self.cleaned_data['site']
         )
 

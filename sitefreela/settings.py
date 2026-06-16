@@ -133,3 +133,4 @@ AUTH_USER_MODEL = 'usuario.Usuario'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media' 
+LOGIN_URL = '/usuario/login/'

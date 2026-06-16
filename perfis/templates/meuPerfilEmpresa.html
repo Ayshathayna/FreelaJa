@@ -1,0 +1,175 @@
+{% extends 'baseEmpresa.html' %}
+{% load static %}
+
+{% block title %}
+Meu Perfil
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/meuPerfilFreelancer.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/meuPerfilEmpresa.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="perfil-page">
+
+    <div class="perfil-header">
+
+        <div class="perfil-foto-card">
+
+            {% if empresa.foto %}
+            <img src="{{ empresa.foto.url }}" class="foto-perfil">
+            {% else %}
+            <div class="avatar-perfil"> {{ empresa.nomeFantasia|first }} </div>
+            {% endif %}
+
+            <h2>{{ empresa.nomeFantasia }}</h2>
+            <div class="avaliacao-box">
+
+                <span class="nota"> ⭐ {{ empresa.avaliacao_media|floatformat:1 }}</span>
+                <small>Avaliação Média</small>
+
+            </div>
+
+        </div>
+
+        <div class="perfil-info-card">
+
+            <h1>Perfil da Empresa</h1>
+            <p>
+                Atualize as informações da empresa para que
+                freelancers conheçam melhor sua marca.
+            </p>
+
+        </div>
+
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <div class="perfil-grid">
+
+            <!-- DADOS EMPRESA -->
+
+            <div class="perfil-card">
+
+                <h2>Informações da Empresa</h2>
+
+                <div class="form-group">
+
+                    <label>Logo da Empresa</label>
+
+                    <div class="upload-area">
+
+                        {{ form.foto }}
+
+                        <label for="id_foto" class="upload-btn">
+                            <i class="fa-solid fa-camera"></i>Escolher Imagem
+                        </label>
+
+                        <span id="file-name"> Nenhum arquivo selecionado</span>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Nome Fantasia</label>
+                    {{ form.nomeFantasia }}
+
+                </div>
+                <div class="form-group">
+
+                    <label>CNPJ</label>
+                    <input type="text" value="{{ empresa.cnpj }}" disabled>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Site</label>
+                    {{ form.site }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Descrição</label>
+                    {{ form.descricao }}
+
+                </div>
+
+            </div>
+
+            <!-- ACESSO -->
+
+            <div class="perfil-card">
+
+                <h2>Dados de Acesso</h2>
+
+                <div class="form-group">
+
+                    <label>Email</label>
+                    {{ form.email }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Nova Senha</label>
+
+                    <div class="password-box">
+
+                        {{ form.nova_senha }}
+
+                        <span class="toggle-password" onclick="togglePassword('id_nova_senha', this)">
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Confirmar Senha</label>
+
+                    <div class="password-box">
+
+                        {{ form.confirmar_senha }}
+
+                        <span class="toggle-password" onclick="togglePassword('id_confirmar_senha', this)">
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="security-box">
+
+                    <h3>Segurança</h3>
+                    <p>
+                        Utilize uma senha forte para proteger
+                        sua conta.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="salvar-btn">Salvar Alterações</button>
+
+    </form>
+
+</div>
+
+{% endblock %}

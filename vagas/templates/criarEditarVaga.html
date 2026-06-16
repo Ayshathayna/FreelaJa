@@ -126,12 +126,56 @@ Criar vaga
 
                 </div>
             </div>
+            <div class="form-details">
 
-            <div class="form-group">
+                <div class="form-group">
 
-                <label>Endereço</label>
-                {{ form.endereco }}
+                    <label>Endereço</label>
+                    {{ form.endereco }}
 
+                </div>
+                <div class="form-group titulo">
+
+                    <label> Categoria </label>
+                    {{ form.categoria }}
+                </div>
+
+                <div class="form-group titulo">
+
+                    <label>Detalhes da vaga</label>
+
+                    <div class="badges-container">
+
+                        {% for checkbox in form.detalhes %}
+
+                        <label class="badge-option">
+                            {{ checkbox.tag }}
+                            <span>{{ checkbox.choice_label }}</span>
+                        </label>
+
+                        {% endfor %}
+
+                    </div>
+                    <div id="custom-badges" class="badges-container">
+                   </div>
+
+                    <small id="detalhes-feedback"></small>
+
+                </div>
+                <div class="form-group titulo">
+
+                    <label>Outros detalhes</label>
+                    {{ form.detalhes_custom }}
+
+                    <div class="custom-detail-input">
+                        <input id="novo-detalhe-input" type="text" class="form-input" placeholder="Escreva um detalhe e clique em 'Adicionar'">
+                        <button type="button" id="adicionar-detalhe" class="btn-small">Adicionar</button>
+                    </div>
+
+                    <small class="help-text">Você pode cadastrar até 3 detalhes personalizados. Máximo de 3 detalhes no
+                        total (incluindo opções pré-definidas).</small>
+
+                </div>
             </div>
             {% if form.non_field_errors %}
 
@@ -146,10 +190,10 @@ Criar vaga
             </div>
 
             {% endif %}
-            <button type="submit" class="btn-save" >
+            <button type="submit" class="btn-save">
 
                 {% if editar %}
-                
+
                 Salvar alterações
 
                 {% else %}

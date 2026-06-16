@@ -103,7 +103,11 @@ Avaliar Freelancer
             <div class="rating-container">
 
                 <label>Nota</label>
-
+                {% if form.nota.errors %}
+                <div class="erro-form">
+                    {{ form.nota.errors }}
+                </div>
+                {% endif %}
                 <div class="rating">
 
                     <input type="radio" id="star5" name="nota" value="5">
@@ -124,7 +128,7 @@ Avaliar Freelancer
             <div class="form-group">
 
                 <label>Comentário</label>
-                <textarea name="comentario" rows="6" placeholder="Descreva como foi trabalhar com este freelancer..."  required></textarea> 
+                <textarea name="comentario" rows="6" placeholder="Descreva como foi trabalhar com este freelancer..."  ></textarea> 
 
             </div>
 

@@ -135,7 +135,20 @@
     background:
     linear-gradient(135deg, #2563eb, #7c3aed);
 }
-
+.profile-image{
+    width:100px;
+    height:100px;
+    min-width:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    font-size:24px;
+    font-weight:700;
+    color:white;
+    background:
+    linear-gradient(135deg, #2563eb, #7c3aed);
+}
 .header-info h3{
     margin-top:10px;
     font-size:22px;

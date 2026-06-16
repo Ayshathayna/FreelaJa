@@ -23,7 +23,7 @@ def criarVaga(request):
 
         if form.is_valid():  #verifica se os dados do formulário são válidos. Se forem, ele salva a vaga no banco de dados.
 
-            vaga = form.save(commit=False) #form.save(commit=False) salva os dados do formulário, mas não os envia para o banco de dados ainda. Isso permite que você faça modificações adicionais na instância do modelo antes de salvá-la.         
+            vaga = form.save(commit=False) #form.save(commit=False) salva os dados do formulário, mas não os envia para o banco de dados ainda. Isso permite que você faça modificações adicionais na instância do modelo antes de salvá-la.                   
             vaga.empresa = empresa
             vaga.save()  #salva a vaga no banco de dados.
             
@@ -202,14 +202,18 @@ def verVaga(request, id):
             usuario=request.user,
             id=vaga.empresa.id
         ).exists()
-    print(eh_empresa)
-    freelancer = Freelancer.objects.filter(usuario=request.user).first()
-    print(freelancer)
-    ja_candidatou = Candidatura.objects.filter(
-        freelancer=freelancer,
-        vaga=vaga
-    ).exists()
-    print(ja_candidatou)
+    ja_candidatou = False
+
+    if not eh_empresa:
+        freelancer = Freelancer.objects.filter(
+            usuario=request.user
+        ).first()
+
+        if freelancer:
+            ja_candidatou = Candidatura.objects.filter(
+                freelancer=freelancer,
+                vaga=vaga
+            ).exists()
     context = {
         "jaCandidatou": ja_candidatou,
         'vaga': vaga,

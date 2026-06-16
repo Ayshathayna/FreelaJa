@@ -220,6 +220,13 @@ font-size:48px;
     font-weight:600;
     white-space:nowrap;
 }
+.profile-image{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+}
 /* RESPONSIVO */
 
 

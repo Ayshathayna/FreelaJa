@@ -5,6 +5,9 @@ from django.utils import timezone
 from django.db.models import Q, F
 from django.contrib.auth.decorators import login_required
 
+def site(request):
+    return render(request, "site.html")
+
 #************************************************* Freelancer **********************************************
 
 @login_required
@@ -50,6 +53,7 @@ def homeEmpresa(request):
             empresa=empresa
         )
     )    
+    
     for vaga in vagas:
         vaga.atualizar_status()
         

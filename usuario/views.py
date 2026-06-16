@@ -19,7 +19,7 @@ def login(request):
     form = LoginForm()
 
     if request.method == "POST":
-
+        
         form = LoginForm(request, data=request.POST)
 
         if form.is_valid():
@@ -53,7 +53,6 @@ def cadastro(request):
     empresa_form = CadastroEmpresaForm()
 
     if request.method == "POST":
-
         tipo = request.POST.get("tipo")
 
         # ==========================================

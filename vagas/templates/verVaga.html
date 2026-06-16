@@ -35,6 +35,14 @@
             <p class="company">Empresa: {{ vaga.empresa.nomeFantasia|default:"Empresa não informada" }}</p>
             <p class="description"> {{ vaga.descricao }} </p>
 
+            {% if vaga.detalhes %}
+            <div class="job-details-badges">
+                {% for detalhe in vaga.detalhes %}
+                <span class="badge">{{ detalhe }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <div>
                 <h1>Mais informações</h1>
             </div>
@@ -79,10 +87,11 @@
 
                 {% if eh_empresa %}
 
-                <a href="{% url 'editarVaga' vaga.id %}" class="btn-primary"> Editar </a>
                 <a href="{% url 'candidatosVaga' vaga.id %}" class="btn-primary candidates-btn"> Candidatos </a>
 
                     {% if vaga.status != 'finalizado' %}
+                    <a href="{% url 'editarVaga' vaga.id %}" class="btn-primary"> Editar </a>
+
                     <a href="{% url 'finalizarVaga' vaga.id %}" class="btn-primary finalize-btn"> Finalizar</a>
                     {% endif %}
 

@@ -20,7 +20,7 @@ class AvaliaVaga(models.Model):
     )
 
     nota = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(5)]
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
 
     comentario = models.TextField()
@@ -48,7 +48,7 @@ class AvaliaFreelancer(models.Model):
         on_delete=models.CASCADE
 )
     nota = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(5)]
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
 
     comentario = models.TextField()

@@ -21,7 +21,13 @@
 
         <div class="profile-photo">
 
-            <div class="avatar-placeholder"> {{ empresa.nomeFantasia|first }} </div>
+            {% if empresa.foto %}
+            <img src="{{ empresa.foto.url }}" alt="{{ empresa.nomeFantasia }}" class="profile-image">
+            {% else %}
+            <div class="avatar-placeholder">
+                {{ empresa.nomeFantasia|first }}
+            </div>
+            {% endif %}
 
         </div>
 
@@ -32,10 +38,6 @@
             <p>⭐ {{ empresa.avaliacao_media|floatformat:1 }}</p>
 
             <p>📧 {{ empresa.usuario.email }}</p>
-
-            {% if empresa.telefone %}
-            <p>📞 {{ empresa.telefone }} </p>
-            {% endif %}
 
             {% if empresa.site %}
             <p>🌐<a href="{{ empresa.site }}" target="_blank">{{ empresa.site }}</a></p>

@@ -11,7 +11,11 @@ class AvaliaVagaForm(forms.ModelForm):
             'nota',
             'comentario'
         ]
-
+        error_messages = {
+            'nota': {
+                'required': 'Você deve selecionar pelo menos 1 estrela.'
+            }
+        }
         widgets = {   # customização dos campos do formulário
 
             'nota': forms.RadioSelect(   # para exibir as opções como botões de rádio
@@ -47,7 +51,11 @@ class AvaliaFreelancerForm(forms.ModelForm):
             'nota',
             'comentario'
         ]
-
+        error_messages = {
+            'nota': {
+                'required': 'Você deve selecionar pelo menos 1 estrela.'
+            }
+        }
         widgets = {   # customização dos campos do formulário
 
             'nota': forms.RadioSelect(   # para exibir as opções como botões de rádio

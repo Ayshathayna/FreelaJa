@@ -37,7 +37,33 @@ class Vaga(models.Model):
     criadoEm = models.DateTimeField(auto_now_add=True)
     finalizadoEm = models.DateTimeField(blank=True, null=True)   
     endereco = models.CharField(max_length=255) 
-    
+
+    CATEGORIAS = [
+        ("programacao", "Programação"),
+        ("desenvolvimento_web", "Desenvolvimento Web"),
+        ("desenvolvimento_mobile", "Desenvolvimento Mobile"),
+        ("garcom", "Garçom"),
+        ("atendimento", "Atendimento"),
+        ("limpeza", "Limpeza"),
+        ("eventos", "Eventos"),
+        ("marketing", "Marketing"),
+        ("vendas", "Vendas"),
+        ("designer", "Designer"),
+        ("fotografia", "Fotografia"),
+        ("social_media", "Social Media"),
+        ("assistente", "Assistente"),
+        ("geral", "Geral"),
+    ]
+
+    categoria = models.CharField(
+        max_length=50,
+        choices=CATEGORIAS
+    )
+
+    detalhes = models.JSONField(
+        default=list,
+        blank=True
+    )
     @property
     def vagasRestantes(self):
         return self.quantidadeVagas - self.quantidadeSelecionados
@@ -100,6 +126,8 @@ class Vaga(models.Model):
         if novo_status != self.status:
             self.status = novo_status
             self.save(update_fields=['status'])
+            
+            
 class Candidatura(models.Model):
 
     STATUS = (

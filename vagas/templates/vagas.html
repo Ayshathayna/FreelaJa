@@ -18,7 +18,7 @@
         <div class="hero-content">
 
             <h1> Encontre projetos que combinam com você</h1>
-            <p>  Descubra oportunidades publicadas por empresas e aumente sua renda como freelancer. </p>
+            <p> Descubra oportunidades publicadas por empresas e aumente sua renda como freelancer. </p>
 
         </div>
 
@@ -28,10 +28,7 @@
 
                 <span>🔍</span>
 
-                <input
-                    type="text"
-                    name="busca"
-                    placeholder="Cargo, tecnologia ou empresa">
+                <input type="text" name="busca" placeholder="Cargo, tecnologia ou empresa">
 
             </div>
 
@@ -66,8 +63,12 @@
                 <!-- CABEÇALHO -->
 
                 <div class="job-header">
-
+                    {% if vaga.empresa.foto %}
+                    <img src="{{ vaga.empresa.foto.url }}" alt="{{ vaga.empresa.nomeFantasia }}" class="profile-image">
+                    {% else %}
                     <div class="company-logo">{{ vaga.empresa.nomeFantasia|slice:":1" }} </div>
+                    {% endif %}
+
 
                     <div class="header-info">
 
@@ -76,7 +77,7 @@
                         <div class="company-info">
 
                             <span class="company-name"> {{ vaga.empresa.nomeFantasia }}</span>
-                            <span class="rating">{{ vaga.empresa.avaliacao_media }}⭐  </span>
+                            <span class="rating">{{ vaga.empresa.avaliacao_media }}⭐ </span>
 
                         </div>
                     </div>
@@ -86,10 +87,13 @@
 
                 <div class="skills">
 
-                    <span>Python</span>
-                    <span>Django</span>
-                    <span>React</span>
-                    <span>API REST</span>
+                    {% if vaga.detalhes %}
+                    <div class="job-details-badges">
+                        {% for detalhe in vaga.detalhes %}
+                        <span class="badge">{{ detalhe }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
 
                 </div>
 
@@ -124,7 +128,7 @@
                         <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn"> Candidatar-se</a>
 
                         {% endif %}
-                    
+
                     </div>
                 </div>
             </div>
