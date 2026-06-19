@@ -22,8 +22,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('usuario/', include('usuario.urls')),  # Inclui as URLs do aplicativo 'usuario'
-    path('core/', include('core.urls')),  # Inclui as URLs do aplicativo 'core'
+    path('', include('core.urls')), # Inclui as URLs do aplicativo 'usuario'
+    path('', include('usuario.urls')),  # Inclui as URLs do aplicativo 'core'
     path('perfis/', include('perfis.urls')),  # Inclui as URLs do aplicativo 'perfis'
     path('vagas/', include('vagas.urls')),  # Inclui as URLs do aplicativo 'vagas'
     path('avaliacoes/', include('avaliacoes.urls')),  # Inclui as URLs do aplicativo 'avaliacoes'
