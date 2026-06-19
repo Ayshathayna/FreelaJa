@@ -1,6 +1,5 @@
 from django.db import models
 from perfis.models import Empresa, Freelancer
-from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 # Create your models here.
@@ -39,20 +38,18 @@ class Vaga(models.Model):
     endereco = models.CharField(max_length=255) 
 
     CATEGORIAS = [
-        ("programacao", "Programação"),
-        ("desenvolvimento_web", "Desenvolvimento Web"),
-        ("desenvolvimento_mobile", "Desenvolvimento Mobile"),
+        ("recepcao", "Recepção"),
+        ("seguranca", "Segurança"),
         ("garcom", "Garçom"),
-        ("atendimento", "Atendimento"),
+        ("bartender", "Bartender"),
+        ("cozinha", "Cozinha / Buffet"),
         ("limpeza", "Limpeza"),
-        ("eventos", "Eventos"),
-        ("marketing", "Marketing"),
-        ("vendas", "Vendas"),
-        ("designer", "Designer"),
+        ("som_luz", "Som e Luz"),
+        ("montagem", "Montagem e Estrutura"),
         ("fotografia", "Fotografia"),
-        ("social_media", "Social Media"),
-        ("assistente", "Assistente"),
-        ("geral", "Geral"),
+        ("filmagem", "Filmagem"),
+        ("atendimento", "Atendimento"),
+        ("geral", "Geral / Apoio"),
     ]
 
     categoria = models.CharField(
@@ -80,26 +77,7 @@ class Vaga(models.Model):
 
     def __str__(self):
         return self.titulo
-    def atualizar_status(self):
 
-        hoje = timezone.now().date()
-
-        if self.status == 'aberto' and self.dataEvento < hoje:
-            self.status = 'finalizado'
-
-        elif (
-            self.status == 'aberto'
-            and self.quantidadeSelecionados >= self.quantidadeVagas
-        ):
-            self.status = 'fechado'
-
-        elif (
-            self.status == 'fechado'
-            and self.quantidadeSelecionados < self.quantidadeVagas
-        ):
-            self.status = 'aberto'
-
-        self.save(update_fields=['status'])
     def atualizar_status(self):
 
         hoje = timezone.now().date()
@@ -163,16 +141,6 @@ class Candidatura(models.Model):
 
     class Meta:  #garante que um freelancer possa se candidatar uma vez para o mesmo evento
         unique_together = ('freelancer', 'vaga')
-        
-    def aceitar(self):
 
-        vagas_ocupadas = self.vaga.quantidadeSelecionados
-
-        if vagas_ocupadas >= self.vaga.quantidadeVagas:
-            raise ValidationError("Limite de vagas atingido")
-        
-        self.status = 'aceito'
-        self.save()
-    
     def __str__(self):
         return f"{self.freelancer} - {self.vaga}"

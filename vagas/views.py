@@ -195,9 +195,10 @@ def finalizarVaga(request, vaga_id):
     return redirect('homeEmpresa')
 #--------------------------------------------------------- FREELANCER --------------------------------------------------------------------
 @login_required
-def verVaga(request, id):   
+def verVaga(request, id):
     vaga = get_object_or_404(Vaga, id=id)
-    
+    vaga.atualizar_status()
+
     eh_empresa = Empresa.objects.filter(
             usuario=request.user,
             id=vaga.empresa.id
@@ -249,8 +250,13 @@ def candidatarVaga(request, vaga_id):
 @login_required
 def listarVagas(request):
     query = request.GET.get('q', '').strip()
-    vagas = Vaga.objects.filter(status='aberto')
     freelancer = get_object_or_404(Freelancer, usuario=request.user)
+
+    # Atualiza o status das vagas abertas (ex.: finaliza as que já passaram da data)
+    for vaga in Vaga.objects.filter(status='aberto'):
+        vaga.atualizar_status()
+
+    vagas = Vaga.objects.filter(status='aberto')
 
     if query:
         vagas = vagas.filter(

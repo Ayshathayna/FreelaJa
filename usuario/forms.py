@@ -71,25 +71,8 @@ class CadastroFreelancerForm(forms.Form):
         })
     )
 
-    INTERESSES = [
-        ("programacao", "Programação"),
-        ("desenvolvimento_web", "Desenvolvimento Web"),
-        ("desenvolvimento_mobile", "Desenvolvimento Mobile"),
-        ("garcom", "Garçom"),
-        ("atendimento", "Atendimento"),
-        ("limpeza", "Limpeza"),
-        ("eventos", "Eventos"),
-        ("marketing", "Marketing"),
-        ("vendas", "Vendas"),
-        ("designer", "Designer"),
-        ("fotografia", "Fotografia"),
-        ("social_media", "Social Media"),
-        ("assistente", "Assistente"),
-        ("geral", "Geral"),
-    ]
-
     interesses = forms.MultipleChoiceField(
-        choices=INTERESSES,
+        choices=Freelancer.INTERESSES,
         required=True,
         widget=forms.CheckboxSelectMultiple
     )

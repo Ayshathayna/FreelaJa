@@ -42,20 +42,18 @@ class Empresa(models.Model):  # modelo para representar as empresas que vão cri
 
 class Freelancer(models.Model): # modelo para representar os freelancers que vão se candidatar aos eventos
     INTERESSES = [
-        ("programacao", "Programação"),
-        ("desenvolvimento_web", "Desenvolvimento Web"),
-        ("desenvolvimento_mobile", "Desenvolvimento Mobile"),
+        ("recepcao", "Recepção"),
+        ("seguranca", "Segurança"),
         ("garcom", "Garçom"),
-        ("atendimento", "Atendimento"),
+        ("bartender", "Bartender"),
+        ("cozinha", "Cozinha / Buffet"),
         ("limpeza", "Limpeza"),
-        ("eventos", "Eventos"),
-        ("marketing", "Marketing"),
-        ("vendas", "Vendas"),
-        ("designer", "Designer"),
+        ("som_luz", "Som e Luz"),
+        ("montagem", "Montagem e Estrutura"),
         ("fotografia", "Fotografia"),
-        ("social_media", "Social Media"),
-        ("assistente", "Assistente"),
-        ("geral", "Geral"),
+        ("filmagem", "Filmagem"),
+        ("atendimento", "Atendimento"),
+        ("geral", "Geral / Apoio"),
     ]
     
     usuario = models.OneToOneField(
