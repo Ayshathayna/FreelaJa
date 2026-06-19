@@ -4,7 +4,7 @@
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+  font-family:'Inter', system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 body{
@@ -28,8 +28,16 @@ body{
 
   padding:10px 7%;
 
-  background:linear-gradient(90deg,#2563eb,#7c3aed);
+  background:linear-gradient(90deg,#2563eb,#1d4ed8);
   color:white;
+}
+
+.navbar.navbar-empresa{
+  background:linear-gradient(90deg,#2563eb,#1d4ed8);
+}
+
+.navbar.navbar-freelancer{
+  background:linear-gradient(90deg,#f97316,#ea580c);
 }
 
 .logo a{
@@ -85,6 +93,27 @@ body{
 
   border-radius:50%;
   background:white;
+}
+
+.avatar-placeholder{
+  width:38px;
+  height:38px;
+
+  border-radius:50%;
+  background:white;
+  color:#2563eb;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:700;
+  font-size:16px;
+  text-transform:uppercase;
+}
+
+.navbar-freelancer .avatar-placeholder{
+  color:#ea580c;
 }
 
 

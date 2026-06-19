@@ -10,7 +10,7 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: radial-gradient(circle , #2a3858, #2b4bdb);
+    background: linear-gradient(135deg, #eef4ff 0%, #fff2e8 100%);
 }
 
 /*****************************CONTAINER********************************************************************** */
@@ -35,7 +35,7 @@ body{
 
 .left{
     width:50%;
-    background: linear-gradient(135deg, #2563eb, #1e40af);
+    background: linear-gradient(160deg, #1e3a8a 0%, #2563eb 50%, #ea580c 100%);
     color:white;
     padding:60px;
     display:flex;

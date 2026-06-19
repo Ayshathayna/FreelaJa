@@ -3,7 +3,7 @@
 /* ***************************** HEADER************************************************* */
 
 header{
-  background:linear-gradient(90deg,#2563eb,#7c3aed);
+  background:linear-gradient(90deg,#2563eb,#f97316);
   padding:20px 7%;
   color:white;
 }
@@ -43,7 +43,7 @@ header{
   padding:16px 30px;
   border:none;
   border-radius:12px;
-  background:#4f46e5;
+  background:#2563eb;
   color:white;
   font-weight:600;
   cursor:pointer;
@@ -107,7 +107,7 @@ header{
   border-radius:50%;
 
   background:white;
-  color:#4f46e5;
+  color:#2563eb;
 
   font-size:26px;
   font-weight:bold;
@@ -120,7 +120,7 @@ header{
 }
 
 .carousel-arrow:hover{
-  background:#4f46e5;
+  background:#2563eb;
   color:white;
 }
 
@@ -182,7 +182,7 @@ header{
 .tag{
   padding:7px 15px;
   border-radius:30px;
-  background:#ede9fe;
+  background:#eef4ff;
   color:#6d28d9;
   font-size:13px;
   font-weight:600;
@@ -222,7 +222,7 @@ header{
 .price{
   font-size:26px;
   font-weight:700;
-  color:#4f46e5;
+  color:#2563eb;
 }
 
 .job-btn{
@@ -255,7 +255,7 @@ header{
 }
 
 .apply-btn{
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  background:linear-gradient(135deg,#2563eb,#f97316);
   color:white;
   box-shadow:0 6px 18px rgba(79,70,229,0.25);
 }

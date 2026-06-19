@@ -10,7 +10,7 @@
 /* *********************************** BODY ********************************************************************** */
 
 body{
-    background: radial-gradient(circle , #2a3858, #2b4bdb);
+    background: linear-gradient(135deg, #eef4ff 0%, #fff2e8 100%);
     min-height:100vh;
     display:flex;
     justify-content:center;
@@ -44,7 +44,7 @@ body{
 .left,
 .cadastro-left{
     width:40%;
-    background: linear-gradient(135deg, #2563eb, #1e40af);
+    background: linear-gradient(160deg, #1e3a8a 0%, #2563eb 50%, #ea580c 100%);
     color:white;
     padding:60px;
     display:flex;
@@ -349,9 +349,9 @@ body{
 }
 
 .badge-option input:checked + span{
-    background:#6c63ff;
+    background:#2563eb;
     color:white;
-    border-color:#6c63ff;
+    border-color:#2563eb;
 }
 
 .hint{

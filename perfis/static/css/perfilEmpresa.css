@@ -35,7 +35,7 @@ font-size:48px;
     font-weight:700;
     color:white;
     background:
-    linear-gradient(135deg, #2563eb, #7c3aed );
+    linear-gradient(135deg, #2563eb, #f97316 );
 }
 
 .profile-info h1{
@@ -50,7 +50,7 @@ font-size:48px;
 }
 
 .profile-info a{
-    color:#4f46e5;
+    color:#2563eb;
     text-decoration:none;
 }
 
@@ -68,14 +68,14 @@ font-size:48px;
     justify-content:center;
     text-decoration:none;
     background:#f3f4f6;
-    color:#4f46e5;
+    color:#2563eb;
     font-size:22px;
     font-weight:bold;
     transition:.3s;
 }
 
 .carousel-arrow:hover{
-    background:#4f46e5;
+    background:#2563eb;
     color:white;
 }
 
@@ -104,7 +104,7 @@ font-size:48px;
     display:block;
     font-size:34px;
     font-weight:700;
-    color:#4f46e5;
+    color:#2563eb;
 }
 
 .stat-label{
@@ -196,7 +196,7 @@ font-size:48px;
 }
 
 .job-history span{
-    color:#4f46e5;
+    color:#2563eb;
     font-weight:700;
 }
 
@@ -212,8 +212,8 @@ font-size:48px;
 }
 
 .category-badge{
-    background:#eef2ff;
-    color:#4f46e5;
+    background:#eef4ff;
+    color:#2563eb;
     padding:6px 12px;
     border-radius:999px;
     font-size:12px;
