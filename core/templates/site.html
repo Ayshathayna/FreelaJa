@@ -8,7 +8,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FreelaJá | Conectando Talentos e Oportunidades</title>
+    <title>FreelaJá | Freelancers para o seu evento, na hora certa</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/site.css' %}">
 
@@ -16,554 +20,468 @@
 
 <body>
 
-    <!------------------------------------ NAVBAR -------------------------------------->
+    <!-- NAVBAR -->
     <header>
-
         <nav class="navbar">
             <div class="container navbar-inner">
+
                 <div class="logo">
-
-                    <span class="logo-icon">🚀</span>
+                    <span class="logo-icon">🎉</span>
                     <span class="logo-text">FreelaJá</span>
-
                 </div>
 
-                    <ul class="nav-links">
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#como-funciona">Como Funciona</a></li>
+                    <li><a href="#publico">Para Você</a></li>
+                    <li><a href="#categorias">Funções</a></li>
+                    <li><a href="#vagas">Vagas</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li class="nav-mobile-cta"><a href="{% url 'login' %}">Entrar</a></li>
+                    <li class="nav-mobile-cta"><a href="{% url 'cadastro' %}">Criar Conta</a></li>
+                </ul>
 
-                <li> <a href="#inicio">Início</a> </li>
-
-                <li> <a href="#como-funciona">Como Funciona</a> </li>
-
-                <li> <a href="#categorias">Categorias</a> </li>
-
-                <li> <a href="#projetos">Projetos</a> </li>
-
-                <li> <a href="#freelancers">Freelancers</a> </li>
-
-                <li> <a href="#faq">FAQ</a> </li>
-
-            </ul>
-                    <div class="nav-buttons">
-
-                        <a href="#" class="btn-login">Entrar</a>
-                        <a href="#" class="btn-register">Criar Conta</a>
-
-                    </div>
+                <div class="nav-buttons">
+                    <a href="{% url 'login' %}" class="btn-login">Entrar</a>
+                    <a href="{% url 'cadastro' %}" class="btn-register">Criar Conta</a>
                 </div>
-            </nav>
+
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+
+            </div>
+        </nav>
     </header>
 
     <main>
 
-    <!------------------------------------------------------ HERO ------------------------------------------------->
-
+    <!-- HERO -->
     <section id="inicio" class="hero">
         <div class="container hero-inner">
+
             <div class="hero-content">
+                <span class="hero-badge">Plataforma para eventos · recepção, segurança, bar e mais</span>
+                <h1>Monte a equipe do seu evento em minutos</h1>
+                <p>
+                    O FreelaJá conecta produtores de eventos a profissionais freelancers
+                    com vagas, escalas e um sistema de avaliação que protege os dois lados.
+                    Chega de fechar equipe no grupo de WhatsApp.
+                </p>
+                <div class="hero-actions">
+                    <a href="{% url 'cadastro' %}" class="btn-primary">Publicar uma vaga</a>
+                    <a href="{% url 'cadastro' %}" class="btn-outline">Quero trabalhar em eventos</a>
+                </div>
+            </div>
 
-            <span class="hero-badge"> ✨ Plataforma para Empresas e Freelancers</span>
+            <div class="hero-visual">
 
-            <h1> Transforme Ideias em Projetos Reais </h1>
+                <div class="hero-card card-1">
+                    <h4>Nova vaga publicada</h4>
+                    <p>Garçom — Casamento no Salão Vista Verde</p>
+                    <span>R$ 180 / diária</span>
+                </div>
 
-            <p>
+                <div class="hero-card card-2">
+                    <h4>Freelancer confirmado</h4>
+                    <p>⭐⭐⭐⭐⭐</p>
+                    <span>Recepção</span>
+                </div>
 
-                Conectamos empresas que precisam de talentos com
-                freelancers prontos para entregar resultados.
-                Tudo em um único lugar.
-
-            </p>
-
-            <div class="hero-actions">
-
-                <a href="#" class="btn-primary">Começar Agora</a>
-                <a href="#como-funciona" class="btn-outline"> Como Funciona</a>
+                <div class="hero-card card-3">
+                    <h4>Avaliação concluída</h4>
+                    <p>Reputação registrada para os dois lados</p>
+                    <span>Bidirecional</span>
+                </div>
 
             </div>
-           
         </div>
-
-        <div class="hero-visual">
-
-            <div class="hero-card card-1">
-
-                <h4> Novo Projeto</h4>
-                <p>Landing Page Moderna</p>
-                <span>R$ 2.500</span>
-
-            </div>
-
-            <div class="hero-card card-2">
-
-                <h4> Freelancer Contratado</h4>
-                <p> ⭐⭐⭐⭐⭐ </p>
-
-            </div>
-
-            <div class="hero-card card-3">
-
-                <h4> Pagamento Seguro </h4>
-                <p> Proteção para ambas as partes</p>
-
-            </div>
-
-        </div>
-
     </section>
 
-    <!---------------------------------------------------- ESTATÍSTICAS ------------------------------------------------------>
+    <!-- DIFERENCIAIS -->
+    <section class="differentials">
+        <div class="container differentials-grid">
 
-    <section class="stats">
-        <div class="container stats-inner">
-            <div class="stat-card">
+            <div class="diff-card">
+                <div class="diff-icon">⭐</div>
+                <h3>Avaliação bidirecional</h3>
+                <p>Empresa e freelancer se avaliam após o evento, construindo reputação real.</p>
+            </div>
 
-            <h2>5.000+</h2>
-            <p>Freelancers Ativos</p>
+            <div class="diff-card">
+                <div class="diff-icon">📅</div>
+                <h3>Disponibilidade e escala</h3>
+                <p>O freelancer cadastra seus horários e organiza a agenda sem conflitos.</p>
+            </div>
 
-        </div>
+            <div class="diff-card">
+                <div class="diff-icon">⏱️</div>
+                <h3>Alerta de conflito</h3>
+                <p>O sistema sinaliza risco de atraso entre eventos próximos no mesmo dia.</p>
+            </div>
 
-        <div class="stat-card">
-
-            <h2>800+</h2>
-            <p>Empresas</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <h2>12.000+</h2>
-            <p>Projetos Publicados</p>
-
-        </div>
-
-        <div class="stat-card">
-
-            <h2>98%</h2>
-            <p>Satisfação</p>
+            <div class="diff-card">
+                <div class="diff-icon">🔓</div>
+                <h3>Sem intermediários</h3>
+                <p>Contato direto entre quem contrata e quem trabalha, com cadastro gratuito.</p>
+            </div>
 
         </div>
-        </div>
-
     </section>
 
-    <!----------------------------------------------------- COMO FUNCIONA ----------------------------------------------------->
-
-    <section id="como-funciona"class="how-it-works">
+    <!-- COMO FUNCIONA -->
+    <section id="como-funciona" class="how-it-works">
         <div class="container section-inner">
+
             <div class="section-header">
-
-            <span class="section-tag">COMO FUNCIONA</span>
-            <h2>Simples, rápido e eficiente </h2>
-            <p>
-
-                Seja você uma empresa ou freelancer,
-                o processo é fácil e intuitivo.
-
-            </p>
-
-        </div>
+                <span class="section-tag">COMO FUNCIONA</span>
+                <h2>Simples, rápido e seguro</h2>
+                <p>Seja você uma empresa ou um freelancer, organizar o evento é fácil.</p>
+            </div>
 
             <div class="steps">
-            <div class="step-card">
 
-                <div class="step-number">01</div>
-                <h3>Crie sua Conta</h3>
-                <p>
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <h3>Crie sua conta</h3>
+                    <p>Cadastre-se como empresa ou freelancer em poucos minutos.</p>
+                </div>
 
-                    Cadastre-se gratuitamente
-                    em poucos minutos.
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <h3>Publique ou candidate-se</h3>
+                    <p>Empresas anunciam vagas; profissionais se candidatam às oportunidades.</p>
+                </div>
 
-                </p>
-
-            </div>
-
-            <div class="step-card">
-
-                <div class="step-number">02 </div>
-                <h3>Conecte-se</h3>
-                <p>
-
-                    Publique projetos ou
-                    candidate-se às oportunidades.
-
-                </p>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <h3>Trabalhe e avalie</h3>
+                    <p>Confirme a escala, realize o evento e avalie a experiência.</p>
+                </div>
 
             </div>
-
-            <div class="step-card">
-
-                <div class="step-number"> 03</div>
-                <h3> Feche Negócios</h3>
-                <p>
-
-                    Trabalhe com segurança
-                    e alcance seus objetivos.
-
-                </p>
-
-            </div>
-
         </div>
-
     </section>
-    <!------------------------------------------- CATEGORIAS -------------------------------------------->
 
+    <!-- PARA EMPRESAS / PARA FREELANCERS -->
+    <section id="publico" class="audience">
+        <div class="container section-inner">
+
+            <div class="section-header">
+                <span class="section-tag">PARA VOCÊ</span>
+                <h2>Dois lados, uma plataforma</h2>
+                <p>O FreelaJá foi pensado para empresas e profissionais de eventos.</p>
+            </div>
+
+            <div class="audience-grid">
+
+                <div class="audience-card audience-empresa">
+                    <span class="audience-tag">EMPRESA</span>
+                    <h3>🏢 Para empresas e produtores</h3>
+                    <ul>
+                        <li>Publique vagas com função, carga horária e remuneração.</li>
+                        <li>Receba candidaturas e selecione dentro do limite da vaga.</li>
+                        <li>Veja a nota média dos freelancers antes de confirmar.</li>
+                        <li>Avalie a equipe após o evento.</li>
+                    </ul>
+                    <a href="{% url 'cadastro' %}" class="btn-card btn-card-empresa">Publicar uma vaga</a>
+                </div>
+
+                <div class="audience-card audience-freelancer">
+                    <span class="audience-tag">FREELANCER</span>
+                    <h3>🙋 Para freelancers</h3>
+                    <ul>
+                        <li>Monte seu perfil com áreas de interesse e experiência.</li>
+                        <li>Candidate-se às vagas e acompanhe o status em tempo real.</li>
+                        <li>Organize sua disponibilidade e evite conflitos de horário.</li>
+                        <li>Construa sua reputação com avaliações reais.</li>
+                    </ul>
+                    <a href="{% url 'cadastro' %}" class="btn-card btn-card-freelancer">Criar meu perfil</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIAS / FUNÇÕES -->
     <section id="categorias" class="categories">
         <div class="container section-inner">
+
             <div class="section-header">
-
-            <span class="section-tag"> CATEGORIAS</span>
-            <h2>Encontre oportunidades na sua área</h2>
-            <p>Diversas categorias para conectar empresas e profissionais.</p>
-
-        </div>
+                <span class="section-tag">FUNÇÕES</span>
+                <h2>Profissionais para cada tipo de evento</h2>
+                <p>Encontre a função certa para a sua produção.</p>
+            </div>
 
             <div class="categories-grid">
 
-            <div class="category-card">
-                <div class="category-icon">💻</div>
-                <h3>Desenvolvimento</h3>
-                <p>Sites, sistemas, aplicativos e soluções digitais.</p>
-            </div>
+                <div class="category-card">
+                    <div class="category-icon">🛎️</div>
+                    <h3>Recepção</h3>
+                    <p>Recepcionistas e equipe de credenciamento.</p>
+                </div>
 
-            <div class="category-card">
-                <div class="category-icon">🎨</div>
-                <h3>Design</h3>
-                <p>Identidade visual, UI/UX e design gráfico.</p>
-            </div>
+                <div class="category-card">
+                    <div class="category-icon">🛡️</div>
+                    <h3>Segurança</h3>
+                    <p>Seguranças e controle de acesso ao evento.</p>
+                </div>
 
-            <div class="category-card">
-                <div class="category-icon">📱</div>
-                <h3>Marketing</h3>
-                <p>Gestão de tráfego, redes sociais e campanhas.</p>
-            </div>
+                <div class="category-card">
+                    <div class="category-icon">🍽️</div>
+                    <h3>Garçom & Bar</h3>
+                    <p>Garçons, bartenders e equipe de atendimento.</p>
+                </div>
 
-            <div class="category-card">
-                <div class="category-icon">✍️</div>
-                <h3>Redação</h3>
-                <p>Conteúdo, copywriting e produção textual.</p>
-            </div>
+                <div class="category-card">
+                    <div class="category-icon">👨‍🍳</div>
+                    <h3>Cozinha & Buffet</h3>
+                    <p>Auxiliares, cozinheiros e apoio de buffet.</p>
+                </div>
 
-            <div class="category-card">
-                <div class="category-icon">📸</div>
-                <h3>Fotografia</h3>
-                <p>Ensaios, eventos e produção de imagens.</p>
-            </div>
+                <div class="category-card">
+                    <div class="category-icon">🔊</div>
+                    <h3>Som & Luz</h3>
+                    <p>Técnicos de som, iluminação e palco.</p>
+                </div>
 
-            <div class="category-card">
-                <div class="category-icon">🎬</div>
-                <h3>Vídeo</h3>
-                <p>Edição, motion design e audiovisual.</p>
-            </div>
+                <div class="category-card">
+                    <div class="category-icon">🧹</div>
+                    <h3>Limpeza & Apoio</h3>
+                    <p>Equipe de limpeza, montagem e logística.</p>
+                </div>
 
+            </div>
         </div>
-
     </section>
 
-    <!------------------------------------------- PROJETOS -------------------------------------------->
-
-    <section id="projetos" class="featured-projects">
+    <!-- VAGAS EM DESTAQUE -->
+    <section id="vagas" class="featured-projects">
         <div class="container section-inner">
+
             <div class="section-header">
-
-            <span class="section-tag"> PROJETOS</span>
-            <h2> Projetos em Destaque</h2>
-            <p>Algumas oportunidades que estão movimentando a plataforma.</p>
-
-        </div>
+                <span class="section-tag">VAGAS</span>
+                <h2>Vagas em destaque</h2>
+                <p>Exemplos de oportunidades que circulam na plataforma.</p>
+            </div>
 
             <div class="projects-grid">
-            <div class="project-card">
 
-                <div class="project-tag"> Desenvolvimento</div>
-                <h3>Criação de Landing Page Moderna</h3>
-                <p>
-                    Procuramos desenvolvedor front-end para criar
-                    uma landing page responsiva.
-                </p>
-
-                <div class="project-footer">
-
-                    <span>💰 R$ 2.500 </span>
-                    <span>⏰ 7 dias</span>
-
+                <div class="project-card">
+                    <div class="project-tag">Garçom</div>
+                    <h3>Casamento — Salão Vista Verde</h3>
+                    <p>Atendimento de mesa para evento de 200 convidados, período noturno.</p>
+                    <div class="project-footer">
+                        <span>💰 R$ 180</span>
+                        <span>📅 Sáb, 20h</span>
+                    </div>
                 </div>
 
-            </div>
-
-            <div class="project-card">
-
-                <div class="project-tag"> Design</div>
-                <h3> Identidade Visual Completa</h3>
-                <p>
-                    Criação de logo, paleta de cores
-                    e manual da marca.
-                </p>
-
-                <div class="project-footer">
-
-                    <span>💰 R$ 1.800</span>
-                    <span>⏰ 5 dias </span>
-
+                <div class="project-card">
+                    <div class="project-tag">Recepção</div>
+                    <h3>Congresso de Tecnologia</h3>
+                    <p>Credenciamento e recepção de participantes em centro de eventos.</p>
+                    <div class="project-footer">
+                        <span>💰 R$ 150</span>
+                        <span>📅 Seg–Ter</span>
+                    </div>
                 </div>
 
-            </div>
-
-            <div class="project-card">
-
-                <div class="project-tag"> Marketing</div>
-                <h3> Gestão de Tráfego Pago</h3>
-                <p>
-                    Campanhas para geração de leads
-                    e aumento das vendas.
-                </p>
-
-                <div class="project-footer">
-
-                    <span> 💰 R$ 3.200</sp an>
-                    <span> ⏰ Mensal</span>
+                <div class="project-card">
+                    <div class="project-tag">Segurança</div>
+                    <h3>Show ao Vivo — Arena Central</h3>
+                    <p>Controle de acesso e segurança de palco para evento de grande porte.</p>
+                    <div class="project-footer">
+                        <span>💰 R$ 220</span>
+                        <span>📅 Sex, 18h</span>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!--------------------------------------------------------- FREELANCERS --------------------------------------------->
-
+    <!-- PROFISSIONAIS EM DESTAQUE -->
     <section id="freelancers" class="featured-freelancers">
         <div class="container section-inner">
+
             <div class="section-header">
-
-            <span class="section-tag">TALENTOS</span>
-            <h2>Freelancers em Destaque </h2>
-            <p>Profissionais altamente avaliados pela comunidade. </p>
-
-        </div>
+                <span class="section-tag">PROFISSIONAIS</span>
+                <h2>Freelancers em destaque</h2>
+                <p>Profissionais bem avaliados pela comunidade.</p>
+            </div>
 
             <div class="freelancers-grid">
-            <div class="freelancer-card">
 
-                <div class="avatar">AS</div>
-                <h3>Ana Souza</h3>
-                <span>UI/UX Designer</span>
-                <p>Especialista em experiências digitais modernas.</p>
-                <div class="rating">⭐ 4.9</div>
+                <div class="freelancer-card">
+                    <div class="avatar">AS</div>
+                    <h3>Ana Souza</h3>
+                    <span>Recepcionista</span>
+                    <p>Experiência em credenciamento de grandes eventos.</p>
+                    <div class="rating">⭐ 4.9</div>
+                </div>
 
-            </div>
+                <div class="freelancer-card">
+                    <div class="avatar">CS</div>
+                    <h3>Carlos Silva</h3>
+                    <span>Segurança</span>
+                    <p>Controle de acesso e segurança de palco.</p>
+                    <div class="rating">⭐ 5.0</div>
+                </div>
 
-            <div class="freelancer-card">
-
-                <div class="avatar">CS</div>
-                <h3> Carlos Silva</h3>
-                <span>Full Stack Developer</span>
-                <p>Desenvolvimento web completo e APIs.</p>
-                <div class="rating"> ⭐ 5.0</div>
-
-            </div>
-
-            <div class="freelancer-card">
-
-                <div class="avatar">MC</div>
-                <h3> Mariana Costa</h3>
-                <span>Gestora de Tráfego</span>
-                <p> Estratégias para crescimento e conversão. </p>
-                <div class="rating">⭐ 4.8</div>
+                <div class="freelancer-card">
+                    <div class="avatar">MC</div>
+                    <h3>Mariana Costa</h3>
+                    <span>Bartender</span>
+                    <p>Coquetelaria e atendimento em festas e casamentos.</p>
+                    <div class="rating">⭐ 4.8</div>
+                </div>
 
             </div>
         </div>
     </section>
 
-    <!-------------------------------------------- BENEFÍCIOS ---------------------------------------->
-
-    <section class="benefits">
-        <div class="container section-inner">
-            <div class="section-header">
-
-            <span class="section-tag"> BENEFÍCIOS</span>
-            <h2> Por que escolher o FreelaJá?</h2>
-
-        </div>
-
-            <div class="benefits-grid">
-            <div class="benefit-card">
-
-                <h3>🔒 Segurança</h3>
-                <p> Trabalhe com confiança e proteção. </p>
-
-            </div>
-
-            <div class="benefit-card">
-
-                <h3> ⚡ Agilidade</h3>
-                <p> Encontre oportunidades rapidamente.</p>
-
-            </div>
-
-            <div class="benefit-card">
-
-                <h3> 🌎 Alcance Nacional</h3>
-                <p> Conecte-se com profissionais de todo o Brasil.</p>
-
-            </div>
-
-            <div class="benefit-card">
-
-                <h3> 📈 Crescimento</h3>
-                <p> Amplie sua rede de contatos e projetos.</p>
-
-            </div>
-        </div>
-    </section>
-
-    <!------------------------------------------------------------ DEPOIMENTOS --------------------------------------------------->
-
-    <section class="testimonials">
-        <div class="container section-inner">
-            <div class="section-header">
-
-            <span class="section-tag"> DEPOIMENTOS</span>
-            <h2>O que nossos usuários dizem </h2>
-
-            </div>
-
-            <div class="testimonials-grid">
-            <div class="testimonial-card">
-
-                <p>
-                    "Consegui meus primeiros clientes em poucos dias.
-                    A plataforma é muito intuitiva."
-                </p>
-                <h4> João Martins</h4>
-                <span>Freelancer</span>
-
-            </div>
-
-            <div class="testimonial-card">
-
-                <p>
-                    "Encontramos profissionais excelentes para
-                    nossos projetos."
-                </p>
-
-                <h4> Empresa Alpha</h4>
-                <span> Cliente</span>
-
-            </div>
-
-            <div class="testimonial-card">
-
-                <p>
-                    "O FreelaJá simplificou completamente nosso
-                    processo de contratação."
-                </p>
-
-                <h4>Startup NovaEra</h4>
-                <span>Cliente</span>
-
-            </div>
-            </div>
-        </div>
-
-    </section>
-    <!-- ---------------------------------------------FAQ--------------------------------------------- -->
-
+    <!-- FAQ -->
     <section id="faq" class="faq">
         <div class="container section-inner">
+
             <div class="section-header">
-
-            <span class="section-tag"> FAQ</span>
-            <h2>Perguntas Frequentes</h2>
-
+                <span class="section-tag">FAQ</span>
+                <h2>Perguntas frequentes</h2>
             </div>
 
             <div class="faq-container">
 
-            <div class="faq-item">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Como funcionam as avaliações?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Após o término do evento, empresa e freelancer se avaliam de forma bidirecional, criando um histórico de reputação confiável para os dois lados.</p>
+                    </div>
+                </div>
 
-                <h3> Como funciona o pagamento? </h3>
-                <p>
-                    O pagamento é feito de forma segura entre empresa e freelancer,
-                    garantindo proteção para ambos os lados.
-                </p>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Posso usar gratuitamente?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! O cadastro e o uso básico da plataforma são totalmente gratuitos, tanto para empresas quanto para freelancers.</p>
+                    </div>
+                </div>
 
-            </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Como o sistema evita conflitos de horário?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Ao se candidatar, o freelancer gerencia sua disponibilidade e o sistema sinaliza possível risco de atraso entre eventos próximos no mesmo dia.</p>
+                    </div>
+                </div>
 
-            <div class="faq-item">
-
-                <h3> Posso usar gratuitamente?</h3>
-                <p> Sim! O cadastro e uso básico da plataforma são totalmente gratuitos.  </p>
-
-            </div>
-
-            <div class="faq-item">
-
-                <h3> Como encontro projetos? </h3>
-                <p>Você pode navegar pelas categorias ou buscar diretamente na plataforma.</p>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
+                        Como acompanho minhas candidaturas?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>O freelancer acompanha o status de cada candidatura — pendente, aceito ou recusado — direto no painel da plataforma.</p>
+                    </div>
+                </div>
 
             </div>
         </div>
     </section>
 
     <!-- CTA FINAL -->
-
     <section class="cta">
         <div class="container cta-content">
-
-            <h2>Pronto para começar?</h2>
-            <p>Entre para a maior comunidade de freelancers e empresas.  </p>
-            <a href="#" class="btn-primary">Criar Conta Gratuitamente</a>
-
+            <h2>Pronto para o seu próximo evento?</h2>
+            <p>Entre para a comunidade que conecta talentos e oportunidades em eventos.</p>
+            <a href="{% url 'cadastro' %}" class="btn-primary">Criar Conta Gratuitamente</a>
         </div>
-
     </section>
 
     </main>
 
-    <!---------------------------------------- FOOTER -------------------------------------------->
-
+    <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer-container">
 
             <div class="footer-brand">
-
                 <h3>FreelaJá</h3>
-                <p> Conectando talentos e oportunidades em um só lugar.   </p>
-
+                <p>Conectando talentos e oportunidades em eventos.</p>
             </div>
 
             <div class="footer-links">
-
                 <h4>Plataforma</h4>
-                <a href="#">Início</a>
-                <a href="#">Projetos</a>
-                <a href="#">Freelancers</a>
-
+                <a href="#inicio">Início</a>
+                <a href="#vagas">Vagas</a>
+                <a href="#categorias">Funções</a>
             </div>
 
             <div class="footer-links">
-
-                <h4>Empresa</h4>
-                <a href="#">Sobre</a>
-                <a href="#">Contato</a>
-                <a href="#">Carreiras</a>
-
+                <h4>Conta</h4>
+                <a href="{% url 'login' %}">Entrar</a>
+                <a href="{% url 'cadastro' %}">Criar Conta</a>
             </div>
 
             <div class="footer-links">
-
                 <h4>Legal</h4>
                 <a href="#">Privacidade</a>
                 <a href="#">Termos</a>
-
             </div>
 
         </div>
 
         <div class="footer-bottom">
-
-            <p> © 2026 FreelaJá. Todos os direitos reservados.</p>
-
+            <p>© 2026 FreelaJá. Todos os direitos reservados.</p>
         </div>
-
     </footer>
+
+    <script>
+        // Menu mobile
+        (function () {
+            var toggle = document.getElementById('menuToggle');
+            var links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', function () {
+                    var open = links.classList.toggle('open');
+                    toggle.classList.toggle('active', open);
+                    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                });
+                links.querySelectorAll('a').forEach(function (a) {
+                    a.addEventListener('click', function () {
+                        links.classList.remove('open');
+                        toggle.classList.remove('active');
+                        toggle.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+        })();
+
+        // Acordeão do FAQ
+        (function () {
+            var questions = document.querySelectorAll('.faq-question');
+            questions.forEach(function (q) {
+                q.addEventListener('click', function () {
+                    var item = q.closest('.faq-item');
+                    var isOpen = item.classList.contains('open');
+                    document.querySelectorAll('.faq-item.open').forEach(function (el) {
+                        el.classList.remove('open');
+                        el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                    });
+                    if (!isOpen) {
+                        item.classList.add('open');
+                        q.setAttribute('aria-expanded', 'true');
+                    }
+                });
+            });
+        })();
+    </script>
 
 </body>
 </html>
