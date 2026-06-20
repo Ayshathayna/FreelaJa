@@ -42,6 +42,7 @@ class Empresa(models.Model):  # modelo para representar as empresas que vão cri
 
 class Freelancer(models.Model): # modelo para representar os freelancers que vão se candidatar aos eventos
     INTERESSES = [
+        ("programacao", "Programação"),
         ("recepcao", "Recepção"),
         ("seguranca", "Segurança"),
         ("garcom", "Garçom"),

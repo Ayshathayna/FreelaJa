@@ -5,11 +5,12 @@ from django.db.models import Q
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-
+from django.urls import reverse
 from avaliacoes.models import AvaliaVaga, AvaliaFreelancer
 from perfis.models import Empresa, Freelancer
 from .models import Vaga, Candidatura
 from .forms import VagaForm
+from notificacoes.utils import criar_notificacao
 
 
 #--------------------------------------------------------- EMPRESA --------------------------------------------------------------------
@@ -51,6 +52,22 @@ def editarVaga(request,id):
     if request.method == "POST" and form.is_valid():
 
         form.save()
+        candidaturas = Candidatura.objects.filter(
+            vaga=vaga
+        )
+
+        for candidatura in candidaturas:
+
+            criar_notificacao(
+                usuario=candidatura.freelancer.usuario,
+                titulo='Vaga atualizada',
+                mensagem=f'A vaga "{vaga.titulo}" recebeu alterações.',
+                tipo='atualizada',
+                link=reverse(
+                    'verVaga',
+                    args=[vaga.id]
+                )
+            )
         messages.success(request, "Vaga editada com sucesso!")
         return redirect("homeEmpresa")
 
@@ -72,8 +89,30 @@ def excluirVaga(request, id):
     if vaga.empresa != empresa:
         raise PermissionDenied()
 
-    vaga.delete()
-    messages.success(request, "Vaga deletada com sucesso!")
+    candidaturas = Candidatura.objects.filter(
+        vaga=vaga
+    )
+
+    for candidatura in candidaturas:
+
+        criar_notificacao(
+            usuario=candidatura.freelancer.usuario,
+            titulo='Vaga cancelada',
+            mensagem=f'A vaga "{vaga.titulo}" foi cancelada pela empresa.',
+            tipo='cancelada',
+            link=reverse('verVaga',
+            args=[candidatura.vaga.id])
+        )
+
+    vaga.status = 'cancelado'
+    vaga.save()
+
+    candidaturas.update(
+        status='recusado'
+    )
+
+        
+    messages.success(request, "Vaga cancelada com sucesso!")
     return redirect(
         "homeEmpresa"
     )
@@ -151,6 +190,17 @@ def aceitarCandidatura(request, id):
 
             candidatura.vaga.quantidadeSelecionados += 1
             candidatura.vaga.save()
+            
+    criar_notificacao(
+        usuario=candidatura.freelancer.usuario,
+        titulo='Você foi aprovado!',
+        mensagem=f'Parabéns! Você foi aprovado para a vaga {candidatura.vaga.titulo}',
+        tipo='aceito', 
+        link=reverse(
+            'verVaga',
+            args=[candidatura.vaga.id]
+        )
+    )
     
     messages.success(request, "Candidato aceito com sucesso!")
     return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
@@ -171,7 +221,16 @@ def recusarCandidatura(request, id):
 
         candidatura.status = "recusado"
         candidatura.save()
-
+    criar_notificacao(
+        usuario=candidatura.freelancer.usuario,
+        titulo='Candidatura encerrada',
+        mensagem=f'Você não foi selecionado para a vaga {candidatura.vaga.titulo}',
+        tipo='recusado',
+        link=reverse(
+            'verVaga',
+            args=[candidatura.vaga.id]
+        )
+    )
     messages.warning(request, "Candidato recusado.")
     return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
 
@@ -190,7 +249,33 @@ def finalizarVaga(request, vaga_id):
         vaga=vaga,
         status="pendente"
     ).update(status="recusado")
+    candidaturas_aceitas = Candidatura.objects.filter(
+    vaga=vaga,
+    status='aceito'
+)
+    for candidatura in candidaturas_aceitas:
 
+        criar_notificacao(
+            usuario=candidatura.freelancer.usuario,
+            titulo='Vaga finalizada',
+            mensagem=f'A vaga {vaga.titulo} foi finalizada. Avalie a empresa.',
+            tipo='avaliacao',
+            link=reverse(
+                'avaliarVaga',
+                args=[vaga.id]
+            )
+        )
+     # Notificação para a empresa
+    criar_notificacao(
+        usuario=empresa.usuario,
+        titulo='Avaliações disponíveis',
+        mensagem=f'A vaga "{vaga.titulo}" foi finalizada. Avalie os freelancers participantes.',
+        tipo='avaliacao',
+        link=reverse(
+            'candidatosVaga',
+            args=[vaga.id]
+        )
+    )
     messages.success(request, "Vaga finalizada com sucesso!")
     return redirect('homeEmpresa')
 #--------------------------------------------------------- FREELANCER --------------------------------------------------------------------
@@ -239,6 +324,16 @@ def candidatarVaga(request, vaga_id):
         return redirect("verVaga", id=vaga.id)
 
     Candidatura.objects.get_or_create(vaga=vaga, freelancer=freelancer)
+    criar_notificacao(
+        usuario=vaga.empresa.usuario,
+        titulo='Nova candidatura',
+        mensagem=f'{freelancer.nomeCompleto} se candidatou à vaga "{vaga.titulo}".',
+        tipo='candidatura',
+        link=reverse(
+            'candidatosVaga',
+            args=[vaga.id]
+        )
+    )
 
     messages.success(request, "Candidatura enviada com sucesso!")
 
@@ -340,6 +435,25 @@ def candidaturas(request):
 @login_required
 def cancelarCandidatura(request, candidatura_id):
     candidatura = get_object_or_404(Candidatura, id=candidatura_id)
+    
+    if candidatura.status == 'aceito':
+
+        candidatura.vaga.quantidadeSelecionados -= 1
+
+        if candidatura.vaga.quantidadeSelecionados < 0:
+            candidatura.vaga.quantidadeSelecionados = 0
+        criar_notificacao(
+            usuario=candidatura.vaga.empresa.usuario,
+            titulo='Freelancer desistiu da vaga',
+            mensagem=f'{candidatura.freelancer.nomeCompleto} desistiu da vaga "{candidatura.vaga.titulo}".',
+            tipo='warning',
+            link=reverse(
+                'candidatosVaga',       
+                args=[candidatura.vaga.id]
+            )
+        )
+
+        candidatura.vaga.save()
     candidatura.delete()  
     messages.success(request, "Candidatura cancelada com sucesso!")
     return redirect("candidaturas")

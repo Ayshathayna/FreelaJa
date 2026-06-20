@@ -25,14 +25,6 @@
   padding:30px;
 }
 
-.tag{
-  background:#eef4ff;
-  color:#6d28d9;
-  padding:6px 14px;
-  border-radius:20px;
-  font-size:13px;
-  font-weight:600;
-}
 
 h1{
   margin-top:15px;
@@ -63,10 +55,6 @@ h1{
   font-weight:500;
 }
 
-.price{
-  color:#2563eb;
-  font-weight:700;
-}
 
 .address{
   margin-bottom:25px;
@@ -96,38 +84,8 @@ h1{
   text-decoration:none;
 }
 
-.btn-disabled{
-  background:#d1d5db;
-  color:#6b7280;
-  padding:12px 18px;
-  border-radius:12px;
-  border:none;
-  font-size: 16px;
-}
 
-.finalize-btn{
 
-    background:
-    linear-gradient(
-        135deg,
-        #3da046,
-        #4b9c3b
-    );
-}
-.finalize-btn:hover{
-
-    transform:translateY(-2px);
-    box-shadow:0 8px 18px rgba( 78,165,78,.25);
-}
-
-.candidates-btn{
-    background:#111827;
-}
-
-.candidates-btn:hover{
-    background:#374151;
-    transform:translateY(-2px);
-}
 .image-container{
     position:relative;
 }
@@ -137,7 +95,7 @@ h1{
     display:block;
 }
 
-.carousel-arrow{
+.return-arrow{
   position:absolute;
 
     top:20px;
@@ -145,32 +103,6 @@ h1{
 
     z-index:10;
 
-    width:45px;
-    height:45px;
-
-    border:none;
-    border-radius:50%;
-
-    background:rgba(255,255,255,.9);
-
-    color:#2563eb;
-
-    font-size:22px;
-    font-weight:bold;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    text-decoration:none;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-
-    transition:.3s;
-    
 }
 
-.carousel-arrow:hover{
-  background:#2563eb;
-  color:white;
-}
+ 

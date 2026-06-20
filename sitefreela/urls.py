@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 
 
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')), # Inclui as URLs do aplicativo 'usuario'
@@ -28,10 +30,23 @@ urlpatterns = [
     path('vagas/', include('vagas.urls')),  # Inclui as URLs do aplicativo 'vagas'
     path('avaliacoes/', include('avaliacoes.urls')),  # Inclui as URLs do aplicativo 'avaliacoes'
     # path('disponibilidade/', include('disponibilidade.urls')),  # Inclui as URLs do aplicativo 'disponibilidade'
-
+path(
+    'notificacoes/',
+    include('notificacoes.urls')
+),
 
 ]
 urlpatterns += static(
     settings.MEDIA_URL,
     document_root=settings.MEDIA_ROOT
 )
+urlpatterns += static(
+    settings.STATIC_URL,
+    document_root=settings.STATIC_ROOT
+)
+
+from core import views
+
+handler404 = 'core.views.erro404'
+handler403 = 'core.views.erro403'
+handler500 = 'core.views.erro500'

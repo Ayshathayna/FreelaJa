@@ -6,7 +6,7 @@ Meu Perfil
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/meuPerfilFreelancer.css' %}">
+<link rel="stylesheet" href="{% static 'css/meuPerfil.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 {% endblock %}
 
@@ -21,7 +21,7 @@ Meu Perfil
     <div class="perfil-header">
 
         <div class="perfil-foto-card">
-            <a href="{% url 'homeFreelancer' %}" class="carousel-arrow"> ❮</a>
+            <a href="{% url 'homeFreelancer' %}" class="return-arrow"> ❮</a>
 
             {% if freelancer.foto %}
             <img src="{{ freelancer.foto.url }}" alt="{{ freelancer.nomeCompleto }}" class="foto-perfil">
@@ -72,7 +72,7 @@ Meu Perfil
 
                         <label for="id_foto" class="upload-btn">
 
-                            <i class="fa-solid fa-camera"></i>Escolher Foto
+                            <i class="fa-solid fa-camera"></i> Escolher Foto
 
                         </label>
 
@@ -176,7 +176,7 @@ Meu Perfil
 
         </div>
 
-        <button type="submit" class="salvar-btn"> Salvar Alterações</button>
+        <button type="submit" class="btn-save"> Salvar Alterações</button>
 
     </form>
 

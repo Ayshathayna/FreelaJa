@@ -61,18 +61,28 @@
 
                     <div class="profile-btn">
                         {% if request.user.empresa.foto %}
-                        <img src="{{ request.user.empresa.foto.url }}" class="avatar"alt="{{ request.user.empresa.nomeFantasia }}">
+                        <img src="{{ request.user.empresa.foto.url }}" class="avatar"
+                            alt="{{ request.user.empresa.nomeFantasia }}">
                         {% else %}
                         <div class="avatar-placeholder">{{ request.user.empresa.nomeFantasia|first }} </div>
                         {% endif %}
                         <span>Meu Perfil</span>
+                        {% if notificacoes_nao_lidas > 0 %}
+                        <span class="notification-dot"></span>
+                        {% endif %}
                     </div>
 
                     <div class="dropdown">
                         <a href=" {% url 'meuPerfilEmpresa' %}"> Perfil</a>
-                        <a href="#"> Notificações <span class="badge">5</span></a>
-                        <a href="#">Configurações </a>
-                        <a href="#" style="color:#ef4444;"> Sair do sistema
+                        <a href="{% url 'notificacoes' %}">
+                            Notificações
+
+                            {% if notificacoes_nao_lidas %}
+                            <span class="badge">
+                                {{ notificacoes_nao_lidas }}
+                            </span>
+                            {% endif %}
+                        <a href="{% url 'logout' %}" style="color:#ef4444;"> Sair do sistema
                         </a>
                     </div>
 

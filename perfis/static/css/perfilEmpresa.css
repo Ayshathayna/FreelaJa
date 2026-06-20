@@ -27,13 +27,9 @@
 .avatar-placeholder{
     width:120px;
     height:120px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-font-size:48px;
-    font-weight:700;
-    color:white;
+   
+    font-size:48px;
+   
     background:
     linear-gradient(135deg, #2563eb, #f97316 );
 }
@@ -56,29 +52,10 @@ font-size:48px;
 
 /********************************** BOTÃO VOLTAR **********************************/
 
-.carousel-arrow{
+.return-arrow{
     position:absolute;
     top:25px;
-    left:25px;
-    width:45px;
-    height:45px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    background:#f3f4f6;
-    color:#2563eb;
-    font-size:22px;
-    font-weight:bold;
-    transition:.3s;
-}
-
-.carousel-arrow:hover{
-    background:#2563eb;
-    color:white;
-}
-
+        left:25px}
 /* ESTATÍSTICAS */
 
 .stats-container{

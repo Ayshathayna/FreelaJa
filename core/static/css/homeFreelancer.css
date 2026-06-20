@@ -138,29 +138,10 @@ header{
 .job-card{
   min-width:340px;
   max-width:340px;
-
-  display:flex;
-  flex-direction:column;
-
-  background:white;
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:0 5px 25px rgba(0,0,0,0.06);
-  transition:0.3s;
-}
-
-.job-card:hover{
-  transform:translateY(-6px);
 }
 
 
-/* ****************************   JOB IMAGE ************************************************* */
 
-.job-image{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
 
 
 /* ********************************   JOB CONTENT ************************************************* */
@@ -179,35 +160,18 @@ header{
   margin-bottom:20px;
 }
 
-.tag{
-  padding:7px 15px;
-  border-radius:30px;
-  background:#eef4ff;
-  color:#6d28d9;
-  font-size:13px;
-  font-weight:600;
-}
-
 .job-card h3{
   font-size:24px;
   margin-bottom:12px;
 }
 
 .job-info{
-  color:#6b7280;
-  line-height:1.7;
-  margin-bottom:15px;
+ 
   margin-top: 15px;
 }
 
 
-/* ******************************  COMPANY ************************************************* */
 
-.company-name{
-  margin-bottom:25px;
-  color:#6b7280;
-  font-weight:500;
-}
 
 
 /* *********************************  JOB FOOTER ************************************************* */
@@ -219,11 +183,6 @@ header{
   align-items:center;
 }
 
-.price{
-  font-size:26px;
-  font-weight:700;
-  color:#2563eb;
-}
 
 .job-btn{
   display:inline-flex;
@@ -233,50 +192,15 @@ header{
   padding:12px 16px;
   border-radius:12px;
 
-  font-size:14px;
-  font-weight:600;
-  text-decoration:none;
-
-  transition:0.25s;
-  cursor:pointer;
-
   border:1px solid transparent;
 }
 
-.details-btn{
-  background:#f3f4f6;
-  color:#111827;
-  border:1px solid #e5e7eb;
-}
-
-.details-btn:hover{
-  background:#e5e7eb;
-  transform:translateY(-2px);
-}
-
-.apply-btn{
-  background:linear-gradient(135deg,#2563eb,#f97316);
-  color:white;
-  box-shadow:0 6px 18px rgba(79,70,229,0.25);
-}
-
-.apply-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(79,70,229,0.35);
-}
 .job-actions{
   display:flex;
   gap:10px;
   margin-top:18px;
 }
-.btn-disabled{
-  background:#d1d5db;
-  color:#6b7280;
-  padding:12px 18px;
-  border-radius:12px;
-  border:none;
-  font-size: 16px;
-}
+
 
 
 /* ************************************   RESPONSIVE ************************************************* */

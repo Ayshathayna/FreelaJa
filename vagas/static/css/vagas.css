@@ -8,8 +8,7 @@
 
 .hero-search{
     background:
-    linear-gradient(135deg, #2563eb, #f97316);
-    border-radius:30px;
+    linear-gradient(135deg, #2563eb, #7c3aed);    border-radius:30px;
     padding:50px;
     color:white;
     margin-bottom:50px;
@@ -96,18 +95,7 @@
 
 /************************ CARD *************************/
 
-.job-card{
-    background:white;
-    border-radius:24px;
-    overflow:hidden;
-    box-shadow: 0 5px 25px rgba(0, 0, 0, .06);
-    transition:.3s;
-}
 
-.job-card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 15px 35px rgba( 0,0, 0, .12);
-}
 
 .job-content{
     padding:25px;
@@ -133,8 +121,7 @@
     font-weight:700;
     color:white;
     background:
-    linear-gradient(135deg, #2563eb, #f97316);
-}
+    linear-gradient(135deg, #2563eb, #7c3aed);}
 .profile-image{
     width:100px;
     height:100px;
@@ -147,8 +134,7 @@
     font-weight:700;
     color:white;
     background:
-    linear-gradient(135deg, #2563eb, #f97316);
-}
+    linear-gradient(135deg, #2563eb, #7c3aed);}
 .header-info h3{
     margin-top:10px;
     font-size:22px;
@@ -167,17 +153,6 @@
 
 .rating{
     color:#f59e0b;
-    font-weight:600;
-}
-
-/************************ TAG *************************/
-
-.category-tag{
-    padding:6px 14px;
-    border-radius:30px;
-    background:#eef4ff;
-    color:#6d28d9;
-    font-size:12px;
     font-weight:600;
 }
 
@@ -226,12 +201,6 @@
     gap:20px;
 }
 
-.price{
-    font-size:28px;
-    font-weight:700;
-    color:#2563eb;
-}
-
 .job-actions{
     display:flex;
     gap:10px;
@@ -239,32 +208,6 @@
 
 /************************ BOTÕES ************************  */
 
-.job-btn{
-    padding:12px 18px;
-    border-radius:12px;
-    text-decoration:none;
-    font-size:14px;
-    font-weight:600;
-    transition:.3s;
-}
-
-.details-btn{
-    background:#f3f4f6;
-    color:#111827;
-}
-
-.details-btn:hover{
-    background:#e5e7eb;
-}
-
-.apply-btn{
-    background: linear-gradient( 135deg, #2563eb, #f97316);
-    color:white;
-}
-
-.apply-btn:hover{
-    transform:translateY(-2px);
-}
 
 /* EMPTY */
 

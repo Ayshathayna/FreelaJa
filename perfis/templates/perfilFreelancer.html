@@ -17,7 +17,7 @@
 <div class="profile-container">
 
     <div class="profile-header">
-        <a href="javascript:history.back()" class="carousel-arrow"> ❮</a>
+        <a href="javascript:history.back()" class="return-arrow"> ❮</a>
         <div class="profile-photo">
 
             {% if freelancer.foto %}
@@ -103,8 +103,8 @@
     </div>
     {%if not finalizado%}
     <div class="fab-container open">
-        <a href="{% url 'recusarCandidatura' candidatura_id %}" class="fab-btn reject"> Recusar </a>
-        <a href="{% url 'aceitarCandidatura' candidatura_id %}" class="fab-btn accept">Aceitar</a>
+        <a href="{% url 'recusarCandidatura' candidatura_id %}" class="job-btn reject"> Recusar </a>
+        <a href="{% url 'aceitarCandidatura' candidatura_id %}" class="job-btn accept">Aceitar</a>
     </div>
     {% endif %}
 </div>

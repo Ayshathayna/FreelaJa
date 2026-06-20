@@ -25,7 +25,7 @@
       <p>Gerencie todas as vagas criadas pela sua empresa</p>
     </div>
 
-    <a href="{% url 'criarVaga' %}" class="btn-create">+ Criar Vaga</a>
+    <a href="{% url 'criarVaga' %}" class=" job-btn btn-create">+ Criar Vaga</a>
 
   </div>
 
@@ -78,8 +78,8 @@
 
         <div class="job-actions">
 
-          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn edit-btn">Editar</a>
-          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn delete-btn"
+          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn view-btn">Editar</a>
+          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn cancel-btn"
             onclick="return confirmarExclusao(event, this.href)"> Excluir</a>
           <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn candidates-btn"> Candidatos</a>
 
@@ -138,7 +138,7 @@
 
         <div class="job-actions">
 
-          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn edit-btn">Editar</a>
+          <a href="{% url 'editarVaga' vaga.id %}" class="job-btn view-btn">Editar</a>
           <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn delete-btn"
             onclick="return confirmarExclusao(event, this.href)"> Excluir</a>
           <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn candidates-btn"> Candidatos</a>
@@ -199,7 +199,7 @@
 
         <div class="job-actions-finalize">
 
-          <a href="{% url 'verVaga' vaga.id %}" class="job-btn edit-btn">Ver vaga</a>
+          <a href="{% url 'verVaga' vaga.id %}" class="job-btn view-btn">Ver vaga</a>
           <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn candidates-btn"> Avaliar Candidatos</a>
 
         </div>

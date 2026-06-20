@@ -1,9 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login,logout
 from django.shortcuts import render, redirect
 
 from .models import Usuario
 from perfis.models import Freelancer, Empresa
+from notificacoes.utils import verificar_perfil_freelancer
+
 
 from .forms import (
     CadastroFreelancerForm,
@@ -12,7 +14,16 @@ from .forms import (
 )
 
 
+def sair(request):
 
+    logout(request)
+
+    messages.success(
+        request,
+        "Logout realizado com sucesso!"
+    )
+
+    return redirect('login')
 
 def login(request):
 
@@ -27,6 +38,11 @@ def login(request):
             usuario = form.get_user()
 
             auth_login(request, usuario)
+            if hasattr(request.user, "freelancer"):
+
+                verificar_perfil_freelancer(
+                    request.user.freelancer
+                )
 
             if usuario.tipo_usuario == "empresa":
                 return redirect("homeEmpresa")

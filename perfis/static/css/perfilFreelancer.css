@@ -34,13 +34,7 @@
     width:150px;
     height:150px;
     border-radius:18px;
-    background:linear-gradient(135deg,#2563eb,#f97316);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
     font-size:42px;
-    font-weight:700;
 }
 
 .profile-info h1{
@@ -162,74 +156,19 @@
 }
 
 /* botões */
-.fab-btn{
+.job-btn{
     padding:12px 18px;
     border-radius:14px;
-
     font-weight:700;
     font-size:14px;
-
-    text-decoration:none;
-    color:white;
-
     box-shadow:0 10px 25px rgba(0, 0, 0, 0.37);
-
-    transition:.3s;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
     min-width:120px;
 }
 
-/* hover */
-.fab-btn:hover{
-    transform:translateY(-3px);
-}
-
-/* aceitar */
-.fab-btn.accept{
-    background:linear-gradient(135deg,#16a34a,#22c55e);
-}
-.fab-btn.accept:hover{
-    background:linear-gradient(135deg,#12863d,#16a34a);
-}
-
-/* recusar */
-.fab-btn.reject{
-    background:linear-gradient(135deg,#ef4444,#dc2626);
-
-}.fab-btn.reject:hover{
-    background:linear-gradient(135deg,#b91c1c,#dc2626);
-}
-
-
-.carousel-arrow{
-  width:45px;
-  height:45px;
-  border:none;
-  border-radius:50%;
-  background:white;
-  color:#2563eb;
-  font-size:22px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 5px 20px rgba(0,0,0,0.12);
-  transition:0.3s;
-
-  /* Para o <a> */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
+.return-arrow{
   flex-shrink:0;
 }
 
-.carousel-arrow:hover{
-  background:#2563eb;
-  color:white;
-}
 /* ================= RESPONSIVO ================= */
 
 @media(max-width:900px){

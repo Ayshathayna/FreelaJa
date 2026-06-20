@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Erro interno</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/errors.css' %}">
+
+</head>
+<body>
+
+<div class="error-container">
+
+    <h1 class="error-code">
+        500
+    </h1>
+
+    <h2 class="error-title">
+        Ocorreu um erro
+    </h2>
+
+    <p class="error-text">
+
+        Nosso sistema encontrou um problema.
+        Tente novamente mais tarde.
+
+    </p>
+
+    <a href="/" class="error-btn">
+
+        Voltar ao início
+
+    </a>
+
+</div>
+
+</body>
+</html>

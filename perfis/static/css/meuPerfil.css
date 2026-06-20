@@ -4,6 +4,8 @@
     max-width:1400px;
     margin:40px auto;
     padding:0 30px;
+    margin-left: 4.5%;
+    margin-right: 4.5%;
 }
 
 /*   HEADER*/
@@ -48,7 +50,7 @@
     align-items:center;
     justify-content:center;
 
-    background:linear-gradient( 135deg, #2563eb, #f97316 );
+    background:linear-gradient( 135deg, #2563eb, #7c3aed );
 
     color:white;
     font-size:60px;
@@ -157,7 +159,7 @@
     margin-top:25px;
     padding:20px;
     border-radius:14px;
-    background:#eef4ff;
+    background:#eff6ff;
     border:1px solid #bfdbfe;
 }
 
@@ -170,31 +172,7 @@
     color:#6b7280;
 }
 
-/*   BOTÃO*/
 
-.salvar-btn{
-    width:100%;
-    margin-top:25px;
-
-    border:none;
-    border-radius:15px;
-
-    padding:16px;
-
-    background:linear-gradient( 90deg, #2563eb, #f97316 );
-
-    color:white;
-    font-size:16px;
-    font-weight:600;
-
-    cursor:pointer;
-    transition:.3s;
-}
-
-.salvar-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 25px rgba(37,99,235,.25);
-}
 
 /*======
    FOTO====== */
@@ -210,27 +188,7 @@
     display:none;
 }
 
-.upload-btn{
-    display:flex;
-    align-items:center;
-    gap:10px;
 
-    background:linear-gradient( 135deg, #2563eb, #f97316 );
-
-    color:white;
-    padding:12px 18px;
-
-    border-radius:12px;
-    cursor:pointer;
-
-    font-weight:600;
-
-    transition:.3s;
-}
-
-.upload-btn:hover{
-    transform:translateY(-2px);
-}
 
 #file-name{
     color:#6b7280;
@@ -249,21 +207,10 @@
 }
 
 .toggle-password{
-    position:absolute;
-    top:50%;
     right:15px;
-
-    transform:translateY(-50%);
-
-    cursor:pointer;
-
-    color:#6b7280;
-    transition:.2s;
 }
 
-.toggle-password:hover{
-    color:#2563eb;
-}
+
 .hidden-input{
     display:none;
 }
@@ -295,7 +242,7 @@
 }
 
 .badge-option input:checked + span{
-    background:linear-gradient( 135deg, #2563eb, #f97316);
+    background:linear-gradient( 135deg, #2563eb, #7c3aed);
     color:white;
     border-color:transparent;
     transform:translateY(-2px);
@@ -320,30 +267,14 @@
 .input-success{
     border-color:#22c55e !important;
 }
-.carousel-arrow{
+.return-arrow{
   position:absolute;
     z-index:10;
-    width:45px;
-    height:45px;
-    border:none;
-    border-radius:50%;
-    background:rgba(255,255,255,.9);
-    color:#2563eb;
-    font-size:22px;
-    font-weight:bold;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    box-shadow:0 5px 20px rgba(0,0,0,.15);
-    transition:.3s;
+    
     
 }
 
-.carousel-arrow:hover{
-  background:#2563eb;
-  color:white;
-}
+
 /*   RESPONSIVO*/
 
 @media(max-width:1000px){

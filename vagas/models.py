@@ -38,6 +38,7 @@ class Vaga(models.Model):
     endereco = models.CharField(max_length=255) 
 
     CATEGORIAS = [
+        ("programacao", "Programação"),
         ("recepcao", "Recepção"),
         ("seguranca", "Segurança"),
         ("garcom", "Garçom"),
@@ -123,6 +124,7 @@ class Candidatura(models.Model):
     vaga = models.ForeignKey(
         Vaga, #relacionamento muitos-para-um, onde uma vaga pode ter várias candidaturas, mas cada candidatura pertence a uma única vaga
         on_delete=models.CASCADE
+        
     )
 
     data_candidatura = models.DateTimeField(auto_now_add=True)

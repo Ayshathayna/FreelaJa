@@ -8,36 +8,10 @@
 }
 
 
-.carousel-arrow{
-  width:45px;
-  height:45px;
 
-  border:none;
-  border-radius:50%;
-
-  background:white;
-  color:#2563eb;
-
-  font-size:22px;
-  font-weight:bold;
-
-  cursor:pointer;
-
-  box-shadow:0 5px 20px rgba(0,0,0,0.12);
-
-  transition:0.3s;
-
-  /* Para o <a> */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
+.return-arrow{
+  
   flex-shrink:0;
-}
-
-.carousel-arrow:hover{
-  background:#2563eb;
-  color:white;
 }
 
 .title{
@@ -209,46 +183,8 @@
     grid-column:1 / -1;
 }
 
-/* ************************ BOTÃO ************************ */
 
-.btn-save{
-    width:100%;
-    margin-top:20px;
-    padding:18px;
-    border:none;
-    border-radius:16px;
-    background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #f97316
-    );
 
-   color:white;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.btn-save:hover{
-    transform:translateY(-3px);
-    box-shadow:
-    0 10px 25px rgba(
-        79,
-        70,
-        229,
-        .25
-    );
-}
-
-.btn-save:disabled{
-    background:#9ca3af;
-    cursor:not-allowed;
-    transform:none;
-    box-shadow:none;
-    opacity:.7;
-}
 /* ************************ TOPO ************************ */
 
 .top-row{

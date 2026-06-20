@@ -25,31 +25,17 @@
 /* BOTÃO CRIAR */
 
 .btn-create{
-    background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #f97316
-    );
-
+    
+    background:linear-gradient( 135deg, #4f46e5, #7c3aed );
     color:white;
     padding:14px 22px;
     border-radius:12px;
-    text-decoration:none;
-    font-weight:600;
-    transition:.3s;
+
 }
 
 .btn-create:hover{
 
-    transform:translateY(-3px);
-    box-shadow:
-    0 10px 25px rgba(
-        79,
-        70,
-        229,
-        .25
-    );
+    box-shadow: 0 10px 25px rgba(79,70, 229, .25);
 }
 
 /* ***************************** GRID ***************************** */
@@ -58,57 +44,12 @@
 
     display:grid;
 
-    grid-template-columns:
-    repeat(
-        auto-fill,
-        minmax(
-            340px,
-            1fr
-        )
+    grid-template-columns: repeat( auto-fill, minmax( 340px, 1fr)
     );
 
     gap:25px;
 }
 
-/* ***************************** CARD ***************************** */
-
-.job-card{
-
-    background:white;
-    border-radius:24px;
-    overflow:hidden;
-    box-shadow:
-    0 5px 25px rgba(
-        0,
-        0,
-        0,
-        .06
-    );
-
-    transition:.3s;
-    display:flex;
-    flex-direction:column;
-}
-
-.job-card:hover{
-
-    transform:translateY(-6px);
-    box-shadow:
-    0 12px 35px rgba(
-        0,
-        0,
-        0,
-        .12
-    );
-}
-
-/* ***************************** IMAGEM ***************************** */
-
-.job-image{
-    width:100%;
-    height:200px;
-    object-fit:cover;
-}
 
 /* ***************************** CONTEÚDO ***************************** */
 
@@ -127,16 +68,7 @@
     margin-bottom:14px;
 }
 
-/* TAG */
 
-.tag{
-    background:#eef4ff;
-    color:#6d28d9;
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:600;
-}
 
 /* TITULO */
 
@@ -148,19 +80,11 @@
 /* DESCRIÇÃO */
 
 .job-info{
-    color:#6b7280;
     font-size:14px;
-    line-height:1.6;
-    margin-bottom:10px;
+
 }
 
-/* EMPRESA */
 
-.company-name{
-    margin-bottom:18px;
-    font-weight:500;
-    color:#374151;
-}
 
 /* ***************************** FOOTER ***************************** */
 
@@ -171,11 +95,6 @@
     align-items:center;  
 }
 
-.price{
-    font-size:22px;
-    font-weight:700;
-    color:#2563eb;
-}
 
 /* ***************************** BOTÕES ***************************** */
 
@@ -201,55 +120,12 @@
 /* BASE */
 
 .job-btn{
-    padding:11px;
-    border-radius:12px;
-    text-decoration:none;
-    text-align:center;
-    color:white;
-    font-size:13px;
-    font-weight:600;
-    transition:.3s;
+    color:white; /**/
 
 }
 
-/* EDITAR */
 
-.edit-btn{
 
-    background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #f97316
-    );
-}
-
-.edit-btn:hover{
-
-    transform:translateY(-2px);
-    box-shadow:
-    0 8px 18px rgba(
-        79,
-        70,
-        229,
-        .25
-    );
-}
-
-.finalize-btn{
-
-    background:
-    linear-gradient(
-        135deg,
-        #3da046,
-        #4b9c3b
-    );
-}
-.finalize-btn:hover{
-
-    transform:translateY(-2px);
-    box-shadow:0 8px 18px rgba( 78,165,78,.25);
-}
 
 /******************* FILTROS *******************/
 .empty-message{
@@ -267,51 +143,6 @@
     margin-bottom:35px;
 }
 
-.filter-btn{
-    border:none;
-    background:white;
-    padding:12px 22px;
-    border-radius:30px;
-    font-weight:600;
-    cursor:pointer;
-    color:#6b7280;
-    transition:.3s;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
-}
-
-.filter-btn:hover{
-    background:#eef4ff;
-    color:#2563eb;
-}
-
-.filter-btn.active{
-    background:#2563eb;
-    color:white;
-}
-
-/* EXCLUIR */
-
-.delete-btn{
-
-    background:#ef4444;
-}
-
-.delete-btn:hover{
-
-    background:#dc2626;
-    transform:translateY(-2px);
-}
-
-/* CANDIDATOS */
-
-.candidates-btn{
-    background:#111827;
-}
-
-.candidates-btn:hover{
-    background:#374151;
-    transform:translateY(-2px);
-}
 
 /* ***************************** EMPTY ***************************** */
 

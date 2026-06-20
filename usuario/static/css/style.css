@@ -10,7 +10,7 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: linear-gradient(135deg, #eef4ff 0%, #fff2e8 100%);
+    background: radial-gradient(circle , #2a3858, #2b4bdb);    min-height:100vh;
 }
 
 /*****************************CONTAINER********************************************************************** */
@@ -35,7 +35,7 @@ body{
 
 .left{
     width:50%;
-    background: linear-gradient(160deg, #1e3a8a 0%, #2563eb 50%, #ea580c 100%);
+    background: linear-gradient(210deg, #1e3a8a 0%, #2563eb 50%, #ea580c 100%);
     color:white;
     padding:60px;
     display:flex;
@@ -218,12 +218,7 @@ body{
 }
 
 .toggle-password{
-    position:absolute;
     right:15px;
-    top:50%;
-    transform:translateY(-50%);
-    cursor:pointer;
-    color:#64748b;
     font-size:18px;
     z-index:10;
     display:flex;
@@ -231,9 +226,7 @@ body{
     justify-content:center;
 }
 
-.toggle-password:hover{
-    color:#2563eb;
-}
+
 /* ***********************************  RESPONSIVO ********************************************************************** */
 
 @media(max-width:768px){

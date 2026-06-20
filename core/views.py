@@ -96,3 +96,34 @@ def homeEmpresa(request):
 
     return render(request, "homeEmpresa.html", context)
 
+#*******************************************************es.
+
+
+def erro404(request, exception):
+    return render(
+        request,
+        "404.html",
+        status=404
+    )
+def erro403(request, exception):
+    return render(
+        request,
+        "errors/403.html",
+        status=403
+    )
+
+
+def erro500(request):
+    return render(
+        request,
+        "errors/500.html",
+        status=500
+    )
+
+
+def teste404(request):
+    return render(
+        request,
+        "404.html",
+        status=404
+    )

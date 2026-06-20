@@ -1,0 +1,151 @@
+{% extends base_template %}
+{% load static %}
+
+{% block title %}
+Notificações
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/notificacoes.css' %}">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="notifications-page">
+
+<div class="notifications-header">
+
+    <div>
+
+        <h1>Notificações</h1>
+
+        <p>
+            {% if request.user.tipo_usuario == 'empresa' %}
+                Acompanhe candidatos, vagas e avaliações recebidas.
+            {% else %}
+                Acompanhe atualizações das suas vagas e candidaturas.
+            {% endif %}
+        </p>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat-card">
+            <span>{{ notificacoes.count }}</span>
+            <small>Total</small>
+        </div>
+
+        <div class="stat-card unread">
+            <span>{{ nao_lidas }}</span>
+            <small>Não lidas</small>
+        </div>
+
+    </div>
+
+</div>
+
+{% if notificacoes %}
+
+<div class="notificacoes-list">
+
+    {% for notificacao in notificacoes %}
+
+    <a
+        href="{% url 'abrirNotificacao' notificacao.id %}"
+        class="notificacao-card {{ notificacao.tipo }} {% if not notificacao.lida %}nao-lida{% endif %}"
+    >
+
+        <div class="icone">
+
+
+    
+            {% if notificacao.tipo == 'aceito' %}
+                <i class="fa-solid fa-circle-check"></i>
+
+            {% elif notificacao.tipo == 'recusado' %}
+                <i class="fa-solid fa-circle-xmark"></i>
+
+            {% elif notificacao.tipo == 'cancelada' %}
+                <i class="fa-solid fa-ban"></i>
+
+            {% elif notificacao.tipo == 'avaliacao' %}
+                <i class="fa-solid fa-star"></i>
+
+            {% elif notificacao.tipo == 'candidatura' %}
+                <i class="fa-solid fa-user-plus"></i>
+
+            {% elif notificacao.tipo == 'desistencia' %}
+                <i class="fa-solid fa-user-minus"></i>
+
+            {% elif notificacao.tipo == 'evento' %}
+                <i class="fa-solid fa-calendar-days"></i>
+
+            {% elif notificacao.tipo == 'perfil' %}
+                <i class="fa-solid fa-user-pen"></i>
+
+            {% elif notificacao.tipo == 'edicao' %}
+                <i class="fa-solid fa-pen-to-square"></i>
+
+            {% else %}
+                <i class="fa-solid fa-bell"></i>
+            {% endif %}
+
+        </div>
+
+        <div class="conteudo">
+
+            <div class="titulo-row">
+
+                <h3>
+                    {{ notificacao.titulo }}
+                </h3>
+
+                {% if not notificacao.lida %}
+                    <span class="badge-nova">
+                        Nova
+                    </span>
+                {% endif %}
+
+            </div>
+
+            <p>
+                {{ notificacao.mensagem }}
+            </p>
+
+            <small>
+                {{ notificacao.data_criacao|timesince }} atrás
+            </small>
+
+        </div>
+
+    </a>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+
+    <i class="fa-regular fa-bell-slash"></i>
+
+    <h2>
+        Nenhuma notificação
+    </h2>
+
+    <p>
+        Você ainda não recebeu notificações.
+    </p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

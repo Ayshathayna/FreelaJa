@@ -10,12 +10,12 @@ Avaliar Freelancer
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/avaliarVaga.css' %}">
+<link rel="stylesheet" href="{% static 'css/baseAvaliacao.css' %}">
 {% endblock %}
 
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{% static 'js/avaliarVaga.js' %}"></script>
+<script src="{% static 'js/baseAvaliacao.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -29,9 +29,9 @@ Avaliar Freelancer
         <div class="review-header">
 
             {% if somente_leitura %}
-            <a href="{% url 'candidatosVaga' vaga.id %}" class="carousel-arrow">❮</a>
+            <a href="{% url 'candidatosVaga' vaga.id %}" class="return-arrow">❮</a>
             {% else %}
-            <a href="{% url 'candidatosVaga' vaga.id %}" class="carousel-arrow"
+            <a href="{% url 'candidatosVaga' vaga.id %}" class="return-arrow"
                 onclick="return confirmarVolta(event, this.href)">
                 ❮
             </a>
@@ -132,7 +132,7 @@ Avaliar Freelancer
 
             </div>
 
-            <button type="submit" class="submit-btn">Enviar Avaliação</button>
+            <button type="submit" class="btn-save">Enviar Avaliação</button>
 
         </form>
 
