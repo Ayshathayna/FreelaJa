@@ -6,6 +6,7 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from avaliacoes.models import AvaliaVaga, AvaliaFreelancer
 from perfis.models import Empresa, Freelancer
 from .models import Vaga, Candidatura
@@ -342,23 +343,46 @@ def candidatarVaga(request, vaga_id):
 
     return redirect('verVaga', id=vaga.id)
 
+
 @login_required
 def listarVagas(request):
-    query = request.GET.get('q', '').strip()
-    freelancer = get_object_or_404(Freelancer, usuario=request.user)
 
-    # Atualiza o status das vagas abertas (ex.: finaliza as que já passaram da data)
+    query = request.GET.get('q', '').strip() or request.GET.get('busca', '').strip()
+    categoria = request.GET.get('categoria', '').strip()
+
+    freelancer = get_object_or_404(
+        Freelancer,
+        usuario=request.user
+    )
+
     for vaga in Vaga.objects.filter(status='aberto'):
         vaga.atualizar_status()
 
     vagas = Vaga.objects.filter(status='aberto')
 
     if query:
-        vagas = vagas.filter(
+        query_lower = query.lower()
+        matching_categories = [
+            key for key, label in Vaga.CATEGORIAS
+            if query_lower in key.lower() or query_lower in label.lower()
+        ]
+
+        search_filter = (
             Q(titulo__icontains=query) |
             Q(descricao__icontains=query) |
-            Q(endereco__icontains=query)
+            Q(endereco__icontains=query) |
+            Q(empresa__nomeFantasia__icontains=query) |
+            Q(detalhes__icontains=query)
         )
+
+        if matching_categories:
+            search_filter |= Q(categoria__in=matching_categories)
+
+        vagas = vagas.filter(search_filter)
+
+    if categoria:
+        vagas = vagas.filter(categoria=categoria)
+
     candidaturas_ids = set(
         Candidatura.objects.filter(
             freelancer=freelancer
@@ -368,12 +392,24 @@ def listarVagas(request):
     for vaga in vagas:
         vaga.jaCandidatou = vaga.id in candidaturas_ids
 
+    paginator = Paginator(vagas, 12)
+    page_number = request.GET.get('page')
     
+    try:
+        vagas_paginadas = paginator.page(page_number)
+    except PageNotAnInteger:
+        vagas_paginadas = paginator.page(1)
+    except EmptyPage:
+        vagas_paginadas = paginator.page(paginator.num_pages)
 
     return render(request, 'vagas.html', {
-        'vagas': vagas,
-        'query': query
+        'vagas': vagas_paginadas,
+        'query': query,
+        'categoria_selecionada': categoria,
+        'categorias': Vaga.CATEGORIAS,
+        'paginator': paginator,
     })
+
 
 @login_required
 def candidaturas(request):

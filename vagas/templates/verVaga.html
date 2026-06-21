@@ -14,12 +14,12 @@
 
     <!-- CARD PRINCIPAL -->
     <div class="job-detail-card">
+            <a href="javascript:history.back()" class="return-arrow"> ❮</a>
 
         <!-- IMAGEM -->
 
         <div class="image-container">
 
-            <a href="javascript:history.back()" class="return-arrow"> ❮</a>
 
             <img class="job-detail-image"
                 src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
@@ -44,8 +44,7 @@
             {% endif %}
 
             <div>
-                <h1>Mais informações</h1>
-            </div>
+<h2 class="section-title">Mais informações</h2>            </div>
 
             <div class="job-info-grid">
 
@@ -87,12 +86,12 @@
 
                 {% if eh_empresa %}
 
-                <a href="{% url 'candidatosVaga' vaga.id %}" class="btn-primary candidates-btn"> Candidatos </a>
+                <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn apply-btn"> Candidatos </a>
 
                     {% if vaga.status != 'finalizado' %}
-                    <a href="{% url 'editarVaga' vaga.id %}" class="btn-primary"> Editar </a>
+                    <a href="{% url 'editarVaga' vaga.id %}" class="job-btn view-btn"> Editar </a>
 
-                    <a href="{% url 'finalizarVaga' vaga.id %}" class="btn-primary finalize-btn"> Finalizar</a>
+                    <a href="{% url 'finalizarVaga' vaga.id %}" class="job-btn finalize-btn"> Finalizar</a>
                     {% endif %}
 
                 {% else %}
@@ -101,10 +100,10 @@
                     <button class="btn-disabled" disabled> Já se candidatou</button>
                     {% else %}
 
-                    <a href="{% url 'candidatarVaga' vaga.id %}" class="btn-primary"> Candidatar-se</a>
+                    <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn"> Candidatar-se</a>
 
                     {% endif %}
-                <a href="{% url 'perfilEmpresa' vaga.empresa.id %}" class="btn-primary"> Perfil da empresa </a>
+                <a href="{% url 'perfilEmpresa' vaga.empresa.id %}" class="job-btn view-btn"> Perfil da empresa </a>
 
                 {% endif %}
 

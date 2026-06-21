@@ -43,8 +43,7 @@
     font-size:16px;
 }
 
-/* E
-RELAS */
+/* ESTRELAS */
 
 .rating-container{
     margin-bottom:30px;
@@ -58,7 +57,6 @@ RELAS */
 }
 
 .rating{
-
     display:flex;
     flex-direction:row-reverse;
     justify-content:center;
@@ -90,9 +88,6 @@ RELAS */
 
 }
 
-.readonly-rating .filled{
-    color:#fbbf24;
-}
 
 /* FORM */
 
@@ -122,22 +117,6 @@ RELAS */
     border-color:#2563eb;
 }
 
-/* BOTÃO */
-
-
-
-.view-rating{
-    text-align:center;
-    font-size:32px;
-    margin-top:10px;
-}
-
-.view-rating span{
-    display:block;
-    margin-top:10px;
-    font-size:18px;
-    color:#6b7280;
-}
 
 .comment-box{
     background:#f8fafc;

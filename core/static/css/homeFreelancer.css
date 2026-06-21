@@ -10,34 +10,7 @@ header{
 
 /* ************************************* SEARCH BOX ************************************************* */
 
-.search-box{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  width:100%;
-  max-width:1200px;
-  padding:18px;
-  background:white;
-  border-radius:20px;
-  box-shadow:0 10px 35px rgba(0,0,0,0.15);
-}
 
-.search-box input{
-  flex:2;
-}
-
-.search-box select{
-  flex:1;
-}
-
-.search-box input,
-.search-box select{
-  padding:16px;
-  border:none;
-  background:#f3f4f6;
-  border-radius:12px;
-  font-size:15px;
-}
 
 
 

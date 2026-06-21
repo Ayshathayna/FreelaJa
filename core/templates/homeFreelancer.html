@@ -22,7 +22,7 @@
   <p>Pesquise trabalhos por tipo, dia da semana e horário disponível.</p>
 
   <!-- PESQUISA -------------------------------------------------------------------------------------------->
-
+<!-- 
   <div class="search-box">
 
     <input type="text" placeholder="Pesquisar vagas...">
@@ -35,23 +35,33 @@
       <option>Vídeo</option>
     </select>
 
-    <select>
-      <option>Dia</option>
-      <option>Segunda</option>
-      <option>Terça</option>
-      <option>Quarta</option>
-    </select>
-
-    <select>
-      <option>Horário</option>
-      <option>Manhã</option>
-      <option>Tarde</option>
-      <option>Noite</option>
-    </select>
+    
 
     <button>Buscar</button>
 
-  </div>
+  </div> -->
+<form method="GET" action="{% url 'listarVagas' %}" class="search-box">
+
+    <input
+        type="text"
+        name="q"
+        value="{{ query }}"
+        placeholder="Pesquisar vagas..."
+    >
+
+    <select name="categoria">
+        <option value="">Todas as categorias</option>
+
+        {% for valor, nome in categorias %}
+            <option value="{{ valor }}" {% if categoria_selecionada == valor %}selected{% endif %}>
+                {{ nome }}
+            </option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Buscar</button>
+
+</form>
 
 </div>
 

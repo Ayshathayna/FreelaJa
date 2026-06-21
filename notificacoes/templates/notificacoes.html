@@ -34,10 +34,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     <div class="stats">
 
-        <div class="stat-card">
-            <span>{{ notificacoes.count }}</span>
-            <small>Total</small>
-        </div>
 
         <div class="stat-card unread">
             <span>{{ nao_lidas }}</span>
@@ -127,6 +123,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     {% endfor %}
 
 </div>
+{% if paginator.num_pages > 1 %}
+<div class="pagination">
+
+    {% if notificacoes.has_previous %}
+        <a href="?page={{ notificacoes.previous_page_number }}" class="page-arrow">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+    {% endif %}
+
+    <div class="page-current">
+        <span>{{ notificacoes.number }}</span>
+        <small>de {{ paginator.num_pages }}</small>
+    </div>
+
+    {% if notificacoes.has_next %}
+        <a href="?page={{ notificacoes.next_page_number }}" class="page-arrow">
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+    {% endif %}
+
+</div>
+{% endif %}
+
+
+
 
 {% else %}
 

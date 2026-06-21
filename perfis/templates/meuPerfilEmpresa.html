@@ -21,6 +21,7 @@ Meu Perfil
     <div class="perfil-header">
 
         <div class="perfil-foto-card">
+            <a href="{% url 'homeFreelancer' %}" class="return-arrow"> ❮</a>
 
             {% if empresa.foto %}
             <img src="{{ empresa.foto.url }}" class="foto-perfil">

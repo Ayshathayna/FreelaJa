@@ -21,6 +21,9 @@ def homeFreelancer(request):
         status='aberto'
     ).order_by('dataEvento')[:10]
 
+    query = request.GET.get('q', '').strip()
+    categoria_selecionada = request.GET.get('categoria', '').strip()
+
     candidaturas_ids = set(
         Candidatura.objects.filter(
             freelancer=freelancer
@@ -34,7 +37,10 @@ def homeFreelancer(request):
         
     return render(request, 'homeFreelancer.html', {
         'vagas': vagas,
-        'freelancer':freelancer
+        'freelancer': freelancer,
+        'categorias': Vaga.CATEGORIAS,
+        'query': query,
+        'categoria_selecionada': categoria_selecionada,
         })
     
 #************************************************* Empresa **********************************************

@@ -5,6 +5,7 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/vagas.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 {% endblock %}
 
 {% block content %}
@@ -24,13 +25,19 @@
 
         <form method="GET" class="search-box">
 
-            <div class="search-input">
 
-                <span>🔍</span>
 
-                <input type="text" name="busca" placeholder="Cargo, tecnologia ou empresa">
+                <input type="text" name="q" value="{{ query }}" placeholder="🔍 Cargo, tecnologia, empresa ou detalhe">
 
-            </div>
+
+            <select name="categoria">
+                <option value="">Todas as categorias</option>
+                {% for valor, nome in categorias %}
+                    <option value="{{ valor }}" {% if categoria_selecionada == valor %}selected{% endif %}>
+                        {{ nome }}
+                    </option>
+                {% endfor %}
+            </select>
 
             <button type="submit">Buscar vagas</button>
 
@@ -63,15 +70,20 @@
                 <!-- CABEÇALHO -->
 
                 <div class="job-header">
-                    {% if vaga.empresa.foto %}
-                    <img src="{{ vaga.empresa.foto.url }}" alt="{{ vaga.empresa.nomeFantasia }}" class="profile-image">
+                    {% if vaga.imagem %}
+                    <img src="{{ vaga.imagem.url }}" alt="{{ vaga.empresa.nomeFantasia }}" class="profile-image">
                     {% else %}
                     <div class="company-logo">{{ vaga.empresa.nomeFantasia|slice:":1" }} </div>
                     {% endif %}
 
 
                     <div class="header-info">
-
+{% if vaga.categoria %}
+                    <div class="job-details-badges">
+                        
+                        <span class="badge">{{ vaga.categoria }}</span>
+                    </div>
+                    {% endif %}
                         <h3> {{ vaga.titulo }}</h3>
 
                         <div class="company-info">
@@ -145,7 +157,36 @@
         {% endfor %}
 
     </div>
+{% if paginator.num_pages > 1 %}
+<div class="pagination">
 
+    {% if vagas.has_previous %}
+        <a href="?page=1{% if query %}&q={{ query }}{% endif %}{% if categoria_selecionada %}&categoria={{ categoria_selecionada }}{% endif %}" class="page-arrow">
+            <i class="fa-solid fa-angles-left"></i>
+        </a>
+
+        <a href="?page={{ vagas.previous_page_number }}{% if query %}&q={{ query }}{% endif %}{% if categoria_selecionada %}&categoria={{ categoria_selecionada }}{% endif %}" class="page-arrow">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
+    {% endif %}
+
+    <div class="page-current">
+        <span>{{ vagas.number }}</span>
+        <small>de {{ paginator.num_pages }}</small>
+    </div>
+
+    {% if vagas.has_next %}
+        <a href="?page={{ vagas.next_page_number }}{% if query %}&q={{ query }}{% endif %}{% if categoria_selecionada %}&categoria={{ categoria_selecionada }}{% endif %}" class="page-arrow">
+            <i class="fa-solid fa-chevron-right"></i>
+        </a>
+
+        <a href="?page={{ paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}{% if categoria_selecionada %}&categoria={{ categoria_selecionada }}{% endif %}" class="page-arrow">
+            <i class="fa-solid fa-angles-right"></i>
+        </a>
+    {% endif %}
+
+</div>
+{% endif %}
 </section>
 
 {% endblock %}
