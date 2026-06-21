@@ -327,24 +327,6 @@ body{
     gap:10px;
 }
 
-.badge-option input{
-    display:none;
-}
-
-.badge-option span{
-    padding:10px 16px;
-    border-radius:30px;
-    border:1px solid #ddd;
-    cursor:pointer;
-    transition:.2s;
-    display:block;
-}
-
-.badge-option input:checked + span{
-    background:#2563eb;
-    color:white;
-    border-color:#2563eb;
-}
 
 .hint{
     font-size:12px;

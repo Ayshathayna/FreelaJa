@@ -48,7 +48,7 @@
 
         <div class="navbar navbar-freelancer">
 
-            <div class="logo"><a href="{% url 'homeFreelancer' %}">Freelajá</a></div> <!-- Logo  colocar foto?-->
+            <div class="logo"><a href="{% url 'homeFreelancer' %}">Freela<span class="highlight" style="color:#ea580c;-webkit-text-stroke: 0.2px #ff9083;">Já</span></a></div> <!-- Logo  colocar foto?-->
 
             <div class="nav-links">
 
@@ -60,7 +60,7 @@
 
                 <div class="profile-menu">
 
-                    <div class="profile-btn">
+                    <div class="profile-btn btn-freelancer">
                         {% if request.user.freelancer.foto %}
                         <img src="{{ request.user.freelancer.foto.url }}" class="avatar"
                             alt="{{ request.user.freelancer.nomeCompleto }}">

@@ -84,11 +84,11 @@
                 {% else%}
                 {% if candidatura.avaliada %}
 
-                <a href="{% url 'verAvaliacaoFreelancer' candidatura.id %}" class="job-btn view-btn"> Ver Avaliação</a>
+                <a href="{% url 'verAvaliacaoFreelancer' candidatura.id %}" class="job-btn ver-btn"> Ver Avaliação</a>
 
                 {% else %}
 
-                <a href="{% url 'avaliarFreelancer' candidatura.id %}" class="job-btn accept-btn"> Avaliar </a>
+                <a href="{% url 'avaliarFreelancer' candidatura.id %}" class="job-btn avaliar-btn"> Avaliar </a>
 
                 {% endif %}
                 {% endif%}
@@ -146,7 +146,7 @@
                 <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}"
                     class="job-btn view-btn ">Ver perfil</a>
                 <a href="{% url 'recusarCandidatura' candidatura.id %}" class="job-btn cancel-btn">Recusar</a>
-                <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept-btn">Aceitar</a>
+                <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept">Aceitar</a>
 
             </div>
         </div>
@@ -201,7 +201,7 @@
                 <a href="{% url 'perfilFreelancer' candidatura.freelancer.id candidatura.id %}"
                     class="job-btn view-btn">Ver perfil</a>
                 {% if not vagaFinalizada%}
-                <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept-btn">Aceitar</a>
+                <a href="{% url 'aceitarCandidatura' candidatura.id %}" class="job-btn accept">Aceitar</a>
                 {%endif%}
 
             </div>

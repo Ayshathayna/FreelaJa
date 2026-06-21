@@ -16,7 +16,6 @@ class Vaga(models.Model):
         ('aberto', 'Aberto'), 
         ('cancelado', 'Cancelado'),
         ('fechado', 'Fechado'),
-        ('finalizado', 'Finalizado'),
     )
 
     empresa = models.ForeignKey( # Uma empresa pode ter vários eventos, mas um evento pertence a apenas uma empresa

@@ -8,7 +8,8 @@
 
 .hero-search{
     background:
-    linear-gradient(135deg, #2563eb, #7c3aed);    border-radius:30px;
+    linear-gradient(135deg, #0e1e56, #7c3aed);    
+    border-radius:30px;
     padding:50px;
     color:white;
     margin-bottom:50px;
@@ -54,13 +55,8 @@
 }
 
 .search-box button{
-    border:none;
     padding:0 30px;
-    border-radius:14px;
-    background:#2563eb;
-    color:white;
-    font-weight:600;
-    cursor:pointer;
+    border-radius:14px; 
 }
 
 /************************ HEADER *************************/
@@ -120,8 +116,8 @@
     font-size:24px;
     font-weight:700;
     color:white;
-    background:
-    linear-gradient(135deg, #2563eb, #7c3aed);}
+    background:linear-gradient(135deg, #0e1e56, #12266d);
+}
 .profile-image{
     width:100px;
     height:100px;

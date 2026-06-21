@@ -403,7 +403,7 @@ def candidaturas(request):
     ).exclude(vaga__status="finalizado")
     
     finalizadas = candidaturas.filter(
-        Q(vaga__status="finalizado")|
+        Q(vaga__status="finalizado")&
         Q(status="aceito", vaga__dataEvento__lt=hoje)
     )
     avaliadas_ids = set(

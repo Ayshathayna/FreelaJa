@@ -28,18 +28,17 @@ body{
 
   padding:10px 7%;
 
-  background:linear-gradient(90deg,#2563eb,#1d4ed8);
+  background:linear-gradient(90deg,#0e1e56,#7c3aed);
   color:white;
 }
 
 .navbar.navbar-empresa{
-    background:linear-gradient(135deg, #2563eb, #7c3aed)
+  background:linear-gradient(90deg,#df0000,#ea580c);
 
- /* background:linear-gradient(90deg,#2563eb,#1d4ed8);*/
 }
 
 .navbar.navbar-freelancer{
-    background:linear-gradient(135deg, #2563eb, #7c3aed)
+    background:linear-gradient(90deg, #0e1e56, #7c3aed)
 
  /* background:linear-gradient(90deg,#f97316,#ea580c);*/
 }
@@ -76,20 +75,28 @@ body{
   display:flex;
   align-items:center;
   gap:10px;
-
   padding:10px 16px;
-
   border-radius:12px;
-
   background:rgba(255,255,255,0.15);
-
   cursor:pointer;
   transition:0.3s;
 }
+.profile-btn.btn-freelancer{
+    background:#ea580c;
 
-.profile-btn:hover{
-  background:rgba(255,255,255,0.25);
 }
+.profile-btn.btn-empresa{
+    background:#192164;
+
+}
+
+.profile-btn.btn-freelancer:hover{
+  background:#e77132;
+}
+.profile-btn.btn-empresa:hover{
+  background:#1d2997;
+}
+
 
 .avatar{
   width:38px;
@@ -104,8 +111,8 @@ body{
   height:38px;
 
   border-radius:50%;
-  background:white;
-  color:#2563eb;
+  background:#ea580c;
+  color:#0e1e56;
 
   display:flex;
   align-items:center;
@@ -323,6 +330,7 @@ footer{
     font-weight:600;
     transition:.3s;
      cursor:pointer;
+     color:white
 
 }
 .job-btn:hover {
@@ -381,12 +389,12 @@ footer{
     color:#2563eb;
 }
 .filter-btn.active{
-    background:#2563eb;
+    background:#0e1e56;
     color:white;
 }
 /* VER PERFIL */
 .view-btn {
-    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    background: linear-gradient(135deg, #0e1e56, #12266d);
 }
 .view-btn:hover{
 
@@ -424,7 +432,7 @@ footer{
     transform:translateY(-2px);
 }
 .apply-btn{
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
+  background:linear-gradient(135deg,#df0000,#ea580c);
   color:white;
   box-shadow:0 6px 18px rgba(79,70,229,0.25);
 }
@@ -439,12 +447,8 @@ footer{
     padding:18px;
     border:none;
     border-radius:16px;
-    background:
-    linear-gradient(
-        135deg,
-        #2563eb,
-        #7c3aed
-    );
+    background:linear-gradient(90deg,#df0000,#ea580c);
+
 
    color:white;
     font-size:16px;
@@ -457,7 +461,7 @@ footer{
     box-shadow: 0 10px 25px rgba(  79, 70, 229, .25 );
 }
 .btn-save:disabled{
-    background:#9ca3af;
+    background:#f3a077;
     cursor:not-allowed;
     transform:none;
     box-shadow:none;
@@ -479,7 +483,7 @@ footer{
     align-items:center;
     gap:10px;
 
-    background:linear-gradient( 135deg, #2563eb, #7c3aed );
+    background:linear-gradient( 135deg, #0e1e56, #7c3aed );
 
     color:white;
     padding:12px 18px;
@@ -491,6 +495,20 @@ footer{
 
     transition:.3s;
 }
+.upload-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.upload-area input[type="file"]{
+    display:none;
+}
+#file-name {
+    color: #6b7280;
+    font-size: 14px;
+}
 
 .upload-btn:hover{
     transform:translateY(-2px);
@@ -500,4 +518,42 @@ footer{
 }
 .ver-btn{
     background:linear-gradient(135deg, #4c9d47, #8fed3a);
+}
+.search-box button{
+  padding:16px 30px;
+  border:none;
+  border-radius:12px;
+  background:#ea580c;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.search-box button:hover{
+    box-shadow: 0 10px 25px rgba(79,70, 229, .25);
+}
+.badge-option input{
+    display:none;
+}
+
+.badge-option span{
+    padding:10px 16px;
+    border-radius:30px;
+    border:1px solid #ddd;
+    cursor:pointer;
+    transition:.2s;
+    display:block;
+}
+.badge-option span:hover{
+    border-color:#2563eb;
+    color:#2563eb;
+}
+
+.badge-option input:checked + span{
+    background:#0e1e56;
+    color:white;
+    border-color:transparent;
+    transform:translateY(-2px);
+    box-shadow: 0 6px 18pxrgba(37,99,235,.25);
 }

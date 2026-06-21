@@ -139,7 +139,7 @@
         <div class="job-actions">
 
           <a href="{% url 'editarVaga' vaga.id %}" class="job-btn view-btn">Editar</a>
-          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn delete-btn"
+          <a href="{% url 'excluirVaga' vaga.id %}" class="job-btn cancel-btn"
             onclick="return confirmarExclusao(event, this.href)"> Excluir</a>
           <a href="{% url 'candidatosVaga' vaga.id %}" class="job-btn candidates-btn"> Candidatos</a>
 

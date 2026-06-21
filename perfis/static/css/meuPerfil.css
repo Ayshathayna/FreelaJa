@@ -174,22 +174,6 @@
 
 
 
-/*======
-   FOTO====== */
-
-.upload-area{
-    display:flex;
-    align-items:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.upload-area input[type="file"]{
-    display:none;
-}
-
-
-
 #file-name{
     color:#6b7280;
     font-size:14px;
@@ -220,34 +204,13 @@
     gap:12px;
 }
 
-.badge-option input{
-    display:none;
-}
 
 .badge-option span{
-    display:block;
-    padding:10px 18px;
-    border-radius:30px;
-    border:1px solid #d1d5db;
-    background:#fff;
-    cursor:pointer;
-    transition:.25s;
     font-size:14px;
     font-weight:500;
 }
 
-.badge-option span:hover{
-    border-color:#2563eb;
-    color:#2563eb;
-}
 
-.badge-option input:checked + span{
-    background:linear-gradient( 135deg, #2563eb, #7c3aed);
-    color:white;
-    border-color:transparent;
-    transform:translateY(-2px);
-    box-shadow: 0 6px 18pxrgba(37,99,235,.25);
-}
 .field-feedback{
     display:block;
     margin-top:10px;

@@ -19,7 +19,8 @@ def perfilFreelancer(request, freelancer_id, candidatura_id):
         Candidatura.objects
         .filter(
             freelancer=freelancer,
-            status="finalizado"
+            status="aceito",
+            vaga__status ="finalizado"
         )
         .select_related(
             "vaga",

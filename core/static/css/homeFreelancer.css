@@ -3,7 +3,7 @@
 /* ***************************** HEADER************************************************* */
 
 header{
-  background:linear-gradient(90deg,#2563eb,#f97316);
+  background:linear-gradient(90deg,#0e1e56,#7c3aed);
   padding:20px 7%;
   color:white;
 }
@@ -39,20 +39,7 @@ header{
   font-size:15px;
 }
 
-.search-box button{
-  padding:16px 30px;
-  border:none;
-  border-radius:12px;
-  background:#2563eb;
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-  transition:0.3s;
-}
 
-.search-box button:hover{
-  background:#4338ca;
-}
 
 
 /* ********************************* JOBS SECTION ************************************************* */

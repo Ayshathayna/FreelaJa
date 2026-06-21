@@ -26,7 +26,7 @@
 
 .btn-create{
     
-    background:linear-gradient( 135deg, #4f46e5, #7c3aed );
+    background:linear-gradient( 135deg, #0e1e56, #7c3aed );
     color:white;
     padding:14px 22px;
     border-radius:12px;
@@ -41,15 +41,10 @@
 /* ***************************** GRID ***************************** */
 
 .jobs-grid{
-
     display:grid;
-
-    grid-template-columns: repeat( auto-fill, minmax( 340px, 1fr)
-    );
-
+    grid-template-columns: repeat( auto-fill, minmax( 340px, 1fr));
     gap:25px;
 }
-
 
 /* ***************************** CONTEÚDO ***************************** */
 

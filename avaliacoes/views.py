@@ -56,6 +56,7 @@ def avaliarVaga(request, candidatura_id):
             avaliacao.save()
 
             vaga.empresa.atualizar_media()
+            
 
             messages.success(
                 request,

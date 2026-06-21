@@ -70,7 +70,7 @@
 
 .avatar-placeholder {
 
-    background: linear-gradient(135deg, #2563eb, #f97316);
+  background:linear-gradient(135deg,#0e1e56,#7c3aed);
     color: white;
     font-size: 24px;
     font-weight: 800;
@@ -132,18 +132,6 @@
 .job-btn {
     color: white;
 }
-
-
-/* ACEITAR */
-.accept-btn {
-    background: #10b981;
-}
-
-.accept-btn:hover {
-    background: #059669;
-}
-
-
 
 /******************* BADGE *******************/
 

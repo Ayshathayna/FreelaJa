@@ -23,7 +23,7 @@ class AvaliaVaga(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
 
-    comentario = models.TextField()
+    comentario = models.TextField(blank=True)
     criadoEm = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -51,7 +51,7 @@ class AvaliaFreelancer(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )
 
-    comentario = models.TextField()
+    comentario = models.TextField(blank=True)
     criadoEm = models.DateTimeField(auto_now_add=True)
 
     class Meta:

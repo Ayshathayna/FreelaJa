@@ -7,6 +7,8 @@ Criar vaga
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/criarEditarVaga.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 {% endblock %}
 
 {% block scripts %}
@@ -56,8 +58,17 @@ Criar vaga
                         <img id="preview-image" src="https://placehold.co/300x220?text=Imagem" alt="Preview">
                         {% endif %}
                     </div>
-                    {{ form.imagem }}
+<div class="upload-area">
 
+    {{ form.imagem }}
+
+    <label for="id_foto" class="upload-btn">
+        <i class="fa-solid fa-camera"></i> Escolher Foto
+    </label>
+
+    <span id="file-name">Nenhum arquivo selecionado</span>
+
+</div>
                 </div>
 
                 <!-- DIREITA -->

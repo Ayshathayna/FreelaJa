@@ -45,6 +45,13 @@ class VagaForm(forms.ModelForm):
             'categoria'
         ]
         widgets = {   #widgets para estilizar os campos do formulário
+            'imagem': forms.FileInput(
+                attrs={
+                    "id": "id_foto",
+                    "class": "hidden-input"
+                }
+            ),
+                
             'titulo': forms.TextInput(
                 attrs={
                     'class': 'form-input',
