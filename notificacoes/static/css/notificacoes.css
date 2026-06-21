@@ -1,338 +1,244 @@
-/* ================================================= */
-/* PAGE */
-/* ================================================= */
+/* -----------------PÁGINA DE NOTIFICAÇÕES ----------- */
 
 .notifications-page{
-max-width:1100px;
-margin:40px auto;
-padding:0 25px;
+    max-width:1100px;
+    margin:40px auto;
+    padding:0 25px;
 }
 
-/* ================================================= */
-/* HEADER */
-/* ================================================= */
+/* -----------------  HEADER  ----------------- */
 
 .notifications-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:35px;
-gap:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+    gap:20px;
 }
 
 .notifications-header h1{
-font-size:34px;
-font-weight:700;
-color:#111827;
+    font-size:34px;
+    font-weight:700;
+    color:#111827;
 }
 
 .notifications-header p{
-color:#64748b;
-margin-top:8px;
+    color:#64748b;
+    margin-top:8px;
 }
 
-/* ================================================= */
-/* STATS */
-/* ================================================= */
+/* -----------------    ESTATÍSTICAS   ----------------- */
 
 .stats{
-display:flex;
-gap:15px;
+    display:flex;
+    gap:15px;
 }
 
 .stat-card{
-background:white;
-padding:18px 25px;
-border-radius:18px;
-box-shadow:0 8px 25px rgba(0,0,0,.08);
-text-align:center;
-min-width:120px;
+    text-align:center;
+    min-width:120px;
+    padding:18px 25px;
 }
 
 .stat-card span{
-display:block;
-font-size:24px;
-font-weight:700;
-color:#2563eb;
+    display:block;
+    font-size:24px;
+    font-weight:700;
+    color:#2563eb;
 }
 
 .stat-card small{
-color:#64748b;
+    color:#64748b;
 }
 
+/* destaque para não lidas */
 .stat-card.unread span{
-color:#ef4444;
+    color:#ef4444;
 }
 
-/* ================================================= */
-/* LISTA */
-/* ================================================= */
+/* -----------------  LISTA  ----------------- */
 
 .notificacoes-list{
-display:flex;
-flex-direction:column;
-gap:18px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
 }
 
-/* ================================================= */
-/* CARD */
-/* ================================================= */
+/* -----------------   CARD BASE DA NOTIFICAÇÃO  ----------------- */
 
 .notificacao-card{
-display:flex;
-gap:18px;
+    display:flex;
+    gap:18px;
+    padding:22px;
 
-padding:22px;
-
-text-decoration:none;
-color:#111827;
-
-background:white;
-
-border-radius:20px;
-border:1px solid #e5e7eb;
-
-box-shadow:0 10px 25px rgba(0,0,0,.06);
-
-transition:.25s ease;
+    text-decoration:none;
+    color:#111827;
+    background:white;
+    border-radius:20px;
+    border:1px solid #e5e7eb;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+    transition:.25s ease;
 
 }
 
 .notificacao-card:hover{
-transform:translateY(-4px);
-box-shadow:0 15px 35px rgba(0,0,0,.10);
+    transform:translateY(-4px);
+    box-shadow:0 15px 35px rgba(0,0,0,.10);
 }
 
-/* ================================================= */
-/* NÃO LIDA */
-/* ================================================= */
+/* -----------------  NÃO LIDA  ----------------- */
 
 .notificacao-card.nao-lida{
-background:#eff6ff;
-border:2px solid #93c5fd;
-box-shadow:0 10px 25px rgba(37,99,235,.12);
+    background:#eff6ff;
+    border:2px solid #93c5fd;
+    box-shadow:0 10px 25px rgba(37,99,235,.12);
 }
 
-/* ================================================= */
-/* TIPOS */
-/* ================================================= */
+/* -----------------  TIPOS (COR DA BORDA ESQUERDA)  ----------------- */
 
-.notificacao-card.aceito{
-border-left:6px solid #22c55e;
-}
+.notificacao-card.aceito        { border-left: 6px solid #22c55e; }
+.notificacao-card.recusado      { border-left: 6px solid #ef4444; }
+.notificacao-card.cancelada     { border-left: 6px solid #f97316; }
+.notificacao-card.avaliacao     { border-left: 6px solid #facc15; }
+.notificacao-card.candidatura   { border-left: 6px solid #3b82f6; }
+.notificacao-card.desistencia   { border-left: 6px solid #dc2626; }
+.notificacao-card.evento        { border-left: 6px solid #06b6d4; }
+.notificacao-card.perfil        { border-left: 6px solid #8b5cf6; }
+.notificacao-card.edicao        { border-left: 6px solid #f59e0b; }
+.notificacao-card.sistema       { border-left: 6px solid #6366f1; }
 
-.notificacao-card.recusado{
-border-left:6px solid #ef4444;
-}
-
-.notificacao-card.cancelada{
-border-left:6px solid #f97316;
-}
-
-.notificacao-card.avaliacao{
-border-left:6px solid #facc15;
-}
-
-.notificacao-card.candidatura{
-border-left:6px solid #3b82f6;
-}
-
-.notificacao-card.desistencia{
-border-left:6px solid #dc2626;
-}
-
-.notificacao-card.evento{
-border-left:6px solid #06b6d4;
-}
-
-.notificacao-card.perfil{
-border-left:6px solid #8b5cf6;
-}
-
-.notificacao-card.edicao{
-border-left:6px solid #f59e0b;
-}
-
-.notificacao-card.sistema{
-border-left:6px solid #6366f1;
-}
-
-/* ================================================= */
-/* ICONE */
-/* ================================================= */
+/* -----------------  ICONE  ----------------- */
 
 .icone{
-width:60px;
-height:60px;
-
-border-radius:50%;
-
-display:flex;
-align-items:center;
-justify-content:center;
-
-flex-shrink:0;
-
-font-size:24px;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:24px;
 
 }
 
-/* ACEITO */
+/* ---------ÍCONES POR TIPO (OTIMIZADO) -----------*/
 
 .aceito .icone{
-background:#dcfce7;
-color:#16a34a;
+    background:#dcfce7;
+    color:#16a34a;
 }
 
-/* RECUSADO */
-
-.recusado .icone{
-background:#fee2e2;
-color:#dc2626;
+.recusado .icone,
+.desistencia .icone {
+    background: #fee2e2;
+    color: #dc2626;
 }
-
-/* CANCELADA */
 
 .cancelada .icone{
-background:#ffedd5;
-color:#ea580c;
+    background:#ffedd5;
+    color:#ea580c;
 }
-
-/* AVALIAÇÃO */
 
 .avaliacao .icone{
-background:#fef9c3;
-color:#ca8a04;
+    background:#fef9c3;
+    color:#ca8a04;
 }
-
-/* NOVA CANDIDATURA */
 
 .candidatura .icone{
-background:#dbeafe;
-color:#2563eb;
+    background:#dbeafe;
+    color:#2563eb;
 }
-
-/* DESISTÊNCIA */
-
-.desistencia .icone{
-background:#fee2e2;
-color:#dc2626;
-}
-
-/* EVENTO */
 
 .evento .icone{
-background:#cffafe;
-color:#0891b2;
+    background:#cffafe;
+    color:#0891b2;
 }
-
-/* PERFIL */
 
 .perfil .icone{
-background:#ede9fe;
-color:#7c3aed;
+    background:#ede9fe;
+    color:#7c3aed;
 }
-
-/* EDIÇÃO */
 
 .edicao .icone{
-background:#fef3c7;
-color:#d97706;
+    background:#fef3c7;
+    color:#d97706;
 }
-
-/* SISTEMA */
 
 .sistema .icone{
-background:#e0e7ff;
-color:#4f46e5;
+    background:#e0e7ff;
+    color:#4f46e5;
 }
 
-/* ================================================= */
-/* CONTEUDO */
-/* ================================================= */
+/* -----------------  CONTEUDO  ----------------- */
 
 .conteudo{
-flex:1;
+    flex:1;
 }
 
 .titulo-row{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:15px;
-margin-bottom:8px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:8px;
 }
 
 .titulo-row h3{
-font-size:18px;
-font-weight:600;
-color:#111827;
+    font-size:18px;
+    font-weight:600;
+    color:#111827;
 }
 
 .conteudo p{
-color:#475569;
-line-height:1.6;
-margin-bottom:10px;
+    color:#475569;
+    line-height:1.6;
+    margin-bottom:10px;
 }
 
 .conteudo small{
-color:#94a3b8;
-font-size:13px;
+    color:#94a3b8;
+    font-size:13px;
 }
 
-/* ================================================= */
-/* BADGE NOVA */
-/* ================================================= */
+/* -----------------  BADGE NOVA  ----------------- */
 
 .badge-nova{
-background:#2563eb;
-color:white;
+    background:#2563eb;
+    color:white;
 
-padding:5px 12px;
-
-border-radius:999px;
-
-font-size:12px;
-font-weight:600;
-
-white-space:nowrap;
-
+    padding:5px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+    white-space:nowrap;
 }
 
-/* ================================================= */
-/* EMPTY STATE */
-/* ================================================= */
+/* -----------------  ESTADO VAZIO  ----------------- */
 
 .empty-state{
-background:white;
-padding:70px;
-
-border-radius:24px;
-
-text-align:center;
-
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-
+    background:white;
+    padding:70px;
+    border-radius:24px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 .empty-state i{
-font-size:70px;
-color:#94a3b8;
-margin-bottom:20px;
+    font-size:70px;
+    color:#94a3b8;
+    margin-bottom:20px;
 }
 
 .empty-state h2{
-margin-bottom:10px;
-color:#111827;
+    margin-bottom:10px;
+    color:#111827;
 }
 
 .empty-state p{
-color:#64748b;
+    color:#64748b;
 }
 
-/* ================================================= */
-/* RESPONSIVO */
-/* ================================================= */
+/* -----------------  RESPONSIVO  ----------------- */
 
 @media(max-width:768px){
 

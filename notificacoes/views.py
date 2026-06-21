@@ -15,6 +15,7 @@ def minhasNotificacoes(request):
         lida=False
     ).count()
     
+    # Paginação (10 itens por página)
     paginator = Paginator(notificacoes_list, 10)
     page_number = request.GET.get('page')
     
@@ -40,6 +41,8 @@ def minhasNotificacoes(request):
             'paginator': paginator,
         }
     )
+
+# Marca como lida e redireciona para destino
 @login_required
 def abrirNotificacao(request, id):
 

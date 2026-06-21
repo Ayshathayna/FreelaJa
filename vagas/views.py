@@ -117,7 +117,10 @@ def excluirVaga(request, id):
     return redirect(
         "homeEmpresa"
     )
-    
+
+
+
+#------------------------------------------------------------------
 @login_required
 def candidatosVaga(request, vaga_id):
     empresa = get_object_or_404(Empresa, usuario=request.user)
@@ -279,6 +282,8 @@ def finalizarVaga(request, vaga_id):
     )
     messages.success(request, "Vaga finalizada com sucesso!")
     return redirect('homeEmpresa')
+
+
 #--------------------------------------------------------- FREELANCER --------------------------------------------------------------------
 @login_required
 def verVaga(request, id):
@@ -344,6 +349,34 @@ def candidatarVaga(request, vaga_id):
     return redirect('verVaga', id=vaga.id)
 
 
+@login_required
+def cancelarCandidatura(request, candidatura_id):
+    candidatura = get_object_or_404(Candidatura, id=candidatura_id)
+    
+    if candidatura.status == 'aceito':
+
+        candidatura.vaga.quantidadeSelecionados -= 1
+
+        if candidatura.vaga.quantidadeSelecionados < 0:
+            candidatura.vaga.quantidadeSelecionados = 0
+        criar_notificacao(
+            usuario=candidatura.vaga.empresa.usuario,
+            titulo='Freelancer desistiu da vaga',
+            mensagem=f'{candidatura.freelancer.nomeCompleto} desistiu da vaga "{candidatura.vaga.titulo}".',
+            tipo='warning',
+            link=reverse(
+                'candidatosVaga',       
+                args=[candidatura.vaga.id]
+            )
+        )
+
+        candidatura.vaga.save()
+    candidatura.delete()  
+    messages.success(request, "Candidatura cancelada com sucesso!")
+    return redirect("candidaturas")
+
+
+#-----------------------------------------------------------------------------------------
 @login_required
 def listarVagas(request):
 
@@ -467,30 +500,3 @@ def candidaturas(request):
     }
 
     return render(request, "candidaturas.html", context)
-
-@login_required
-def cancelarCandidatura(request, candidatura_id):
-    candidatura = get_object_or_404(Candidatura, id=candidatura_id)
-    
-    if candidatura.status == 'aceito':
-
-        candidatura.vaga.quantidadeSelecionados -= 1
-
-        if candidatura.vaga.quantidadeSelecionados < 0:
-            candidatura.vaga.quantidadeSelecionados = 0
-        criar_notificacao(
-            usuario=candidatura.vaga.empresa.usuario,
-            titulo='Freelancer desistiu da vaga',
-            mensagem=f'{candidatura.freelancer.nomeCompleto} desistiu da vaga "{candidatura.vaga.titulo}".',
-            tipo='warning',
-            link=reverse(
-                'candidatosVaga',       
-                args=[candidatura.vaga.id]
-            )
-        )
-
-        candidatura.vaga.save()
-    candidatura.delete()  
-    messages.success(request, "Candidatura cancelada com sucesso!")
-    return redirect("candidaturas")
-

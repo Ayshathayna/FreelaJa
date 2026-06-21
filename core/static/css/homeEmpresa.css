@@ -40,20 +40,7 @@
 
 /* ***************************** GRID ***************************** */
 
-.jobs-grid{
-    display:grid;
-    grid-template-columns: repeat( auto-fill, minmax( 340px, 1fr));
-    gap:25px;
-}
 
-/* ***************************** CONTEÚDO ***************************** */
-
-.job-content{
-    padding:22px;
-    display:flex;
-    flex-direction:column;
-    height:100%;
-}
 
 /* TOPO */
 
@@ -83,12 +70,7 @@
 
 /* ***************************** FOOTER ***************************** */
 
-.job-footer{
-    margin-top:auto;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;  
-}
+
 
 
 /* ***************************** BOTÕES ***************************** */

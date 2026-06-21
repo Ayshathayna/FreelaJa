@@ -1,9 +1,9 @@
-/****************** DASHBOARD *******************/
+/*--------------------- DASHBOARD ---------------------------*/
 .dashboard {
     padding: 40px 7%;
 }
 
-/******************* HEADER *******************/
+/*--------------------- HEADER ---------------------------*/
 
 .page-header {
     margin-bottom: 35px;
@@ -24,7 +24,7 @@
     color: #6b7280;
     align-self: center;
 }
-/******************* FILTROS *******************/
+/*--------------------- FILTROS ---------------------------*/
 
 .filter-tabs{
     display:flex;
@@ -34,21 +34,15 @@
 }
 
 
-/******************* CARD (MESMO PADRÃO JOB) *******************/
-.jobs-grid{
-    display:grid;
-    grid-template-columns:repeat( auto-fill, minmax(350px,1fr) );
-    gap:25px;
-}
 
 
-/******************* REMOVE IMAGEM PADRÃO (freelancer não precisa banner) *******************/
+/*--------------------- REMOVE IMAGEM PADRÃO (freelancer não precisa banner) ---------------------------*/
 
 .job-image {
     display: none;
 }
 
-/******************* TOP (FREELANCER HEADER DENTRO DO CARD) *******************/
+/*--------------------- TOP (FREELANCER HEADER DENTRO DO CARD) ---------------------------*/
 
 .freelancer-top {
     display: flex;
@@ -58,7 +52,7 @@
     padding-bottom: 12px;
 }
 
-/******************* AVATAR *******************/
+/*--------------------- AVATAR ---------------------------*/
 
 .freelancer-avatar img,
 .avatar-placeholder {
@@ -76,7 +70,7 @@
     font-weight: 800;
 }
 
-/******************* INFO *******************/
+/*--------------------- INFO ---------------------------*/
 
 .freelancer-main-info {
     flex: 1;
@@ -95,7 +89,7 @@
     line-height: 1.5;
 }
 
-/******************* SOBRE MIM *******************/
+/*--------------------- SOBRE MIM ---------------------------*/
 
 .freelancer-about {
     padding: 0 22px 18px 22px;
@@ -109,7 +103,7 @@
     overflow: hidden;
 }
 
-/******************* AÇÕES (IGUAL JOB ACTIONS) *******************/
+/*--------------------- AÇÕES (IGUAL JOB ACTIONS) ---------------------------*/
 
 .job-actions {
     display: grid;
@@ -127,13 +121,13 @@
     grid-template-columns: repeat(3, 1fr);
 }
 
-/******************* BOTÕES (MANTÉM PADRÃO SEU SISTEMA) *******************/
+/*--------------------- BOTÕES (MANTÉM PADRÃO SEU SISTEMA) ---------------------------*/
 
 .job-btn {
     color: white;
 }
 
-/******************* BADGE *******************/
+/*--------------------- BADGE ---------------------------*/
 
 .status-badge {
     display: inline-block;
@@ -191,7 +185,7 @@
   flex-shrink:0;
 }
 
-/******************* RESPONSIVO *******************/
+/*--------------------- RESPONSIVO ---------------------------*/
 
 @media(max-width:900px) {
 

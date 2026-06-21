@@ -67,11 +67,8 @@
 }
 
 .stat-card{
-    background:white;
     padding:25px;
-    border-radius:20px;
     text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,.06);
 }
 
 .stat-number{

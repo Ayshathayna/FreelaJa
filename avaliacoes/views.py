@@ -7,7 +7,7 @@ from .models import AvaliaFreelancer, AvaliaVaga
 from .forms import AvaliaVagaForm, AvaliaFreelancerForm
 
 from vagas.models import Candidatura
-from perfis.models import Freelancer
+from perfis.models import Freelancer, Empresa
 
 #************************************************* Freelancer **********************************************
 
@@ -133,12 +133,16 @@ def avaliarFreelancer(request, candidatura_id):
         id=candidatura_id
     )
 
-    empresa = request.user.empresa
-    freelancer = candidatura.freelancer
+    empresa = get_object_or_404(
+        Empresa,
+        usuario=request.user
+    ) 
     vaga = candidatura.vaga
 
     if vaga.empresa != empresa:
         raise PermissionDenied()
+    
+    freelancer = candidatura.freelancer
 
     avaliacao_existente = AvaliaFreelancer.objects.filter(
         empresa=empresa,

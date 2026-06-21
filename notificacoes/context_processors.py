@@ -7,6 +7,8 @@ from .models import Notificacao
 @login_required
 def minhasNotificacoes(request):
 
+    # Busca todas as notificações do usuário logado
+    # Ordenadas da mais recente para a mais antiga
     notificacoes = (
         Notificacao.objects
         .filter(usuario=request.user)
@@ -33,6 +35,8 @@ def minhasNotificacoes(request):
         }
     )
 
+# Retorna quantidade global de notificações não lidas
+# (usado em qualquer página do sistema)
 def notificacoes_nao_lidas(request):
 
     if request.user.is_authenticated:
@@ -49,6 +53,7 @@ def notificacoes_nao_lidas(request):
         'notificacoes_nao_lidas': total
     }
 
+# Marca como lida e redireciona para o destino
 @login_required
 def abrirNotificacao(request, id):
 

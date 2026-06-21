@@ -20,8 +20,8 @@ Meu Perfil
 
     <div class="perfil-header">
 
-        <div class="perfil-foto-card">
-            <a href="{% url 'homeFreelancer' %}" class="return-arrow"> ❮</a>
+        <div class="card perfil-foto-card">
+            <a href="{% url 'homeEmpresa' %}" class="return-arrow"> ❮</a>
 
             {% if empresa.foto %}
             <img src="{{ empresa.foto.url }}" class="foto-perfil">
@@ -39,7 +39,7 @@ Meu Perfil
 
         </div>
 
-        <div class="perfil-info-card">
+        <div class=" card perfil-info-card">
 
             <h1>Perfil da Empresa</h1>
             <p>
@@ -59,7 +59,7 @@ Meu Perfil
 
             <!-- DADOS EMPRESA -->
 
-            <div class="perfil-card">
+            <div class="card perfil-card">
 
                 <h2>Informações da Empresa</h2>
 
@@ -112,7 +112,7 @@ Meu Perfil
 
             <!-- ACESSO -->
 
-            <div class="perfil-card">
+            <div class="card perfil-card">
 
                 <h2>Dados de Acesso</h2>
 

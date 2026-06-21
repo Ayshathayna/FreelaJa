@@ -1,11 +1,8 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from perfis.models import Freelancer, Empresa
 from vagas.models import Vaga
-from django.core.validators import MinValueValidator, MaxValueValidator
 
-
-
-# Create your models here.
 
 class AvaliaVaga(models.Model):
 
@@ -30,7 +27,8 @@ class AvaliaVaga(models.Model):
         unique_together = ('freelancer', 'vaga')
 
     def __str__(self):
-        return f"{self.freelancer} avaliou {self.vaga}"#método para exibir o nome do freelancer e da vaga na avaliação
+        return f"{self.freelancer} avaliou {self.vaga}"
+    #método para exibir o nome do freelancer e da vaga na avaliação
 
 class AvaliaFreelancer(models.Model):
 

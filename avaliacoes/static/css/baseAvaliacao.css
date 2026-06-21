@@ -1,3 +1,4 @@
+/*-------------- Container principal da tela-------------- */
 .review-page{
     min-height:80vh;
     display:flex;
@@ -15,6 +16,9 @@
     border-radius:30px;
     box-shadow: 0 10px 35px rgba( 0, 0,0, .08);
 }
+
+/*--------------------CABEÇALHO------------------
+Nome do freelancer/vaga e status da avaliação*/
 
 .review-header{
     text-align:center;
@@ -43,7 +47,7 @@
     font-size:16px;
 }
 
-/* ESTRELAS */
+/*----------- SISTEMA DE AVALIAÇÃO POR ESTRELAS------------------ */
 
 .rating-container{
     margin-bottom:30px;
@@ -88,8 +92,7 @@
 
 }
 
-
-/* FORM */
+/* ----------------- FORMULÁRIO ---------------- */
 
 .form-group{
     margin-bottom:25px;
@@ -117,7 +120,7 @@
     border-color:#2563eb;
 }
 
-
+/*-------------- COMENTÁRIO EXIBIDO APÓS AVALIAÇÃO ---------*/
 .comment-box{
     background:#f8fafc;
     border:1px solid #e5e7eb;
@@ -127,6 +130,8 @@
     color:#374151;
 }
 
+/*--------------INFORMAÇÕES DA AVALIAÇÃO---------------------
+Data de envio e nota final*/
 .review-info{
     margin-top:20px;
     text-align:center;
@@ -135,13 +140,12 @@
 } 
 
 .return-arrow{
-  
   flex-shrink:0;
 }
 
-
+/*-------------VALIDAÇÃO DE FORMULÁRIO ---------------------*/
 .erro-form{
- margin-top:8px;
+    margin-top:8px;
     padding:8px 12px;
     border-radius:8px;
     background:#fef2f2;
@@ -163,22 +167,54 @@
     margin:0;
 }
 
-/* RESPONSIVO */
+/* --------------------- RESPONSIVIDADE----------------- */
 
-@media(max-width:768px){
+@media (max-width: 768px) {
 
-    .review-card{
+.review-card {
+    padding: 25px;
+}
 
-        padding:25px;
-    }
+.review-header h1 {
+    font-size: 26px;
+}
 
-    .review-header h1{
+.rating label {
+    font-size: 40px;
+}
 
-        font-size:26px;
-    }
+}
 
-    .rating label{
+@media (max-width: 480px) {
 
-        font-size:40px;
-    }
+.review-page {
+    padding: 30px 15px;
+}
+
+.review-card {
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.review-header h1 {
+    font-size: 22px;
+}
+
+.review-header p {
+    font-size: 14px;
+}
+
+.rating label {
+    font-size: 34px;
+}
+
+.form-group textarea {
+    padding: 14px;
+    font-size: 14px;
+}
+
+.comment-box {
+    padding: 16px;
+}
+
 }

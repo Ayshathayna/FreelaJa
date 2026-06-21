@@ -1,4 +1,4 @@
-/*   CONTAINER*/
+/*------------------ PÁGINA PERFIL (BASE)-----------------*/
 
 .perfil-page{
     max-width:1400px;
@@ -8,7 +8,7 @@
     margin-right: 4.5%;
 }
 
-/*   HEADER*/
+/*---------------------- HEADER--------------------*/
 
 .perfil-header{
     display:grid;
@@ -17,35 +17,35 @@
     margin-bottom:25px;
 }
 
+.perfil-card h2{
+    margin-bottom:25px;
+    color:#111827;
+}
+
 .perfil-foto-card,
+.perfil-card,
 .perfil-info-card{
-    background:white;
-    border-radius:20px;
     padding:30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
 }
 
 .perfil-foto-card{
     text-align:center;
 }
 
+.foto-perfil,
+.avatar-perfil {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+}
+
 .foto-perfil{
-    width:180px;
-    height:180px;
-    border-radius:50%;
+    
     object-fit:cover;
-    margin-bottom:15px;
 }
 
 .avatar-perfil{
-    width:180px;
-    height:180px;
-
-    margin:auto;
-    margin-bottom:15px;
-
-    border-radius:50%;
-
     display:flex;
     align-items:center;
     justify-content:center;
@@ -59,19 +59,6 @@
 
 .perfil-foto-card h2{
     margin-bottom:15px;
-}
-
-.avaliacao-box{
-    background:#f3f4f6;
-    padding:15px;
-    border-radius:12px;
-}
-
-.nota{
-    display:block;
-    font-size:24px;
-    font-weight:700;
-    color:#f59e0b;
 }
 
 .perfil-info-card{
@@ -89,8 +76,20 @@
     color:#6b7280;
     line-height:1.7;
 }
+.avaliacao-box{
+    background:#f3f4f6;
+    padding:15px;
+    border-radius:12px;
+}
 
-/*   GRID*/
+.nota{
+    display:block;
+    font-size:24px;
+    font-weight:700;
+    color:#f59e0b;
+}
+
+/*---------------------- GRID--------------------*/
 
 .perfil-grid{
     display:grid;
@@ -98,21 +97,8 @@
     gap:25px;
 }
 
-/*   CARD*/
 
-.perfil-card{
-    background:white;
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-
-.perfil-card h2{
-    margin-bottom:25px;
-    color:#111827;
-}
-
-/*   FORM*/
+/*---------------------- FORM--------------------*/
 
 .form-group{
     margin-bottom:18px;
@@ -153,7 +139,7 @@
     margin-top:5px;
 }
 
-/*   SEGURANÇA*/
+/*---------------------- SEGURANÇA--------------------*/
 
 .security-box{
     margin-top:25px;
@@ -172,15 +158,12 @@
     color:#6b7280;
 }
 
-
-
 #file-name{
     color:#6b7280;
     font-size:14px;
 }
 
-/*======
-   PASSWORD====== */
+/*---------------------- SENHA --------------------*/
 
 .password-box{
     position:relative;
@@ -204,12 +187,10 @@
     gap:12px;
 }
 
-
 .badge-option span{
     font-size:14px;
     font-weight:500;
 }
-
 
 .field-feedback{
     display:block;
@@ -233,25 +214,23 @@
 .return-arrow{
   position:absolute;
     z-index:10;
-    
-    
 }
 
 
-/*   RESPONSIVO*/
+/*---------------------- RESPONSIVO--------------------*/
 
 @media(max-width:1000px){
 
     .perfil-header{
-        grid-template-columns:1fr;
+   grid-template-columns:1fr;
     }
 
     .perfil-grid{
-        grid-template-columns:1fr;
+   grid-template-columns:1fr;
     }
 
     .perfil-page{
-        padding:0 15px;
+   padding:0 15px;
     }
 
 }

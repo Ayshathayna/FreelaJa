@@ -1,12 +1,7 @@
 from .models import Notificacao
-from . import views
 
-from datetime import timedelta
-from django.utils import timezone
-
-from vagas.models import Vaga, Candidatura
-
-
+# CRIAÇÃO GENÉRICA DE NOTIFICAÇÃO
+# Função reutilizável para todo o sistema
 def criar_notificacao(
     usuario,
     titulo,

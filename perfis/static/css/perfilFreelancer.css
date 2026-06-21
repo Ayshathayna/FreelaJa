@@ -6,7 +6,7 @@
     background:#f8fafc;
 }
 
-/* ================= PERFIL (ESQUERDA) ================= */
+/* --------------------- PERFIL (ESQUERDA) --------------------- */
 
 .profile-header{
     background:white;
@@ -49,7 +49,7 @@
     font-size:14px;
 }
 
-/* ================= SEÇÕES ================= */
+/* --------------------- SEÇÕES --------------------- */
 
 .section-card{
     background:white;
@@ -64,7 +64,7 @@
     color:#111827;
 }
 
-/* ================= HISTÓRICO DE VAGAS ================= */
+/* --------------------- HISTÓRICO DE VAGAS --------------------- */
 
 .history-item{
     display:flex;
@@ -101,7 +101,7 @@
     font-weight:600;
 }
 
-/* ================= AVALIAÇÕES ================= */
+/* --------------------- AVALIAÇÕES --------------------- */
 
 .review-card{
     border:1px solid #f1f5f9;
@@ -169,7 +169,7 @@
   flex-shrink:0;
 }
 
-/* ================= RESPONSIVO ================= */
+/* --------------------- RESPONSIVO --------------------- */
 
 @media(max-width:900px){
     .profile-container{

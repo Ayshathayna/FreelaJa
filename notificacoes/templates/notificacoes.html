@@ -8,164 +8,146 @@ Notificações
 {% block css %}
 
 <link rel="stylesheet" href="{% static 'css/notificacoes.css' %}">
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 {% endblock %}
 
 {% block content %}
 
 <div class="notifications-page">
 
-<div class="notifications-header">
+    <div class="notifications-header">
 
-    <div>
+        <div>
 
-        <h1>Notificações</h1>
+            <h1>Notificações</h1>
 
-        <p>
-            {% if request.user.tipo_usuario == 'empresa' %}
+            <p>
+                {% if request.user.tipo_usuario == 'empresa' %}
                 Acompanhe candidatos, vagas e avaliações recebidas.
-            {% else %}
+                {% else %}
                 Acompanhe atualizações das suas vagas e candidaturas.
-            {% endif %}
-        </p>
+                {% endif %}
+            </p>
 
-    </div>
+        </div>
 
-    <div class="stats">
+        <div class="stats">
 
 
-        <div class="stat-card unread">
-            <span>{{ nao_lidas }}</span>
-            <small>Não lidas</small>
+            <div class="card stat-card  unread">
+                <span>{{ nao_lidas }}</span>
+                <small>Não lidas</small>
+            </div>
+
         </div>
 
     </div>
 
-</div>
+    {% if notificacoes %}
 
-{% if notificacoes %}
+    <div class="notificacoes-list">
 
-<div class="notificacoes-list">
+        {% for notificacao in notificacoes %}
 
-    {% for notificacao in notificacoes %}
+        <a href="{% url 'abrirNotificacao' notificacao.id %}"
+            class=" card notificacao-card {{ notificacao.tipo }} {% if not notificacao.lida %}nao-lida{% endif %}">
 
-    <a
-        href="{% url 'abrirNotificacao' notificacao.id %}"
-        class="notificacao-card {{ notificacao.tipo }} {% if not notificacao.lida %}nao-lida{% endif %}"
-    >
+            <div class="icone">
 
-        <div class="icone">
-
-
-    
-            {% if notificacao.tipo == 'aceito' %}
+                {% if notificacao.tipo == 'aceito' %}
                 <i class="fa-solid fa-circle-check"></i>
 
-            {% elif notificacao.tipo == 'recusado' %}
+                {% elif notificacao.tipo == 'recusado' %}
                 <i class="fa-solid fa-circle-xmark"></i>
 
-            {% elif notificacao.tipo == 'cancelada' %}
+                {% elif notificacao.tipo == 'cancelada' %}
                 <i class="fa-solid fa-ban"></i>
 
-            {% elif notificacao.tipo == 'avaliacao' %}
+                {% elif notificacao.tipo == 'avaliacao' %}
                 <i class="fa-solid fa-star"></i>
 
-            {% elif notificacao.tipo == 'candidatura' %}
+                {% elif notificacao.tipo == 'candidatura' %}
                 <i class="fa-solid fa-user-plus"></i>
 
-            {% elif notificacao.tipo == 'desistencia' %}
+                {% elif notificacao.tipo == 'desistencia' %}
                 <i class="fa-solid fa-user-minus"></i>
 
-            {% elif notificacao.tipo == 'evento' %}
+                {% elif notificacao.tipo == 'evento' %}
                 <i class="fa-solid fa-calendar-days"></i>
 
-            {% elif notificacao.tipo == 'perfil' %}
+                {% elif notificacao.tipo == 'perfil' %}
                 <i class="fa-solid fa-user-pen"></i>
 
-            {% elif notificacao.tipo == 'edicao' %}
+                {% elif notificacao.tipo == 'edicao' %}
                 <i class="fa-solid fa-pen-to-square"></i>
 
-            {% else %}
+                {% else %}
                 <i class="fa-solid fa-bell"></i>
-            {% endif %}
-
-        </div>
-
-        <div class="conteudo">
-
-            <div class="titulo-row">
-
-                <h3>
-                    {{ notificacao.titulo }}
-                </h3>
-
-                {% if not notificacao.lida %}
-                    <span class="badge-nova">
-                        Nova
-                    </span>
                 {% endif %}
 
             </div>
 
-            <p>
-                {{ notificacao.mensagem }}
-            </p>
+            <div class="conteudo">
 
-            <small>
-                {{ notificacao.data_criacao|timesince }} atrás
-            </small>
+                <div class="titulo-row">
 
-        </div>
+                    <h3> {{ notificacao.titulo }}</h3>
 
-    </a>
+                    {% if not notificacao.lida %}
+                    <span class="badge-nova"> Nova </span>
+                    {% endif %}
 
-    {% endfor %}
+                </div>
 
-</div>
-{% if paginator.num_pages > 1 %}
-<div class="pagination">
+                <p> {{ notificacao.mensagem }}</p>
 
-    {% if notificacoes.has_previous %}
+                <small>{{ notificacao.data_criacao|timesince }} atrás</small>
+
+            </div>
+
+        </a>
+
+        {% endfor %}
+
+    </div>
+    {% if paginator.num_pages > 1 %}
+    <div class="pagination">
+
+        {% if notificacoes.has_previous %}
         <a href="?page={{ notificacoes.previous_page_number }}" class="page-arrow">
             <i class="fa-solid fa-chevron-left"></i>
         </a>
-    {% endif %}
+        {% endif %}
 
-    <div class="page-current">
-        <span>{{ notificacoes.number }}</span>
-        <small>de {{ paginator.num_pages }}</small>
-    </div>
+        <div class="page-current">
+            <span>{{ notificacoes.number }}</span>
+            <small>de {{ paginator.num_pages }}</small>
+        </div>
 
-    {% if notificacoes.has_next %}
+        {% if notificacoes.has_next %}
         <a href="?page={{ notificacoes.next_page_number }}" class="page-arrow">
             <i class="fa-solid fa-chevron-right"></i>
         </a>
+        {% endif %}
+
+    </div>
     {% endif %}
 
-</div>
-{% endif %}
 
 
 
+    {% else %}
 
-{% else %}
+    <div class="empty-state">
 
-<div class="empty-state">
+        <i class="fa-regular fa-bell-slash"></i>
+        <h2> Nenhuma notificação</h2>
 
-    <i class="fa-regular fa-bell-slash"></i>
+        <p>Você ainda não recebeu notificações.</p>
 
-    <h2>
-        Nenhuma notificação
-    </h2>
+    </div>
 
-    <p>
-        Você ainda não recebeu notificações.
-    </p>
-
-</div>
-
-{% endif %}
+    {% endif %}
 
 </div>
 
