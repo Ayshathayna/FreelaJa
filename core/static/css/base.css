@@ -33,7 +33,7 @@ body{
 }
 
 .navbar.navbar-empresa{
-  background:linear-gradient(90deg,#df0000,#ea580c);
+  background:linear-gradient(90deg,#1e3a8a,#2563eb);
 
 }
 
@@ -460,7 +460,7 @@ footer{
     transform:translateY(-2px);
 }
 .apply-btn{
-  background:linear-gradient(135deg,#df0000,#ea580c);
+  background:linear-gradient(135deg,#f97316,#ea580c);
   color:white;
   box-shadow:0 6px 18px rgba(37,99,235,0.25);
 }
@@ -475,7 +475,7 @@ footer{
     padding:18px;
     border:none;
     border-radius:16px;
-    background:linear-gradient(90deg,#df0000,#ea580c);
+    background:linear-gradient(90deg,#f97316,#ea580c);
 
 
    color:white;

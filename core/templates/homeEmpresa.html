@@ -15,19 +15,25 @@
 
 
 {% block content %}
-<div class="dashboard">
 
-  <!-- HEADER ----------------------------------------------------------------------------------------->
-  <div class="dashboard-header">
+<!-- HERO ----------------------------------------------------------------------------------------->
+<div class="hero">
+
+  <div class="hero-top">
 
     <div>
       <h1>Minhas Vagas</h1>
       <p>Gerencie todas as vagas criadas pela sua empresa</p>
     </div>
 
-    <a href="{% url 'criarVaga' %}" class=" job-btn btn-create">+ Criar Vaga</a>
+    <a href="{% url 'criarVaga' %}" class="job-btn btn-create">+ Criar Vaga</a>
 
   </div>
+
+</div>
+</header>
+
+<section class="dashboard">
 
   <div class="filter-tabs">
     <button class="filter-btn active" onclick="mostrarFormulario('abertos', this)">Abertas  {{ total_abertos }}</button>
@@ -265,6 +271,11 @@
     {% endfor %}
 
   </div>
-</div>
 
+{% endblock %}
+
+{% block footer %}
+<footer>
+  © 2026 FreelaJá — Plataforma Freelancer
+</footer>
 {% endblock %}
