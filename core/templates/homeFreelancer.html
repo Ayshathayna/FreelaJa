@@ -16,10 +16,10 @@
 
 <h1>
     Encontre <span class="highlight" style="color:#ea580c;">vagas</span><br>
-    ideais para seu horário
+    para os melhores eventos
   </h1>
 
-  <p>Pesquise trabalhos por tipo, dia da semana e horário disponível.</p>
+  <p>Busque por palavra-chave ou categoria e candidate-se em poucos cliques.</p>
 
   <!-- PESQUISA -------------------------------------------------------------------------------------------->
 <!-- 
@@ -40,7 +40,7 @@
     <button>Buscar</button>
 
   </div> -->
-<form method="GET" action="{% url 'listarVagas' %}" class="search-box">
+<form method="GET" action="{% url 'homeFreelancer' %}" class="search-box">
 
     <input
         type="text"
@@ -73,92 +73,65 @@
 
   <div class="section-header">
 
-    <h2>Algumas Vagas Disponíveis</h2>
+    <h2>Vagas Disponíveis</h2>
+    <span class="results-count">{{ total_vagas }} oportunidade{{ total_vagas|pluralize }} encontrada{{ total_vagas|pluralize }}</span>
 
   </div>
-  {% if vagas %}
-  <!-- CARROSSEL ---------------------------------------------------------------------------------------------->
-  <div class="carousel-wrapper">
 
-    <!-- SETA ESQUERDA -->
+  <!-- GRID DE VAGAS ---------------------------------------------------------------------------------------------->
+  <div class="jobs-grid">
 
-    <button id="carousel-arrows" class="carousel-arrow left" onclick="scrollLeftJobs()">
-      ❮
-    </button>
+    {% for vaga in vagas %}
 
-    <!-- CARROSSEL -->
+    <div class="job-card">
 
-    <div class="jobs-carousel">
+      <!-- IMAGEM -->
+      <div class="job-media">
+        {% if vaga.imagem %}
+        <img src="{{ vaga.imagem.url }}" class="job-image" alt="{{ vaga.titulo }}">
+        {% else %}
+        <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+        {% endif %}
+        <span class="tag tag-overlay">{{ vaga.categoria|default:"Geral" }}</span>
+      </div>
 
-      <!-- CARD -->
-      <div class="jobs-grid jobs-carousel" id="jobsCarousel">
+      <div class="job-content">
 
-        {% for vaga in vagas %} <!-- Loop para exibir cada vaga criada pela empresa -->
+        <!-- TITULO -->
+        <h3>{{ vaga.titulo }}</h3>
 
-        <div class="job-card">
+        <p class="job-desc">
+          {{ vaga.descricao|truncatechars:120 }}
+        </p>
 
-          <!-- IMAGEM (fallback se não existir) -->
-          <img
-            src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-            class="job-image">
+        <!-- INFO EXTRAS -->
+        <p class="job-info">
+          📅 {{ vaga.dataEvento }} &nbsp;·&nbsp; 🕒 {{ vaga.horarioInicio }} – {{ vaga.horarioFim }}
+        </p>
 
-          <div class="job-content">
-
-            <!-- TAG -->
-            <div class="job-top">
-              <span class="tag">
-                {{ vaga.categoria|default:"Geral" }}
-              </span>
-            </div>
-
-            <!-- TITULO -->
-            <h3>{{ vaga.titulo }}</h3>
-
-            <p class="job-desc">
-              {{ vaga.descricao|truncatechars:120 }}
-            </p>
-
-            <!-- INFO EXTRAS -->
-            <p class="job-info">
-              {{ vaga.dataEvento }} • {{ vaga.horarioInicio }} - {{ vaga.horarioFim }}
-            </p>
-
-            <!-- RODAPÉ -->
-            <div class="job-footer">
-
-              <span class="price">
-                R$ {{ vaga.remuneracao }}
-              </span>
-
-            </div>
-
-            <div class="job-actions">
-
-              <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn">Ver detalhes</a>
-
-              {% if vaga.jaCandidatou %}
-              <button class=" job-btn details-btn " disabled> Já se candidatou</button>
-
-              {% else %}
-              <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn">Candidatar-se</a>
-
-              {% endif %}
-
-            </div>
-          </div>
+        <!-- RODAPÉ -->
+        <div class="job-footer">
+          <span class="price">R$ {{ vaga.remuneracao }}</span>
+          <span class="price-label">por vaga</span>
         </div>
-        {% endfor %}
+
+        <div class="job-actions">
+          <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn">Ver detalhes</a>
+          {% if vaga.jaCandidatou %}
+          <button class="job-btn details-btn" disabled>Já se candidatou</button>
+          {% else %}
+          <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn">Candidatar-se</a>
+          {% endif %}
+        </div>
+
       </div>
     </div>
-    <!-- SETA DIREITA -->
-    <button id="carousel-arrows" class="carousel-arrow right" onclick="scrollRightJobs()">
-      ❯
-    </button>
-    {% else %}
 
-    <p>Nenhuma vaga disponível no momento.</p>
+    {% empty %}
 
-    {% endif %}
+    <div class="empty-message">Nenhuma vaga encontrada.</div>
+
+    {% endfor %}
 
   </div>
 

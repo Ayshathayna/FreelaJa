@@ -52,15 +52,14 @@
 
             <div class="nav-links">
 
-                <a href="{% url 'homeFreelancer' %}">Início</a>
-                <a href="{% url 'listarVagas' %}">Vagas</a>
+                <a href="{% url 'homeFreelancer' %}">Vagas</a>
                 <a href="{% url 'candidaturas' %}">Candidaturas</a>
 
                 <!-- MENU PERFIL -->
 
                 <div class="profile-menu">
 
-                    <div class="profile-btn btn-freelancer">
+                    <div class="profile-btn btn-freelancer" tabindex="0">
                         {% if request.user.freelancer.foto %}
                         <img src="{{ request.user.freelancer.foto.url }}" class="avatar"
                             alt="{{ request.user.freelancer.nomeCompleto }}">

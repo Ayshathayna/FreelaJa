@@ -41,6 +41,7 @@ def homeFreelancer(request):
         'categorias': Vaga.CATEGORIAS,
         'query': query,
         'categoria_selecionada': categoria_selecionada,
+        'total_vagas': vagas.count(),
         })
     
 #************************************************* Empresa **********************************************

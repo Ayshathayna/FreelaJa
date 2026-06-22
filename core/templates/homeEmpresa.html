@@ -51,18 +51,16 @@
     <div class="job-card">
 
       <!-- IMAGEM -->
-      <img
-        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-        class="job-image">
+      <div class="job-media">
+        {% if vaga.imagem %}
+        <img src="{{ vaga.imagem.url }}" class="job-image" alt="{{ vaga.titulo }}">
+        {% else %}
+        <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+        {% endif %}
+        <span class="tag tag-overlay">{{ vaga.categoria|default:"Geral" }}</span>
+      </div>
 
       <div class="job-content">
-
-        <!-- TAG -->
-        <div class="job-top">
-          <span class="tag">
-            {{ vaga.categoria|default:"Geral" }}
-          </span>
-        </div>
 
         <!-- TITULO -->
         <h3>{{ vaga.titulo }}</h3>
@@ -114,18 +112,16 @@
     <div class="job-card">
 
       <!-- IMAGEM (fallback se não existir) -->
-      <img
-        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-        class="job-image">
+      <div class="job-media">
+        {% if vaga.imagem %}
+        <img src="{{ vaga.imagem.url }}" class="job-image" alt="{{ vaga.titulo }}">
+        {% else %}
+        <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+        {% endif %}
+        <span class="tag tag-overlay">{{ vaga.categoria|default:"Geral" }}</span>
+      </div>
 
       <div class="job-content">
-
-        <!-- TAG -->
-        <div class="job-top">
-          <span class="tag">
-            {{ vaga.categoria|default:"Geral" }}
-          </span>
-        </div>
 
         <!-- TITULO -->
         <h3>{{ vaga.titulo }}</h3>
@@ -175,18 +171,16 @@
     <div class="job-card">
 
       <!-- IMAGEM (fallback se não existir) -->
-      <img
-        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-        class="job-image">
+      <div class="job-media">
+        {% if vaga.imagem %}
+        <img src="{{ vaga.imagem.url }}" class="job-image" alt="{{ vaga.titulo }}">
+        {% else %}
+        <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+        {% endif %}
+        <span class="tag tag-overlay">{{ vaga.categoria|default:"Geral" }}</span>
+      </div>
 
       <div class="job-content">
-
-        <!-- TAG -->
-        <div class="job-top">
-          <span class="tag">
-            {{ vaga.categoria|default:"Geral" }}
-          </span>
-        </div>
 
         <!-- TITULO -->
         <h3>{{ vaga.titulo }}</h3>
@@ -228,18 +222,16 @@
     <div class="job-card">
 
       <!-- IMAGEM (fallback se não existir) -->
-      <img
-        src="{% if vaga.imagem %}{{ vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-        class="job-image">
+      <div class="job-media">
+        {% if vaga.imagem %}
+        <img src="{{ vaga.imagem.url }}" class="job-image" alt="{{ vaga.titulo }}">
+        {% else %}
+        <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+        {% endif %}
+        <span class="tag tag-overlay">{{ vaga.categoria|default:"Geral" }}</span>
+      </div>
 
       <div class="job-content">
-
-        <!-- TAG -->
-        <div class="job-top">
-          <span class="tag">
-            {{ vaga.categoria|default:"Geral" }}
-          </span>
-        </div>
 
         <!-- TITULO -->
         <h3>{{ vaga.titulo }}</h3>

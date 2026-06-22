@@ -59,7 +59,7 @@
 
                 <div class="profile-menu">
 
-                    <div class="profile-btn btn-empresa">
+                    <div class="profile-btn btn-empresa" tabindex="0">
                         {% if request.user.empresa.foto %}
                         <img src="{{ request.user.empresa.foto.url }}" class="avatar"
                             alt="{{ request.user.empresa.nomeFantasia }}">
