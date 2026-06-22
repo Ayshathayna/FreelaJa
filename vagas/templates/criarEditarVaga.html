@@ -1,14 +1,11 @@
 {% extends 'baseEmpresa.html' %}
 {% load static %}
 
-{% block title %}
-Criar vaga
-{% endblock %}
+{% block title %}{% if editar %}Editar vaga{% else %}Criar vaga{% endif %}{% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/criarEditarVaga.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 {% endblock %}
 
 {% block scripts %}
@@ -20,160 +17,141 @@ Criar vaga
 <div class="create-container">
 
     <div class="create-card">
-        <a href="{% url 'homeEmpresa' %}" class="return-arrow" onclick="return confirmarVolta(event, this.href)"> ❮ </a>
 
-        <h1 class=" title">
+        <div class="create-header">
 
-            {% if editar %}
+            <a href="{% url 'homeEmpresa' %}" class="return-arrow" onclick="return confirmarVolta(event, this.href)">❮</a>
 
-            Editar vaga
+            <div>
+                <h1>{% if editar %}Editar vaga{% else %}Criar nova vaga{% endif %}</h1>
+                <p>Preencha as informações do evento</p>
+            </div>
 
-            {% else %}
-
-            Criar nova vaga
-
-            {% endif %}
-
-        </h1>
-        <p> Preencha as informações do evento </p>
+        </div>
 
         <form method="POST" enctype="multipart/form-data">
 
             {% csrf_token %}
 
-            <!-- TOPO -->
+            <div class="form-section">
 
-            <div class="top-row">
+                <div class="top-row">
 
-                <!-- IMAGEM -->
+                    <!-- IMAGEM -->
+                    <div class="form-group image-group">
 
-                <div class="form-group image-group">
+                        <label>Imagem do evento</label>
 
-                    <label> Imagem do evento</label>
+                        <div class="preview-box">
+                            {% if editar and vaga.imagem %}
+                            <img id="preview-image" src="{{ vaga.imagem.url }}" alt="Preview">
+                            {% else %}
+                            <img id="preview-image" src="https://placehold.co/300x220?text=Imagem" alt="Preview">
+                            {% endif %}
+                        </div>
 
-                    <div class="preview-box">
-                        {% if editar and vaga.imagem %}
-                        <img id="preview-image" src="{{ vaga.imagem.url }}" alt="Preview">
-                        {% else %}
-                        <img id="preview-image" src="https://placehold.co/300x220?text=Imagem" alt="Preview">
-                        {% endif %}
-                    </div>
-                    <div class="upload-area">
-
-                        {{ form.imagem }}
-
-                        <label for="id_foto" class="upload-btn">
-                            <i class="fa-solid fa-camera"></i> Escolher Foto
-                        </label>
-
-                        <span id="file-name">Nenhum arquivo selecionado</span>
+                        <div class="upload-area">
+                            {{ form.imagem }}
+                            <label for="id_foto" class="upload-btn">
+                                <i class="fa-solid fa-camera"></i> Escolher foto
+                            </label>
+                            <span id="file-name">Nenhum arquivo selecionado</span>
+                        </div>
 
                     </div>
+
+                    <div class="right-side">
+
+                        <div class="form-group title-group">
+                            <label>Título da vaga</label>
+                            {{ form.titulo }}
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            {{ form.descricao }}
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <!-- DIREITA -->
+            </div>
 
-                <div class="right-side">
+            <div class="form-section">
 
-                    <div class="form-group title-group">
+                <h2 class="section-title">Detalhes do evento</h2>
 
-                        <label> Título da vaga </label>
-                        {{ form.titulo }}
+                <div class="form-grid">
 
+                    <div class="form-group">
+                        <label>Quantidade de vagas</label>
+                        {{ form.quantidadeVagas }}
                     </div>
 
                     <div class="form-group">
-
-                        <label> Descrição</label>
-                        {{ form.descricao }}
-
+                        <label>Remuneração (R$)</label>
+                        {{ form.remuneracao }}
                     </div>
-                </div>
-            </div>
 
-            <!-- RESTANTE -->
+                    <div class="form-group">
+                        <label>Data do evento</label>
+                        {{ form.dataEvento }}
+                    </div>
 
-            <div class="form-grid">
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        {{ form.categoria }}
+                    </div>
 
-                <div class="form-group">
+                    <div class="form-group">
+                        <label>Horário início</label>
+                        {{ form.horarioInicio }}
+                    </div>
 
-                    <label>Quantidade de vagas</label>
-                    {{ form.quantidadeVagas }}
-
-                </div>
-
-                <div class="form-group">
-
-                    <label> Remuneração </label>
-                    {{ form.remuneracao }}
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>Data do evento</label>
-                    {{ form.dataEvento }}
+                    <div class="form-group">
+                        <label>Horário fim</label>
+                        {{ form.horarioFim }}
+                    </div>
 
                 </div>
 
-                <div class="form-group">
-
-                    <label>Horário início</label>
-                    {{ form.horarioInicio }}
-
-                </div>
-
-                <div class="form-group">
-
-                    <label> Horário fim</label>
-                    {{ form.horarioFim }}
-
-                </div>
-
-                <div class="form-group">
-
-                    <label> Status </label>
-                    {{ form.status }}
-
-                </div>
-            </div>
-            <div class="form-details">
-
-                <div class="form-group">
-
+                <div class="form-group full-width">
                     <label>Endereço</label>
                     {{ form.endereco }}
-
-                </div>
-                <div class="form-group titulo">
-
-                    <label> Categoria </label>
-                    {{ form.categoria }}
                 </div>
 
-                <div class="form-group titulo">
+                <div class="form-group full-width status-group">
+                    <label>Status</label>
+                    {{ form.status }}
+                </div>
+
+            </div>
+
+            <div class="form-section">
+
+                <h2 class="section-title">Requisitos e detalhes</h2>
+
+                <div class="form-group">
 
                     <label>Detalhes da vaga</label>
 
                     <div class="badges-container">
-
                         {% for checkbox in form.detalhes %}
-
                         <label class="badge-option">
                             {{ checkbox.tag }}
                             <span>{{ checkbox.choice_label }}</span>
                         </label>
-
                         {% endfor %}
-
                     </div>
-                    <div id="custom-badges" class="badges-container">
-                   </div>
+
+                    <div id="custom-badges" class="badges-container"></div>
 
                     <small id="detalhes-feedback"></small>
 
                 </div>
-                <div class="form-group titulo">
+
+                <div class="form-group">
 
                     <label>Outros detalhes</label>
                     {{ form.detalhes_custom }}
@@ -183,39 +161,28 @@ Criar vaga
                         <button type="button" id="adicionar-detalhe" class="btn-small">Adicionar</button>
                     </div>
 
-                    <small class="help-text">Você pode cadastrar até 3 detalhes personalizados. Máximo de 3 detalhes no
-                        total (incluindo opções pré-definidas).</small>
+                    <small class="help-text">Você pode cadastrar até 3 detalhes personalizados (máximo de 3 no total, incluindo as opções acima).</small>
 
                 </div>
+
             </div>
+
             {% if form.non_field_errors %}
-
             <div class="alert-error">
-
                 {% for erro in form.non_field_errors %}
-
                 <p>{{ erro }}</p>
-
                 {% endfor %}
-
             </div>
-
             {% endif %}
+
             <button type="submit" class="btn-save">
-
-                {% if editar %}
-
-                Salvar alterações
-
-                {% else %}
-
-                Criar vaga
-
-                {% endif %}
-
+                {% if editar %}Salvar alterações{% else %}Criar vaga{% endif %}
             </button>
+
         </form>
+
     </div>
+
 </div>
 
 {% endblock %}

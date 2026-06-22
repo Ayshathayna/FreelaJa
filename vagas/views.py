@@ -82,7 +82,7 @@ def editarVaga(request,id):
     )
     
 @login_required
-def excluirVaga(request, id):
+def cancelarVaga(request, id):
     empresa = get_object_or_404(Empresa, usuario=request.user)
 
     vaga = get_object_or_404(Vaga, id=id)

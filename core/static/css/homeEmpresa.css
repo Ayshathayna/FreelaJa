@@ -8,10 +8,9 @@
 
 .hero-top{
     display:flex;
-    justify-content:space-between;
-    align-items:center;
+    flex-direction:column;
+    align-items:flex-start;
     gap:20px;
-    flex-wrap:wrap;
 }
 
 .hero-top h1{
@@ -34,9 +33,9 @@
 /* BOTÃO CRIAR */
 
 .btn-create{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    background:linear-gradient(135deg,#f97316,#ea580c);
     color:white;
-    padding:14px 22px;
+    padding:14px 24px;
     border-radius:12px;
     font-weight:700;
     white-space:nowrap;

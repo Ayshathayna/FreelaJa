@@ -2,11 +2,11 @@ function confirmarExclusao(event, url) {
     event.preventDefault();
 
     Swal.fire({
-        title: 'Excluir vaga?',
+        title: 'Cancelar vaga?',
         text: 'Essa ação não pode ser desfeita.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sim, excluir',
+        confirmButtonText: 'Sim, cancelar vaga',
         cancelButtonText: 'Cancelar',
         confirmButtonColor: '#ef4444',
         cancelButtonColor: '#6b7280'
