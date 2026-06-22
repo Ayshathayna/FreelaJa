@@ -1,9 +1,16 @@
 .profile-container{
     display:grid;
     grid-template-columns: 320px 1fr;
+    align-items:start;
     gap:25px;
     padding:40px 7%;
     background:#f8fafc;
+}
+
+.profile-main{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
 }
 
 /* --------------------- PERFIL (ESQUERDA) --------------------- */
@@ -30,7 +37,7 @@
     border:3px solid #e5e7eb;
 }
 
-.avatar-placeholder{
+.profile-photo .avatar-placeholder{
     width:150px;
     height:150px;
     border-radius:18px;
@@ -177,7 +184,7 @@
     }
 
     .profile-photo img,
-    .avatar-placeholder{
+    .profile-photo .avatar-placeholder{
         width:120px;
         height:120px;
     }
