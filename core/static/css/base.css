@@ -28,7 +28,7 @@ body{
 
   padding:10px 7%;
 
-  background:linear-gradient(90deg,#0e1e56,#7c3aed);
+  background:linear-gradient(90deg,#1e3a8a,#2563eb);
   color:white;
 }
 
@@ -38,9 +38,7 @@ body{
 }
 
 .navbar.navbar-freelancer{
-    background:linear-gradient(90deg, #0e1e56, #7c3aed);
-
- /* background:linear-gradient(90deg,#f97316,#ea580c);*/
+    background:linear-gradient(90deg, #1e3a8a, #2563eb);
 }
 
 .logo a{
@@ -306,14 +304,14 @@ footer{
 .price{
     font-size:24px;
     font-weight:700;
-    color:#4f46e5;
+    color:#2563eb;
 }
 
 .tag{
   padding:7px 15px;
   border-radius:30px;
-  background:#ede9fe;
-  color:#6d28d9;
+  background:#dbeafe;
+  color:#1d4ed8;
   font-size:13px;
   font-weight:600;
 }
@@ -464,12 +462,12 @@ footer{
 .apply-btn{
   background:linear-gradient(135deg,#df0000,#ea580c);
   color:white;
-  box-shadow:0 6px 18px rgba(79,70,229,0.25);
+  box-shadow:0 6px 18px rgba(37,99,235,0.25);
 }
 
 .apply-btn:hover{
   transform:translateY(-2px);
-  box-shadow:0 10px 25px rgba(79,70,229,0.35);
+  box-shadow:0 10px 25px rgba(37,99,235,0.35);
 }
 .btn-save{
     width:100%;
@@ -488,7 +486,7 @@ footer{
 }
 .btn-save:hover{
     transform:translateY(-2px);
-    box-shadow: 0 10px 25px rgba(  79, 70, 229, .25 );
+    box-shadow: 0 10px 25px rgba(37,99,235, .25 );
 }
 .btn-save:disabled{
     background:#f3a077;
@@ -513,7 +511,7 @@ footer{
     align-items:center;
     gap:10px;
 
-    background:linear-gradient( 135deg, #0e1e56, #7c3aed );
+    background:linear-gradient( 135deg, #2563eb, #f97316 );
 
     color:white;
     padding:12px 18px;
@@ -561,7 +559,7 @@ footer{
 }
 
 .search-box button:hover{
-    box-shadow: 0 10px 25px rgba(79,70, 229, .25);
+    box-shadow: 0 10px 25px rgba(37,99,235, .25);
 }
 
 

@@ -3,9 +3,25 @@
 /* ***************************** HEADER************************************************* */
 
 header{
-  background:linear-gradient(90deg,#0e1e56,#7c3aed);
-  padding:20px 7%;
   color:white;
+}
+
+.hero{
+  background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 48%,#f97316 100%);
+  color:white;
+  padding:70px 7%;
+}
+
+.hero h1{
+  font-size:48px;
+  line-height:1.15;
+  margin-bottom:14px;
+}
+
+.hero p{
+  font-size:18px;
+  margin-bottom:30px;
+  opacity:0.9;
 }
 
 /* ************************************* SEARCH BOX ************************************************* */
