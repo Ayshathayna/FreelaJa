@@ -34,8 +34,9 @@
 
             <h1>{{ freelancer.nomeCompleto }}</h1>
             <p> ⭐ {{ freelancer.avaliacao_media|default:"0.0" }}</p>
-            <p> 📧 {{ freelancer.usuario.email }} </p>
             <p> 🎂 {{ freelancer.idade }} anos</p>
+            <p> 📧 {{ freelancer.usuario.email }} </p>
+            <p> 📱 {{ freelancer.celular|default:"Não informado" }}</p>
 
         </div>
 
