@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
+from django.db import transaction
 from .models import Usuario
 from perfis.models import Freelancer, Empresa
 from django.contrib.auth.hashers import make_password
@@ -71,6 +72,19 @@ class CadastroFreelancerForm(forms.Form):
         })
     )
 
+    dataNascimento = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'type': 'date'
+        })
+    )
+
+    celular = forms.CharField(
+        max_length=20,
+        widget=forms.TextInput(attrs={
+            'placeholder': '(00) 00000-0000'
+        })
+    )
+
     interesses = forms.MultipleChoiceField(
         choices=Freelancer.INTERESSES,
         required=True,
@@ -124,7 +138,7 @@ class CadastroFreelancerForm(forms.Form):
         cleaned_data = super().clean()
 
         senha = cleaned_data.get('password')
-        confirmar = cleaned_data.get('confirmar_senha_freelancer')
+        confirmar = cleaned_data.get('confirmar_senha')
 
         if senha and confirmar and senha != confirmar:
             raise forms.ValidationError(
@@ -148,20 +162,24 @@ class CadastroFreelancerForm(forms.Form):
 
     def save(self):
 
-        usuario = Usuario.objects.create_user(
-            username=self.cleaned_data['email'],
-            email=self.cleaned_data['email'],
-            password=self.cleaned_data['password'],
-            tipo_usuario='freelancer'
-        )
+        with transaction.atomic():
 
-        freelancer = Freelancer.objects.create(
-            usuario=usuario,
-            nomeCompleto=self.cleaned_data['nomeCompleto'],
-            cpf=self.cleaned_data['cpf'],
-            experiencia=self.cleaned_data['experiencia'],
-            interesses=self.cleaned_data['interesses']
-        )
+            usuario = Usuario.objects.create_user(
+                username=self.cleaned_data['email'],
+                email=self.cleaned_data['email'],
+                password=self.cleaned_data['password'],
+                tipo_usuario='freelancer'
+            )
+
+            freelancer = Freelancer.objects.create(
+                usuario=usuario,
+                nomeCompleto=self.cleaned_data['nomeCompleto'],
+                cpf=self.cleaned_data['cpf'],
+                dataNascimento=self.cleaned_data['dataNascimento'],
+                celular=self.cleaned_data['celular'],
+                experiencia=self.cleaned_data['experiencia'],
+                interesses=self.cleaned_data['interesses']
+            )
 
         return freelancer
 
@@ -207,10 +225,10 @@ class CadastroEmpresaForm(forms.Form):
 
    
 
-    site = forms.URLField(
+    site = forms.CharField(
         required=False,
-        widget=forms.URLInput(attrs={
-            'placeholder': 'https://seusite.com.br'
+        widget=forms.TextInput(attrs={
+            'placeholder': 'seusite.com.br'
         })
     )
 
@@ -272,19 +290,20 @@ class CadastroEmpresaForm(forms.Form):
 
     def save(self):
 
-        
-        usuario = Usuario.objects.create_user(
+        with transaction.atomic():
+
+            usuario = Usuario.objects.create_user(
                 username=self.cleaned_data['email'],
                 email=self.cleaned_data['email'],
                 password=self.cleaned_data['password'],
                 tipo_usuario='empresa'
             )
-        empresa = Empresa.objects.create(
-            usuario=usuario,
-            nomeFantasia=self.cleaned_data['nomeFantasia'],
-            cnpj=self.cleaned_data['cnpj'],
-            descricao=self.cleaned_data['descricao'],
-            site=self.cleaned_data['site']
-        )
+            empresa = Empresa.objects.create(
+                usuario=usuario,
+                nomeFantasia=self.cleaned_data['nomeFantasia'],
+                cnpj=self.cleaned_data['cnpj'],
+                descricao=self.cleaned_data['descricao'],
+                site=self.cleaned_data['site']
+            )
 
         return empresa

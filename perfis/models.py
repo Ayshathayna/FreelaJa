@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from usuario.models import Usuario
@@ -68,6 +69,8 @@ class Freelancer(models.Model): # modelo para representar os freelancers que vã
     )
     nomeCompleto = models.CharField(max_length=100)
     cpf = models.CharField(max_length=14, unique=True)
+    dataNascimento = models.DateField(null=True, blank=True)
+    celular = models.CharField(max_length=20, null=True, blank=True)
     experiencia = models.TextField() #texto livre para o freelancer descrever sua experiência na área de atuação
     avaliacao_media = models.FloatField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     interesses = models.JSONField(
@@ -77,6 +80,15 @@ class Freelancer(models.Model): # modelo para representar os freelancers que vã
 
     def __str__(self):
         return self.nomeCompleto
+
+    @property
+    def idade(self):
+        if not self.dataNascimento:
+            return None
+        hoje = date.today()
+        return hoje.year - self.dataNascimento.year - (
+            (hoje.month, hoje.day) < (self.dataNascimento.month, self.dataNascimento.day)
+        )
     
     def atualizar_media(self):
 

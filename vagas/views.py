@@ -126,14 +126,16 @@ def candidatosVaga(request, vaga_id):
     vaga = get_object_or_404(Vaga, id=vaga_id)
     if vaga.empresa != empresa:
         raise PermissionDenied()
-    
+
+    vaga.atualizar_status()
+
     hoje = timezone.now().date()
 
     candidaturas = Candidatura.objects.filter(
         vaga=vaga
     ).select_related('freelancer', 'freelancer__usuario')
-    
-    vagaFinalizada = ( 
+
+    vagaFinalizada = (
         vaga.status == "finalizado"
         or vaga.dataEvento < hoje
     )
@@ -443,7 +445,10 @@ def candidaturas(request):
         .select_related("vaga", "vaga__empresa")
     )
 
-    pendentes = candidaturas.filter( 
+    for candidatura in candidaturas:
+        candidatura.vaga.atualizar_status()
+
+    pendentes = candidaturas.filter(
         status="pendente",
         vaga__dataEvento__gte=hoje
     )
@@ -460,8 +465,8 @@ def candidaturas(request):
     ).exclude(vaga__status="finalizado")
     
     finalizadas = candidaturas.filter(
-        Q(vaga__status="finalizado")&
-        Q(status="aceito", vaga__dataEvento__lt=hoje)
+        vaga__status="finalizado",
+        status="aceito",
     )
     avaliadas_ids = set(
         AvaliaVaga.objects.filter(

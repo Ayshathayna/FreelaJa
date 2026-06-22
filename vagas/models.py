@@ -13,9 +13,10 @@ class Vaga(models.Model):
     )
 
     STATUS = (
-        ('aberto', 'Aberto'), 
+        ('aberto', 'Aberto'),
         ('cancelado', 'Cancelado'),
         ('fechado', 'Fechado'),
+        ('finalizado', 'Finalizado'),
     )
 
     empresa = models.ForeignKey( # Uma empresa pode ter vários eventos, mas um evento pertence a apenas uma empresa
@@ -80,9 +81,20 @@ class Vaga(models.Model):
 
     def atualizar_status(self):
 
-        hoje = timezone.now().date()
+        agora = timezone.localtime()
+        hoje = agora.date()
 
-        if self.status == 'aberto' and self.dataEvento < hoje:
+        # vaga já encerrada: passou a data, ou é hoje e o horário de término já passou
+        evento_encerrado = (
+            self.dataEvento < hoje
+            or (self.dataEvento == hoje and self.horarioFim <= agora.time())
+        )
+
+        if self.status == 'cancelado':
+            novo_status = self.status
+
+        # qualquer vaga ativa (aberta ou lotada/fechada) vira finalizada ao encerrar
+        elif self.status in ('aberto', 'fechado') and evento_encerrado:
             novo_status = 'finalizado'
 
         elif (
@@ -94,7 +106,7 @@ class Vaga(models.Model):
         elif (
             self.status == 'fechado'
             and self.quantidadeSelecionados < self.quantidadeVagas
-            and self.dataEvento >= hoje
+            and not evento_encerrado
         ):
             novo_status = 'aberto'
 
@@ -103,7 +115,13 @@ class Vaga(models.Model):
 
         if novo_status != self.status:
             self.status = novo_status
-            self.save(update_fields=['status'])
+            update_fields = ['status']
+
+            if novo_status == 'finalizado' and not self.finalizadoEm:
+                self.finalizadoEm = timezone.now()
+                update_fields.append('finalizadoEm')
+
+            self.save(update_fields=update_fields)
             
             
 class Candidatura(models.Model):

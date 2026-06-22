@@ -18,6 +18,18 @@ body{
     padding:40px;
 }
 
+.error-logo{
+    font-size:30px;
+    font-weight:800;
+    color:#2563eb;
+    margin-bottom:10px;
+    letter-spacing:.5px;
+}
+
+.error-logo span{
+    color:#ea580c;
+}
+
 .error-code{
 
     font-size:140px;

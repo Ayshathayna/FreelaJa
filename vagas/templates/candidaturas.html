@@ -50,10 +50,10 @@
     <!------------------------------------------ FILTROS ---------------------------------------------------------------------------------->
 
     <div class="filter-tabs">
-        <button class="filter-btn active" onclick="mostrarFormulario('aceitas', this)">Aceitas</button>
-        <button class="filter-btn" onclick="mostrarFormulario('pendentes', this)">Em Análise</button>
-        <button class="filter-btn" onclick="mostrarFormulario('recusadas', this)">Recusadas</button>
-        <button class="filter-btn" onclick="mostrarFormulario('finalizadas', this)">Finalizadas</button>
+        <button class="filter-btn active" onclick="mostrarFormulario('aceitas', this)">Aceitas {{ total_aceitas }}</button>
+        <button class="filter-btn" onclick="mostrarFormulario('pendentes', this)">Em Análise {{ total_analise }}</button>
+        <button class="filter-btn" onclick="mostrarFormulario('recusadas', this)">Recusadas {{ total_recusadas }}</button>
+        <button class="filter-btn" onclick="mostrarFormulario('finalizadas', this)">Finalizadas {{ total_finalizadas }}</button>
     </div>
 
     <!------------------------------------------ ACEITAS ---------------------------------------------------------------------------------->

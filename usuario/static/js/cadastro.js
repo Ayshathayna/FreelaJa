@@ -133,14 +133,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function updateStepActions() {
-            const step = steps[current];
-            const nextBtn = step.querySelector('.next-btn');
-            const submitBtnAtStep = step.querySelector('button[type="submit"]');
-            const valid = isStepValid(step);
-
-            if (nextBtn) nextBtn.disabled = !valid;
-            if (submitBtnAtStep) submitBtnAtStep.disabled = !valid;
-            if (submitBtn && !submitBtnAtStep) submitBtn.disabled = !valid;
+            // Os botões permanecem sempre clicáveis. A validação acontece no
+            // clique (validarStep), que exibe os erros e bloqueia o avanço.
+            // Não desabilitamos os botões aqui para evitar que o usuário fique
+            // preso (ex.: após um erro do servidor os campos de senha voltam
+            // vazios e travariam o botão "Próximo").
+            isStepValid(steps[current]);
         }
 
         function attachStepInputListeners() {
@@ -297,8 +295,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function formatCelular(value) {
+        const d = value.replace(/\D/g, "").slice(0, 11);
+        if (d.length <= 10) {
+            return d
+                .replace(/(\d{2})(\d)/, "($1) $2")
+                .replace(/(\d{4})(\d{1,4})$/, "$1-$2");
+        }
+        return d
+            .replace(/(\d{2})(\d)/, "($1) $2")
+            .replace(/(\d{5})(\d{1,4})$/, "$1-$2");
+    }
+
     applyDocumentoMask(document.getElementById("id_cpf"), formatCpf);
     applyDocumentoMask(document.getElementById("id_cnpj"), formatCnpj);
+    applyDocumentoMask(document.getElementById("id_celular"), formatCelular);
 
     /* ===================== SENHAS ===================== */
 
