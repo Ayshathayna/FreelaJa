@@ -8,7 +8,7 @@
 
 .hero-search{
     background:
-    linear-gradient(135deg, #0e1e56, #7c3aed);    
+    linear-gradient(135deg, #2563eb, #7c3aed);    
     border-radius:30px;
     padding:50px;
     color:white;
@@ -73,7 +73,7 @@
     font-size:24px;
     font-weight:700;
     color:white;
-    background:linear-gradient(135deg, #0e1e56, #12266d);
+    background:linear-gradient(135deg, #2563eb, #12266d);
 }
 .profile-image{
     width:100px;

@@ -64,8 +64,13 @@
 
         <div class="job-card">
 
-            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-                class="job-image" alt="Imagem da vaga">
+            <div class="job-media">
+                {% if candidatura.vaga.imagem %}
+                <img src="{{ candidatura.vaga.imagem.url }}" class="job-image" alt="{{ candidatura.vaga.titulo }}">
+                {% else %}
+                <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+                {% endif %}
+            </div>
 
             <div class="job-content">
 
@@ -74,7 +79,7 @@
                 <h3>{{ candidatura.vaga.titulo }}</h3>
 
                 <p class="company-name">
-                    {{ candidatura.vaga.empresa.nome }}
+                    {{ candidatura.vaga.empresa.nomeFantasia }}
                 </p>
 
                 <p class="job-info">
@@ -90,7 +95,7 @@
                 </div>
 
                 <div class="job-actions">
-                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn"> Ver vaga </a>
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn details-btn"> Ver vaga </a>
                     <a href="{% url 'cancelarCandidatura' candidatura.id %}" class="job-btn cancel-btn"
                         onclick="return confirmarExclusao(event, this.href)">Cancelar</a>
 
@@ -114,8 +119,13 @@
 
         <div class="job-card">
 
-            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-                class="job-image" alt="Imagem da vaga">
+            <div class="job-media">
+                {% if candidatura.vaga.imagem %}
+                <img src="{{ candidatura.vaga.imagem.url }}" class="job-image" alt="{{ candidatura.vaga.titulo }}">
+                {% else %}
+                <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+                {% endif %}
+            </div>
 
             <div class="job-content">
 
@@ -124,7 +134,7 @@
                 <h3>{{ candidatura.vaga.titulo }}</h3>
 
                 <p class="company-name">
-                    {{ candidatura.vaga.empresa.nome }}
+                    {{ candidatura.vaga.empresa.nomeFantasia }}
                 </p>
 
                 <p class="job-info">
@@ -140,7 +150,7 @@
                 </div>
 
                 <div class="job-actions">
-                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn">Ver vaga</a>
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn details-btn">Ver vaga</a>
                     <a href="{% url 'cancelarCandidatura' candidatura.id %}" class="job-btn cancel-btn"
                         onclick="return confirmarExclusao(event, this.href)">Cancelar</a>
                 </div>
@@ -163,8 +173,13 @@
 
         <div class="job-card">
 
-            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-                class="job-image" alt="Imagem da vaga">
+            <div class="job-media">
+                {% if candidatura.vaga.imagem %}
+                <img src="{{ candidatura.vaga.imagem.url }}" class="job-image" alt="{{ candidatura.vaga.titulo }}">
+                {% else %}
+                <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+                {% endif %}
+            </div>
 
             <div class="job-content">
 
@@ -173,7 +188,7 @@
                 <h3>{{ candidatura.vaga.titulo }}</h3>
 
                 <p class="company-name">
-                    {{ candidatura.vaga.empresa.nome }}
+                    {{ candidatura.vaga.empresa.nomeFantasia }}
                 </p>
 
                 <p class="job-info">
@@ -189,7 +204,7 @@
                 </div>
 
                 <div class="job-actions">
-                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn"> Ver vaga</a>
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn details-btn"> Ver vaga</a>
                 </div>
             </div>
         </div>
@@ -210,8 +225,13 @@
 
         <div class="job-card">
 
-            <img src="{% if candidatura.vaga.imagem %}{{ candidatura.vaga.imagem.url }}{% else %}https://images.unsplash.com/photo-1522202176988-66273c2fd55f{% endif %}"
-                class="job-image" alt="Imagem da vaga">
+            <div class="job-media">
+                {% if candidatura.vaga.imagem %}
+                <img src="{{ candidatura.vaga.imagem.url }}" class="job-image" alt="{{ candidatura.vaga.titulo }}">
+                {% else %}
+                <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+                {% endif %}
+            </div>
 
             <div class="job-content">
 
@@ -220,7 +240,7 @@
                 <h3>{{ candidatura.vaga.titulo }}</h3>
 
                 <p class="company-name">
-                    {{ candidatura.vaga.empresa.nome }}
+                    {{ candidatura.vaga.empresa.nomeFantasia }}
                 </p>
 
                 <p class="job-info">
@@ -236,7 +256,7 @@
                 </div>
 
                 <div class="job-actions">
-                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn view-btn">Ver vaga</a>
+                    <a href="{% url 'verVaga' candidatura.vaga.id %}" class="job-btn details-btn">Ver vaga</a>
                     {%if not candidatura.avaliada %}
                     <a href="{% url 'avaliarVaga' candidatura.id %}" class="job-btn avaliar-btn"> Avaliar vaga</a>
                     {% else %}

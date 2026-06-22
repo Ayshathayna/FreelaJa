@@ -6,7 +6,6 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from avaliacoes.models import AvaliaVaga, AvaliaFreelancer
 from perfis.models import Empresa, Freelancer
 from .models import Vaga, Candidatura
@@ -425,22 +424,11 @@ def listarVagas(request):
     for vaga in vagas:
         vaga.jaCandidatou = vaga.id in candidaturas_ids
 
-    paginator = Paginator(vagas, 12)
-    page_number = request.GET.get('page')
-    
-    try:
-        vagas_paginadas = paginator.page(page_number)
-    except PageNotAnInteger:
-        vagas_paginadas = paginator.page(1)
-    except EmptyPage:
-        vagas_paginadas = paginator.page(paginator.num_pages)
-
     return render(request, 'vagas.html', {
-        'vagas': vagas_paginadas,
+        'vagas': vagas,
         'query': query,
         'categoria_selecionada': categoria,
         'categorias': Vaga.CATEGORIAS,
-        'paginator': paginator,
     })
 
 

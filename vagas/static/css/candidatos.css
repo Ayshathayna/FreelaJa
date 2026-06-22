@@ -6,6 +6,9 @@
 /*--------------------- HEADER ---------------------------*/
 
 .page-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 35px;
 }
 
@@ -55,16 +58,16 @@
 /*--------------------- AVATAR ---------------------------*/
 
 .freelancer-avatar img,
-.avatar-placeholder {
+.freelancer-avatar .avatar-placeholder {
     width: 88px;
     height: 88px;
     border-radius: 16px;
     object-fit: cover;
 }
 
-.avatar-placeholder {
+.freelancer-avatar .avatar-placeholder {
 
-  background:linear-gradient(135deg,#0e1e56,#7c3aed);
+  background:linear-gradient(135deg,#1e3a8a,#2563eb);
     color: white;
     font-size: 24px;
     font-weight: 800;
