@@ -72,11 +72,26 @@
                     </div>
                     {% endif %}
 
-                    <!-- STEP 1 -->
+                    <!-- STEP 1 - DADOS PESSOAIS + CONTA -->
 
                     <div class="step active">
 
-                        <h2>Conta</h2>
+                        <h2>Dados e Conta</h2>
+
+                        <div class="input-group">
+
+                            <label>Nome Completo</label>
+                            {{ freelancer_form.nomeCompleto }}
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>CPF</label>
+                            {{ freelancer_form.cpf }}
+
+                        </div>
+                        <small id="cpf-feedback" style="display:none;"></small>
 
                         <div class="input-group">
                             <label>Email</label>
@@ -125,37 +140,7 @@
 
                     </div>
 
-                    <!-- STEP 2 -->
-
-                    <div class="step">
-
-                        <h2>Informações Pessoais</h2>
-
-                        <div class="input-group">
-
-                            <label>Nome Completo</label>
-                            {{ freelancer_form.nomeCompleto }}
-
-                        </div>
-
-                        <div class="input-group">
-
-                            <label>CPF</label>
-                            {{ freelancer_form.cpf }}
-
-                        </div>
-                        <small id="cpf-feedback" style="display:none;"></small>
-
-                        <div class="buttons">
-
-                            <button type="button" class="back-btn">Voltar</button>
-                            <button type="button" class="next-btn"> Próximo</button>
-
-                        </div>
-
-                    </div>
-
-                    <!-- STEP 3 -->
+                    <!-- STEP 2 - PROFISSIONAL (INTERESSES + SOBRE MIM OPCIONAL) -->
 
                     <div id="step-interesses" class="step">
 
@@ -182,19 +167,9 @@
                             <small id="interesses-feedback"></small>
                         </div>
 
-                        <div class="buttons">
-
-                            <button type="button" class="back-btn"> Voltar</button>
-                            <button type="button" class="next-btn"> Próximo</button>
-
-                        </div>
-
-                    </div>
-                    <div id="step-sobre-freelancer" class="step">
-
                         <div class="input-group">
 
-                            <label>Sobre mim</label>
+                            <label>Sobre mim <span class="optional">(opcional)</span></label>
                             {{ freelancer_form.experiencia }}
                             <small id="experiencia-feedback"></small>
 
@@ -202,17 +177,16 @@
 
                         <div class="buttons">
 
-                            <button type="button" class="back-btn"> Voltar</button>
+                            <button type="button" class="back-btn">Voltar</button>
                             <button class="btn" type="submit">Finalizar Cadastro</button>
 
                         </div>
+
                     </div>
 
                     <div class="progress">
 
                         <span class="dot active"></span>
-                        <span class="dot"></span>
-                        <span class="dot"></span>
                         <span class="dot"></span>
 
                     </div>
@@ -239,10 +213,27 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                    <!-- STEP 1 -->
-                    <div class="step ">
 
-                        <h2>Conta</h2>
+                    <!-- STEP 1 - DADOS DA EMPRESA + CONTA -->
+
+                    <div class="step active">
+
+                        <h2>Dados e Conta</h2>
+
+                        <div class="input-group">
+
+                            <label>Nome Fantasia</label>
+                            {{ empresa_form.nomeFantasia }}
+
+                        </div>
+
+                        <div class="input-group">
+
+                            <label>CNPJ</label>
+                            {{ empresa_form.cnpj }}
+
+                        </div>
+                        <small id="cnpj-feedback" style="display:none;"></small>
 
                         <div class="input-group">
 
@@ -292,36 +283,7 @@
 
                     </div>
 
-                    <!-- STEP 2 -->
-
-                    <div class="step active">
-
-                        <h2>Dados da Empresa</h2>
-
-                        <div class="input-group">
-
-                            <label>Nome Fantasia</label>
-                            {{ empresa_form.nomeFantasia }}
-
-                        </div>
-
-                        <div class="input-group">
-
-                            <label>CNPJ</label>
-                            {{ empresa_form.cnpj }}
-
-                        </div>
-                        <small id="cnpj-feedback" style="display:none;"></small>
-
-                        <div class="buttons">
-                            <button type="button" class="back-btn">Voltar</button>
-                            <button type="button" class="next-btn">Próximo</button>
-
-                        </div>
-
-                    </div>
-
-                    <!-- STEP 3 -->
+                    <!-- STEP 2 - INFORMAÇÕES ADICIONAIS -->
 
                     <div id="step-sobre-empresa" class="step">
 
@@ -354,7 +316,6 @@
                     <div class="progress">
 
                         <span class="dot active"></span>
-                        <span class="dot"></span>
                         <span class="dot"></span>
 
                     </div>

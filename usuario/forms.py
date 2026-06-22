@@ -78,10 +78,10 @@ class CadastroFreelancerForm(forms.Form):
     )
 
     experiencia = forms.CharField(
+        required=False,
         widget=forms.Textarea(attrs={
             'rows': 4,
-            'required' : True,
-            'placeholder': 'Conte um pouco sobre sua experiência'
+            'placeholder': 'Conte um pouco sobre sua experiência (opcional)'
         })
     )
 

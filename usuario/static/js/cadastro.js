@@ -122,13 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            if (step.id === "step-sobre-freelancer") {
-                const experiencia = step.querySelector('textarea[name="experiencia"]');
-                if (experiencia && !experiencia.value.trim()) {
-                    valido = false;
-                }
-            }
-
             if (step.id === "step-sobre-empresa") {
                 const descricao = step.querySelector('textarea[name="descricao"]');
                 if (descricao && !descricao.value.trim()) {
@@ -204,15 +197,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 const feedback = step.querySelector("#interesses-feedback");
                 if (interesses.length < 3) {
                     showError(step.querySelector('input[name="interesses"]'), feedback, "Escolha pelo menos 3 interesses");
-                    valido = false;
-                }
-            }
-
-            if (step.id === "step-sobre-freelancer") {
-                const experiencia = step.querySelector('textarea[name="experiencia"]');
-                if (experiencia && !experiencia.value.trim()) {
-                    const feedback = step.querySelector("#experiencia-feedback");
-                    showError(experiencia, feedback, "Conte algo sobre você");
                     valido = false;
                 }
             }
