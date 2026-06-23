@@ -6,10 +6,13 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/criarEditarVaga.css' %}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 {% endblock %}
 
 {% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="{% static 'js/criarVaga.js' %}"></script>
+<script src="{% static 'js/mapaVaga.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -118,7 +121,24 @@
 
                 <div class="form-group full-width">
                     <label>Endereço</label>
-                    {{ form.endereco }}
+                    <div class="endereco-busca">
+                        {{ form.endereco }}
+                        <button type="button" id="buscar-endereco" class="endereco-lupa"
+                                title="Buscar endereço no mapa" aria-label="Buscar endereço no mapa">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                    <small class="help-text">
+                        Digite o endereço e clique na lupa para localizá-lo no mapa, ou marque o ponto
+                        clicando direto no mapa abaixo. Isso é usado para estimar o risco de atraso entre eventos.
+                    </small>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Localização no mapa</label>
+                    <div id="mapa-vaga" style="height:300px;border-radius:14px;overflow:hidden;border:1px solid #e5e7eb;z-index:0;"></div>
+                    {{ form.latitude }}
+                    {{ form.longitude }}
                 </div>
 
                 <div class="form-group full-width status-group">

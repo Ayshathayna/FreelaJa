@@ -399,6 +399,12 @@ footer{
     transform: translateY(-2px);
 }
 
+button.job-btn{
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+}
+
 /* aceitar */
 .job-btn.accept{
     background:linear-gradient(135deg,#16a34a,#22c55e);

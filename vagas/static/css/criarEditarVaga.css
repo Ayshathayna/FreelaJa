@@ -259,6 +259,45 @@
 }
 
 
+.endereco-busca{
+    position:relative;
+}
+
+.endereco-busca input{
+    padding-right:50px;
+}
+
+.endereco-lupa{
+    position:absolute;
+    top:50%;
+    right:7px;
+    transform:translateY(-50%);
+
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:10px;
+
+    background:#2563eb;
+    color:white;
+    cursor:pointer;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    transition:.2s;
+}
+
+.endereco-lupa:hover{
+    background:#1d4ed8;
+}
+
+.endereco-lupa:disabled{
+    opacity:.6;
+    cursor:default;
+}
+
 .alert-error{
     margin-top:24px;
     padding:16px;

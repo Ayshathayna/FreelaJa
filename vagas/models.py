@@ -34,8 +34,10 @@ class Vaga(models.Model):
     horarioInicio = models.TimeField() 
     horarioFim = models.TimeField()
     criadoEm = models.DateTimeField(auto_now_add=True)
-    finalizadoEm = models.DateTimeField(blank=True, null=True)   
-    endereco = models.CharField(max_length=255) 
+    finalizadoEm = models.DateTimeField(blank=True, null=True)
+    endereco = models.CharField(max_length=255)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
 
     CATEGORIAS = [
         ("programacao", "Programação"),

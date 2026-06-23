@@ -133,11 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function updateStepActions() {
-            // Os botões permanecem sempre clicáveis. A validação acontece no
-            // clique (validarStep), que exibe os erros e bloqueia o avanço.
-            // Não desabilitamos os botões aqui para evitar que o usuário fique
-            // preso (ex.: após um erro do servidor os campos de senha voltam
-            // vazios e travariam o botão "Próximo").
             isStepValid(steps[current]);
         }
 

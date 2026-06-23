@@ -33,12 +33,18 @@
                 icon = "success";
             }
 
+            let isErro = (icon === "error" || icon === "warning");
+
             Swal.fire({
                 icon: icon,
                 title: '{{ message.tags|title }}',
                 text: '{{ message|escapejs }}',
-                timer: 2500,
-                showConfirmButton: false
+                timer: isErro ? undefined : 2500,
+                timerProgressBar: !isErro,
+                showConfirmButton: isErro,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#2563eb',
+                allowOutsideClick: !isErro
             });
         });
     </script>
@@ -73,7 +79,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <a href=" {% url 'meuPerfilEmpresa' %}"> Perfil</a>
+                        <a href=" {% url 'meuPerfilEmpresa' %}">Meu Perfil</a>
                         <a href="{% url 'notificacoes' %}">
                             Notificações
 
@@ -82,7 +88,7 @@
                                 {{ notificacoes_nao_lidas }}
                             </span>
                             {% endif %}
-                        <a href="{% url 'logout' %}" style="color:#ef4444;"> Sair do sistema
+                        <a href="{% url 'logout' %}" style="color:#ef4444;"> Sair
                         </a>
                     </div>
 

@@ -10,6 +10,7 @@ from avaliacoes.models import AvaliaVaga, AvaliaFreelancer
 from perfis.models import Empresa, Freelancer
 from .models import Vaga, Candidatura
 from .forms import VagaForm
+from .risco_atraso import analisar_risco_atraso, avaliar_para_lista
 from notificacoes.utils import criar_notificacao
 
 
@@ -185,7 +186,13 @@ def aceitarCandidatura(request, id):
     if(candidatura.vaga.quantidadeVagas <= candidatura.vaga.quantidadeSelecionados):
         messages.error(request, "Não há vagas disponíveis para aceitar mais candidatos.")
         return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
-    
+
+    # RN02/RN03 - não selecionar para eventos sobrepostos ou sem tempo de deslocamento
+    analise = analisar_risco_atraso(candidatura.freelancer, candidatura.vaga)
+    if analise['conflito']:
+        messages.error(request, f"Não é possível aceitar este freelancer: {analise['motivo']}")
+        return redirect('candidatosVaga', vaga_id=candidatura.vaga.id)
+
     with transaction.atomic():
 
         if candidatura.status != "aceito" and candidatura.vaga.quantidadeSelecionados < candidatura.vaga.quantidadeVagas:
@@ -296,6 +303,8 @@ def verVaga(request, id):
             id=vaga.empresa.id
         ).exists()
     ja_candidatou = False
+    risco_candidatura = ''
+    conflito_candidatura = ''
 
     if not eh_empresa:
         freelancer = Freelancer.objects.filter(
@@ -307,10 +316,21 @@ def verVaga(request, id):
                 freelancer=freelancer,
                 vaga=vaga
             ).exists()
+
+            # análise prévia para o botão de candidatar-se (aviso de risco / conflito)
+            if not ja_candidatou and vaga.status == 'aberto':
+                analise = analisar_risco_atraso(freelancer, vaga)
+                if analise['conflito']:
+                    conflito_candidatura = analise['motivo']
+                elif analise['risco']:
+                    risco_candidatura = analise['risco_msg']
+
     context = {
         "jaCandidatou": ja_candidatou,
         'vaga': vaga,
         'eh_empresa': eh_empresa,
+        'risco_candidatura': risco_candidatura,
+        'conflito_candidatura': conflito_candidatura,
         'base_template':
             'baseEmpresa.html' if eh_empresa else 'baseFreelancer.html'
     }
@@ -330,7 +350,32 @@ def candidatarVaga(request, vaga_id):
         messages.warning(request, "Você já se candidatou para esta vaga.")
         return redirect("verVaga", id=vaga.id)
 
-    Candidatura.objects.get_or_create(vaga=vaga, freelancer=freelancer)
+    # análise de disponibilidade / risco de atraso
+    analise = analisar_risco_atraso(freelancer, vaga)
+
+    if analise['conflito']:
+        messages.error(request, analise['motivo'])
+        return redirect("verVaga", id=vaga.id)
+
+    if analise['risco'] and not request.GET.get('confirmar_risco'):
+        messages.warning(request, analise['risco_msg'])
+        return redirect("verVaga", id=vaga.id)
+
+    candidatura, _ = Candidatura.objects.get_or_create(vaga=vaga, freelancer=freelancer)
+
+    if analise['risco']:
+        candidatura.mensagem_risco = analise['risco_msg']
+        candidatura.confirmou_risco = True
+        candidatura.save(update_fields=['mensagem_risco', 'confirmou_risco'])
+
+        criar_notificacao(
+            usuario=vaga.empresa.usuario,
+            titulo='Candidatura com risco de atraso',
+            mensagem=f'{freelancer.nomeCompleto} se candidatou à vaga "{vaga.titulo}" com possível risco de atraso.',
+            tipo='sistema',
+            link=reverse('candidatosVaga', args=[vaga.id])
+        )
+
     criar_notificacao(
         usuario=vaga.empresa.usuario,
         titulo='Nova candidatura',
@@ -425,6 +470,9 @@ def listarVagas(request):
 
     for vaga in vagas:
         vaga.jaCandidatou = vaga.id in candidaturas_ids
+
+    # analisa conflito/risco de atraso em cada vaga
+    avaliar_para_lista(freelancer, vagas)
 
     return render(request, 'vagas.html', {
         'vagas': vagas,

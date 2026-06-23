@@ -73,6 +73,10 @@
                 <p> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
             </div>
 
+            {% if candidatura.mensagem_risco %}
+            <div class="risco-aviso">⚠️ {{ candidatura.mensagem_risco }}</div>
+            {% endif %}
+
             <!-- AÇÕES -->
             <div class="job-actions">
 
@@ -139,6 +143,10 @@
             <div class="freelancer-about">
                 <p> {{ candidatura.freelancer.experiencia|default:"Sem descrição..."|truncatechars:140 }}</p>
             </div>
+
+            {% if candidatura.mensagem_risco %}
+            <div class="risco-aviso">⚠️ {{ candidatura.mensagem_risco }}</div>
+            {% endif %}
 
             <!-- AÇÕES -->
             <div class="jobs-actions-pending ">

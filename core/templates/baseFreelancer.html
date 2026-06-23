@@ -33,12 +33,18 @@
                 icon = "success";
             }
 
+            let isErro = (icon === "error" || icon === "warning");
+
             Swal.fire({
                 icon: icon,
                 title: '{{ message.tags|title }}',
                 text: '{{ message|escapejs }}',
-                timer: 2500,
-                showConfirmButton: false
+                timer: isErro ? undefined : 2500,
+                timerProgressBar: !isErro,
+                showConfirmButton: isErro,
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#2563eb',
+                allowOutsideClick: !isErro
             });
         });
     </script>
@@ -53,7 +59,7 @@
             <div class="nav-links">
 
                 <a href="{% url 'homeFreelancer' %}">Vagas</a>
-                <a href="{% url 'candidaturas' %}">Candidaturas</a>
+                <a href="{% url 'candidaturas' %}">Minhas Candidaturas</a>
 
                 <!-- MENU PERFIL -->
 
@@ -72,7 +78,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <a href=" {% url 'meuPerfilFreelancer' %}">Perfil</a>
+                        <a href=" {% url 'meuPerfilFreelancer' %}">Meu Perfil</a>
                         <a href="{% url 'notificacoes' %}">
                             Notificações
 
@@ -82,7 +88,7 @@
                             </span>
                             {% endif %}
                         </a>
-                        <a href="{% url 'logout' %}" style="color:#ef4444;"> Sair do sistema</a>
+                        <a href="{% url 'logout' %}" style="color:#ef4444;"> Sair</a>
                     </div>
 
                 </div>
@@ -99,6 +105,28 @@
         {%block footer %}
         {% endblock %}
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            document.addEventListener("click", function (e) {
+                var btn = e.target.closest(".candidatar-risco");
+                if (!btn) return;
+                e.preventDefault();
+                Swal.fire({
+                    icon: "warning",
+                    title: "Possível risco de atraso",
+                    text: btn.dataset.msg,
+                    showCancelButton: true,
+                    confirmButtonText: "Me candidatar mesmo assim",
+                    cancelButtonText: "Cancelar",
+                    confirmButtonColor: "#2563eb",
+                    cancelButtonColor: "#6b7280"
+                }).then(function (result) {
+                    if (result.isConfirmed) {
+                        window.location.href = btn.dataset.url;
+                    }
+                });
+            });
+        </script>
 
         {% block scripts %}
         {% endblock %}

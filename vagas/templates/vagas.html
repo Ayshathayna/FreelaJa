@@ -129,16 +129,19 @@
                     <div class="price"> R$ {{ vaga.remuneracao }}</div>
 
                     <div class="job-actions">
+
+                        <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn"> Ver vaga </a>
+
                         {% if vaga.jaCandidatou %}
-
-                        <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn"> Ver vaga </a>
-                        <button class=" job-btn details-btn " disabled> Já se candidatou</button>
-
+                        <button class="job-btn details-btn" disabled> Já se candidatou</button>
+                        {% elif vaga.conflito_msg %}
+                        <button class="job-btn details-btn" disabled title="{{ vaga.conflito_msg }}">Conflito de horário</button>
+                        {% elif vaga.risco_msg %}
+                        <button type="button" class="job-btn apply-btn candidatar-risco"
+                                data-url="{% url 'candidatarVaga' vaga.id %}?confirmar_risco=1"
+                                data-msg="{{ vaga.risco_msg }}">Candidatar-se</button>
                         {% else %}
-
-                        <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn"> Ver vaga </a>
                         <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn"> Candidatar-se</a>
-
                         {% endif %}
 
                     </div>

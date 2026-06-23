@@ -40,11 +40,15 @@ class VagaForm(forms.ModelForm):
             'horarioInicio',
             'horarioFim',
             'endereco',
+            'latitude',
+            'longitude',
             'remuneracao',
             'status',
             'categoria'
         ]
         widgets = {   #widgets para estilizar os campos do formulário
+            'latitude': forms.HiddenInput(),
+            'longitude': forms.HiddenInput(),
             'imagem': forms.FileInput(
                 attrs={
                     "id": "id_foto",

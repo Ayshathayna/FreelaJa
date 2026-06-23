@@ -4,6 +4,7 @@ from vagas.models import Candidatura, Vaga
 from django.utils import timezone
 from django.db.models import Q, F
 from django.contrib.auth.decorators import login_required
+from vagas.risco_atraso import avaliar_para_lista
 
 def site(request):
     return render(request, "site.html")
@@ -34,7 +35,10 @@ def homeFreelancer(request):
     )
     for vaga in vagas:
         vaga.jaCandidatou = vaga.id in candidaturas_ids
-        
+
+    # analisa conflito/risco de atraso em cada vaga
+    avaliar_para_lista(freelancer, vagas)
+
     return render(request, 'homeFreelancer.html', {
         'vagas': vagas,
         'freelancer': freelancer,

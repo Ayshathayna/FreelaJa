@@ -130,6 +130,19 @@
     color: white;
 }
 
+/*--------------------- AVISO DE RISCO ---------------------------*/
+
+.risco-aviso {
+    margin: 0 22px 14px 22px;
+    padding: 12px 14px;
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    border-radius: 10px;
+    color: #9a3412;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
 /*--------------------- BADGE ---------------------------*/
 
 .status-badge {
