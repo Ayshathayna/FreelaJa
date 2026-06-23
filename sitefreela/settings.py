@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'perfis.apps.PerfisConfig',
     'vagas.apps.VagasConfig',
     'avaliacoes.apps.AvaliacoesConfig',
-    'disponibilidade.apps.DisponibilidadeConfig',
     'notificacoes.apps.NotificacoesConfig'
 ]
 

@@ -29,7 +29,6 @@ urlpatterns = [
     path('perfis/', include('perfis.urls')),  # Inclui as URLs do aplicativo 'perfis'
     path('vagas/', include('vagas.urls')),  # Inclui as URLs do aplicativo 'vagas'
     path('avaliacoes/', include('avaliacoes.urls')),  # Inclui as URLs do aplicativo 'avaliacoes'
-    # path('disponibilidade/', include('disponibilidade.urls')),  # Inclui as URLs do aplicativo 'disponibilidade'
 path(
     'notificacoes/',
     include('notificacoes.urls')
