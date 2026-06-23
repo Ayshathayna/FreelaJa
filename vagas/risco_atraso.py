@@ -90,11 +90,9 @@ def comparar_vagas(vaga, outra):
                 'conflito': False,
                 'risco': True,
                 'motivo': '',
-                'risco_msg': (
-                    f'Tempo de deslocamento provavelmente insuficiente em relação à vaga "{outra.titulo}": '
-                    f'trajeto estimado ~{int(round(tempo))} min e intervalo de apenas {int(round(gap))} min. '
-                    f'Risco alto de atraso.'
-                ),
+                'risco_msg': 
+                    'Tempo de deslocamento provavelmente insuficiente em relação à outro evento que o freelancer foi escalado. Risco alto de atraso.'
+                ,
             }
         if gap < tempo + MARGEM_RISCO_MIN:
             return {

@@ -27,12 +27,12 @@ function confirmarExclusao(event, url) {// exibe um alerta de confirmação ante
     event.preventDefault();
 
     Swal.fire({
-        title: 'Cancelar candidatura?',
+        title: 'Desistir da candidatura?',
         text: 'Essa ação não pode ser desfeita.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sim, cancelar',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Sim, desistir',
+        cancelButtonText: 'Voltar',
         confirmButtonColor: '#ef4444',
         cancelButtonColor: '#6b7280'
     }).then((result) => {
