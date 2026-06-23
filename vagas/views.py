@@ -479,6 +479,7 @@ def listarVagas(request):
         'query': query,
         'categoria_selecionada': categoria,
         'categorias': Vaga.CATEGORIAS,
+        'total_vagas': vagas.count(),
     })
 
 

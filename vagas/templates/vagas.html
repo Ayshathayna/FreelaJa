@@ -1,165 +1,129 @@
 {% extends 'baseFreelancer.html' %}
 {% load static %}
 
-{% block title %}Vagas{% endblock %}
+{% block title %}Vagas | FreelaJá{% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/vagas.css' %}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/homeFreelancer.css' %}">
 {% endblock %}
 
 {% block content %}
 
-<section class="jobs-page">
+<div class="hero">
 
-    <!-- HERO BUSCA -->
+  <h1>
+    Encontre <span class="highlight" style="color:#ea580c;">freelas</span> em eventos<br>
+    perto de você
+  </h1>
 
-    <div class="hero-search">
+  <p>Busque por palavra-chave ou categoria e candidate-se em poucos cliques.</p>
 
-        <div class="hero-content">
+  <form method="GET" action="{% url 'listarVagas' %}" class="search-box">
 
-            <h1> Encontre projetos que combinam com você</h1>
-            <p> Descubra oportunidades publicadas por empresas e aumente sua renda como freelancer. </p>
+    <input
+        type="text"
+        name="q"
+        value="{{ query }}"
+        placeholder="Pesquisar vagas..."
+    >
 
-        </div>
+    <select name="categoria">
+        <option value="">Todas as categorias</option>
 
-        <form method="GET" class="search-box">
-
-
-
-                <input type="text" name="q" value="{{ query }}" placeholder="🔍 Cargo, tecnologia, empresa ou detalhe">
-
-
-            <select name="categoria">
-                <option value="">Todas as categorias</option>
-                {% for valor, nome in categorias %}
-                    <option value="{{ valor }}" {% if categoria_selecionada == valor %}selected{% endif %}>
-                        {{ nome }}
-                    </option>
-                {% endfor %}
-            </select>
-
-            <button type="submit">Buscar vagas</button>
-
-        </form>
-
-    </div>
-
-    <!-- HEADER -->
-
-    <div class="jobs-header">
-
-        <div>
-
-            <h2>Vagas Disponíveis</h2>
-            <span> {{ vagas.count }} oportunidades encontradas </span>
-
-        </div>
-    </div>
-
-    <!-- GRID -->
-
-    <div class="jobs-grid">
-
-        {% for vaga in vagas %}
-
-        <div class="job-card">
-
-            <div class="job-content">
-
-                <!-- CABEÇALHO -->
-
-                <div class="job-header">
-                    {% if vaga.imagem %}
-                    <img src="{{ vaga.imagem.url }}" alt="{{ vaga.empresa.nomeFantasia }}" class="profile-image">
-                    {% else %}
-                    <div class="company-logo">{{ vaga.empresa.nomeFantasia|slice:":1" }} </div>
-                    {% endif %}
-
-
-                    <div class="header-info">
-                    {% if vaga.categoria %}
-                    <div class="job-details-badges">
-                        
-                        <span class="badge">{{ vaga.categoria }}</span>
-                    </div>
-                    {% endif %}
-                        <h3> {{ vaga.titulo }}</h3>
-
-                        <div class="company-info">
-
-                            <span class="company-name"> {{ vaga.empresa.nomeFantasia }}</span>
-                            <span class="rating">{{ vaga.empresa.avaliacao_media }}⭐ </span>
-
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SKILLS -->
-
-                <div class="skills">
-
-                    {% if vaga.detalhes %}
-                    <div class="job-details-badges">
-                        {% for detalhe in vaga.detalhes %}
-                        <span class="badge">{{ detalhe }}</span>
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-
-                </div>
-
-                <!-- DESCRIÇÃO -->
-
-                <p class="job-description">{{ vaga.descricao|truncatechars:140 }} </p>
-
-                <!-- INFO -->
-
-                <div class="job-info">
-
-                    <div>📍 {{ vaga.endereco }}</div>
-                    <div>📅 {{ vaga.dataEvento }}</div>
-
-                </div>
-
-                <!-- FOOTER -->
-
-                <div class="job-footer">
-
-                    <div class="price"> R$ {{ vaga.remuneracao }}</div>
-
-                    <div class="job-actions">
-
-                        <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn"> Ver vaga </a>
-
-                        {% if vaga.jaCandidatou %}
-                        <button class="job-btn details-btn" disabled> Já se candidatou</button>
-                        {% elif vaga.conflito_msg %}
-                        <button class="job-btn details-btn" disabled title="{{ vaga.conflito_msg }}">Conflito de horário</button>
-                        {% elif vaga.risco_msg %}
-                        <button type="button" class="job-btn apply-btn candidatar-risco"
-                                data-url="{% url 'candidatarVaga' vaga.id %}?confirmar_risco=1"
-                                data-msg="{{ vaga.risco_msg }}">Candidatar-se</button>
-                        {% else %}
-                        <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn"> Candidatar-se</a>
-                        {% endif %}
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {% empty %}
-
-        <div class="empty-message">
-
-            Nenhuma vaga encontrada.
-
-        </div>
-
+        {% for valor, nome in categorias %}
+            <option value="{{ valor }}" {% if categoria_selecionada == valor %}selected{% endif %}>
+                {{ nome }}
+            </option>
         {% endfor %}
+    </select>
 
+    <button type="submit">Buscar</button>
+
+  </form>
+
+</div>
+
+</header>
+
+<!-- VAGAS -->
+
+<section class="jobs-section">
+
+  <div class="section-header">
+
+    <h2>Vagas Disponíveis</h2>
+    <span class="results-count">{{ total_vagas }} oportunidade{{ total_vagas|pluralize }} encontrada{{ total_vagas|pluralize }}</span>
+
+  </div>
+
+  <!-- GRID DE VAGAS -->
+  <div class="jobs-grid">
+
+    {% for vaga in vagas %}
+
+    <div class="job-card">
+
+      <!-- IMAGEM -->
+      <div class="job-media">
+        {% if vaga.imagem %}
+        <img src="{{ vaga.imagem.url }}" class="job-image" alt="{{ vaga.titulo }}">
+        {% else %}
+        <div class="job-image-placeholder"><span class="ph-icon">💼</span></div>
+        {% endif %}
+        <span class="tag tag-overlay">{{ vaga.categoria|default:"Geral" }}</span>
+      </div>
+
+      <div class="job-content">
+
+        <!-- TITULO -->
+        <h3>{{ vaga.titulo }}</h3>
+
+        <p class="job-desc">
+          {{ vaga.descricao|truncatechars:120 }}
+        </p>
+
+        <!-- INFO EXTRAS -->
+        <p class="job-info">
+          📅 {{ vaga.dataEvento }} &nbsp;·&nbsp; 🕒 {{ vaga.horarioInicio }} – {{ vaga.horarioFim }}
+        </p>
+
+        <!-- RODAPÉ -->
+        <div class="job-footer">
+          <span class="price">R$ {{ vaga.remuneracao }}</span>
+          <span class="price-label">por vaga</span>
+        </div>
+
+        <div class="job-actions">
+          <a href="{% url 'verVaga' vaga.id %}" class="job-btn details-btn">Ver detalhes</a>
+          {% if vaga.jaCandidatou %}
+          <button class="job-btn details-btn" disabled>Já se candidatou</button>
+          {% elif vaga.conflito_msg %}
+          <button class="job-btn details-btn" disabled title="{{ vaga.conflito_msg }}">Conflito de horário</button>
+          {% elif vaga.risco_msg %}
+          <button type="button" class="job-btn apply-btn candidatar-risco"
+                  data-url="{% url 'candidatarVaga' vaga.id %}?confirmar_risco=1"
+                  data-msg="{{ vaga.risco_msg }}">Candidatar-se</button>
+          {% else %}
+          <a href="{% url 'candidatarVaga' vaga.id %}" class="job-btn apply-btn">Candidatar-se</a>
+          {% endif %}
+        </div>
+
+      </div>
     </div>
-</section>
 
-{% endblock %}
+    {% empty %}
+
+    <div class="empty-message">Nenhuma vaga encontrada.</div>
+
+    {% endfor %}
+
+  </div>
+
+  {% endblock %}
+
+  <!-- RODAPÉ -->
+  {% block footer %}
+  <footer>
+    © 2026 FreelaJá — Plataforma Freelancer
+  </footer>
+  {% endblock %}
