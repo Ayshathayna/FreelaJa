@@ -364,7 +364,7 @@ def candidatarVaga(request, vaga_id):
     candidatura, _ = Candidatura.objects.get_or_create(vaga=vaga, freelancer=freelancer)
 
     if analise['risco']:
-        candidatura.mensagem_risco = analise['risco_msg']
+        candidatura.mensagem_risco = analise['risco_msg_empresa']
         candidatura.confirmou_risco = True
         candidatura.save(update_fields=['mensagem_risco', 'confirmou_risco'])
 
@@ -398,7 +398,11 @@ def candidatarVaga(request, vaga_id):
 @login_required
 def cancelarCandidatura(request, candidatura_id):
     candidatura = get_object_or_404(Candidatura, id=candidatura_id)
-    
+
+    freelancer = get_object_or_404(Freelancer, usuario=request.user)
+    if candidatura.freelancer != freelancer:
+        raise PermissionDenied()
+
     if candidatura.status == 'aceito':
 
         candidatura.vaga.quantidadeSelecionados -= 1

@@ -54,8 +54,10 @@ def _tempo_viagem_min(a, b):
     return (km / VELOCIDADE_MEDIA_KMH) * 60 * FATOR_DESVIO
 
 
+MSG_RISCO_EMPRESA = 'Este freelancer já tem outro evento confirmado em horário próximo — há risco de ele se atrasar para esta vaga.'
+
 def _neutro():
-    return {'conflito': False, 'risco': False, 'motivo': '', 'risco_msg': ''}
+    return {'conflito': False, 'risco': False, 'motivo': '', 'risco_msg': '', 'risco_msg_empresa': ''}
 
 
 def comparar_vagas(vaga, outra):
@@ -69,6 +71,7 @@ def comparar_vagas(vaga, outra):
             'risco': False,
             'motivo': f'Conflito de horário com a vaga "{outra.titulo}" ({outra.dataEvento}).',
             'risco_msg': '',
+            'risco_msg_empresa': '',
         }
 
     # intervalo livre entre os dois eventos
@@ -90,9 +93,12 @@ def comparar_vagas(vaga, outra):
                 'conflito': False,
                 'risco': True,
                 'motivo': '',
-                'risco_msg': 
-                    'Tempo de deslocamento provavelmente insuficiente em relação à outro evento que o freelancer foi escalado. Risco alto de atraso.'
-                ,
+                'risco_msg': (
+                    f'Risco alto de atraso: o trajeto até a vaga "{outra.titulo}" leva '
+                    f'~{int(round(tempo))} min, mas você teria apenas {int(round(gap))} min '
+                    f'entre os dois eventos.'
+                ),
+                'risco_msg_empresa': MSG_RISCO_EMPRESA,
             }
         if gap < tempo + MARGEM_RISCO_MIN:
             return {
@@ -104,6 +110,7 @@ def comparar_vagas(vaga, outra):
                     f'trajeto estimado ~{int(round(tempo))} min e intervalo de {int(round(gap))} min. '
                     f'Pode haver risco de atraso.'
                 ),
+                'risco_msg_empresa': MSG_RISCO_EMPRESA,
             }
     else:
         # Sem coordenadas: usa um buffer fixo entre locais diferentes
@@ -118,6 +125,7 @@ def comparar_vagas(vaga, outra):
                     f'Intervalo curto ({int(round(gap))} min) em relação à vaga "{outra.titulo}", '
                     f'em endereço diferente. Pode haver risco de atraso.'
                 ),
+                'risco_msg_empresa': MSG_RISCO_EMPRESA,
             }
 
     return None
