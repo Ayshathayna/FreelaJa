@@ -6,7 +6,7 @@ from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse
-from avaliacoes.models import AvaliaVaga, AvaliaFreelancer
+from avaliacoes.models import AvaliaEmpresa, AvaliaFreelancer
 from perfis.models import Empresa, Freelancer
 from .models import Vaga, Candidatura
 from .forms import VagaForm
@@ -522,7 +522,7 @@ def candidaturas(request):
         status="aceito",
     )
     avaliadas_ids = set(
-        AvaliaVaga.objects.filter(
+        AvaliaEmpresa.objects.filter(
             freelancer=freelancer
         ).values_list('vaga_id', flat=True)
     )

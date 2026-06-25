@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import AvaliaVaga, AvaliaFreelancer
+from .models import AvaliaEmpresa, AvaliaFreelancer
 # Register your models here.
 
-admin.site.register(AvaliaVaga)
+admin.site.register(AvaliaEmpresa)
 admin.site.register(AvaliaFreelancer)

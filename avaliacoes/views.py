@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 
-from .models import AvaliaFreelancer, AvaliaVaga
-from .forms import AvaliaVagaForm, AvaliaFreelancerForm
+from .models import AvaliaFreelancer, AvaliaEmpresa
+from .forms import AvaliaEmpresaForm, AvaliaFreelancerForm
 
 from vagas.models import Candidatura
 from perfis.models import Freelancer, Empresa
@@ -33,7 +33,7 @@ def avaliarVaga(request, candidatura_id):
 
     vaga = candidatura.vaga
 
-    avaliacao_existente = AvaliaVaga.objects.filter(
+    avaliacao_existente = AvaliaEmpresa.objects.filter(
         freelancer=freelancer,
         vaga=vaga
     ).first()
@@ -46,7 +46,7 @@ def avaliarVaga(request, candidatura_id):
 
     if request.method == 'POST':
 
-        form = AvaliaVagaForm(request.POST)
+        form = AvaliaEmpresaForm(request.POST)
 
         if form.is_valid():
 
@@ -69,7 +69,7 @@ def avaliarVaga(request, candidatura_id):
             )
 
     else:
-        form = AvaliaVagaForm()
+        form = AvaliaEmpresaForm()
 
     return render(
         request,
@@ -102,7 +102,7 @@ def verAvaliacao(request, candidatura_id):
         raise PermissionDenied()
 
     avaliacao = get_object_or_404(
-        AvaliaVaga,
+        AvaliaEmpresa,
         freelancer=freelancer,
         vaga=candidatura.vaga
     )

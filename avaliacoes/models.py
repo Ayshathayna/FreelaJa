@@ -4,14 +4,14 @@ from perfis.models import Freelancer, Empresa
 from vagas.models import Vaga
 
 
-class AvaliaVaga(models.Model):
+class AvaliaEmpresa(models.Model):
 
-    freelancer = models.ForeignKey( #relacionamento muitos-para-um, onde um freelancer pode avaliar várias vagas, mas cada avaliação pertence a um único freelancer 
+    freelancer = models.ForeignKey( #relacionamento muitos-para-um, onde um freelancer pode avaliar várias empresas, mas cada avaliação pertence a um único freelancer
         Freelancer,
         on_delete=models.CASCADE
     )
 
-    vaga = models.ForeignKey( # relacionamento muitos-para-um, onde uma vaga pode receber várias avaliações, mas cada avaliação pertence a uma única vaga
+    vaga = models.ForeignKey( # a vaga identifica a empresa avaliada (vaga.empresa) e o evento de origem da avaliação
         Vaga,
         on_delete=models.CASCADE
     )
@@ -27,8 +27,8 @@ class AvaliaVaga(models.Model):
         unique_together = ('freelancer', 'vaga')
 
     def __str__(self):
-        return f"{self.freelancer} avaliou {self.vaga}"
-    #método para exibir o nome do freelancer e da vaga na avaliação
+        return f"{self.freelancer} avaliou {self.vaga.empresa}"
+    #método para exibir o freelancer e a empresa avaliada
 
 class AvaliaFreelancer(models.Model):
 

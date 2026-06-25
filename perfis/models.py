@@ -29,9 +29,9 @@ class Empresa(models.Model):  # modelo para representar as empresas que vão cri
         return self.nomeFantasia
     def atualizar_media(self):
 
-        from avaliacoes.models import AvaliaVaga
+        from avaliacoes.models import AvaliaEmpresa
 
-        media = AvaliaVaga.objects.filter(
+        media = AvaliaEmpresa.objects.filter(
             vaga__empresa=self
         ).aggregate(
             Avg('nota')

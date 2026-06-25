@@ -1,11 +1,11 @@
 from django import forms
-from .models import AvaliaVaga, AvaliaFreelancer
+from .models import AvaliaEmpresa, AvaliaFreelancer
 
 
-class AvaliaVagaForm(forms.ModelForm):
+class AvaliaEmpresaForm(forms.ModelForm):
 
     class Meta:
-        model = AvaliaVaga
+        model = AvaliaEmpresa
 
         fields = [  # campos que aparecerão no formulário
             'nota',

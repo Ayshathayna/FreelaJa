@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from vagas.models import Candidatura, Vaga
 from .models import Freelancer, Empresa
-from avaliacoes.models import AvaliaFreelancer, AvaliaVaga
+from avaliacoes.models import AvaliaFreelancer, AvaliaEmpresa
 from django.contrib import messages
 from .forms import PerfilFreelancerForm,PerfilEmpresaForm
 from django.contrib.auth.decorators import login_required
@@ -75,7 +75,7 @@ def perfilEmpresa(request, empresa_id):
     ultimas_vagas = vagas[:5]
 
     avaliacoes = (
-        AvaliaVaga.objects
+        AvaliaEmpresa.objects
         .filter(vaga__empresa=empresa)
         .select_related(
             'freelancer',
