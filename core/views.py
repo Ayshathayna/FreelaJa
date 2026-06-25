@@ -113,7 +113,7 @@ def homeEmpresa(request):
 def erro404(request, exception):
     return render(
         request,
-        "404.html",
+        "errors/404.html",
         status=404
     )
 def erro403(request, exception):
@@ -135,6 +135,6 @@ def erro500(request):
 def teste404(request):
     return render(
         request,
-        "404.html",
+        "errors/404.html",
         status=404
     )
